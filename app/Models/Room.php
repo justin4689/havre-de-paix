@@ -1,0 +1,98 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class Room extends Model
+{
+    protected $fillable = [
+        'slug', 'name', 'description_short', 'description_long',
+        'capacity_adults', 'capacity_children', 'size_m2',
+        'bed_type', 'floor', 'view', 'amenities', 'images',
+        'price_per_night', 'min_nights', 'status',
+    ];
+
+    protected $casts = [
+        'amenities' => 'array',
+        'images'    => 'array',
+    ];
+
+    public function reservations(): HasMany
+    {
+        return $this->hasMany(Reservation::class);
+    }
+
+    public function blockedDates(): HasMany
+    {
+        return $this->hasMany(BlockedDate::class);
+    }
+
+    public function isAvailable(string $checkIn, string $checkOut): bool
+    {
+        $hasReservation = $this->reservations()
+            ->where('status', 'confirmed')
+            ->where('check_in', '<', $checkOut)
+            ->where('check_out', '>', $checkIn)
+            ->exists();
+
+        $hasBlock = $this->blockedDates()
+            ->where('start_date', '<', $checkOut)
+            ->where('end_date', '>', $checkIn)
+            ->exists();
+
+        return ! $hasReservation && ! $hasBlock;
+    }
+
+    public function priceForStay(string $checkIn, string $checkOut): int
+    {
+        $nights = (int) (new \DateTime($checkOut))->diff(new \DateTime($checkIn))->days;
+        $base   = $this->price_per_night * $nights;
+
+        $rule = PricingRule::where('active', true)
+            ->where('start_date', '<=', $checkIn)
+            ->where('end_date', '>=', $checkOut)
+            ->orderByDesc('adjustment')
+            ->first();
+
+        if (! $rule) {
+            return $base;
+        }
+
+        return $rule->type === 'percentage'
+            ? (int) round($base * (1 + $rule->adjustment / 100))
+            : $base + ($rule->adjustment * $nights);
+    }
+
+    public function getFirstImageAttribute(): string
+    {
+        $images = $this->images ?? [];
+        return $images[0] ?? 'images/placeholder.svg';
+    }
+
+    public function getViewLabelAttribute(): string
+    {
+        return match ($this->view) {
+            'sea'    => 'Vue mer',
+            'lagoon' => 'Vue lagune',
+            'pool'   => 'Vue piscine',
+            default  => 'Vue jardin',
+        };
+    }
+
+    public function getBedTypeLabelAttribute(): string
+    {
+        return match ($this->bed_type) {
+            'king'   => 'King size',
+            'double' => 'Grand lit double',
+            'twin'   => 'Lits jumeaux',
+            default  => 'Lit simple',
+        };
+    }
+
+    public static function findBySlug(string $slug): self
+    {
+        return static::where('slug', $slug)->where('status', 'active')->firstOrFail();
+    }
+}

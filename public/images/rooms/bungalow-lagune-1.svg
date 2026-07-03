@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0c4a6e"/>
+      <stop offset="50%" style="stop-color:#0369a1"/>
+      <stop offset="100%" style="stop-color:#38bdf8"/>
+    </linearGradient>
+    <linearGradient id="water" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#0284c7;stop-opacity:0.8"/>
+      <stop offset="100%" style="stop-color:#0c4a6e;stop-opacity:0.9"/>
+    </linearGradient>
+  </defs>
+  <!-- Ciel -->
+  <rect width="1200" height="800" fill="url(#bg)"/>
+  <!-- Soleil -->
+  <circle cx="900" cy="180" r="80" fill="#fbbf24" opacity="0.9"/>
+  <circle cx="900" cy="180" r="110" fill="#fbbf24" opacity="0.2"/>
+  <!-- Horizon water -->
+  <ellipse cx="600" cy="500" rx="700" ry="120" fill="url(#water)" opacity="0.7"/>
+  <rect x="0" y="480" width="1200" height="320" fill="url(#water)"/>
+  <!-- Reflets eau -->
+  <rect x="100" y="510" width="200" height="4" rx="2" fill="white" opacity="0.2"/>
+  <rect x="350" y="540" width="300" height="3" rx="2" fill="white" opacity="0.15"/>
+  <rect x="700" y="520" width="250" height="4" rx="2" fill="white" opacity="0.2"/>
+  <!-- Bungalow pilotis -->
+  <rect x="350" y="340" width="500" height="160" rx="12" fill="#92400e"/>
+  <rect x="330" y="320" width="540" height="40" rx="8" fill="#78350f"/>
+  <!-- Toit -->
+  <polygon points="300,320 900,320 860,220 340,220" fill="#451a03"/>
+  <polygon points="340,220 860,220 820,180 380,180" fill="#78350f"/>
+  <!-- Fenêtres -->
+  <rect x="390" y="370" width="120" height="90" rx="6" fill="#bae6fd" opacity="0.7"/>
+  <rect x="540" y="370" width="120" height="90" rx="6" fill="#bae6fd" opacity="0.7"/>
+  <rect x="690" y="370" width="120" height="90" rx="6" fill="#bae6fd" opacity="0.7"/>
+  <!-- Porte -->
+  <rect x="500" y="410" width="200" height="90" rx="6" fill="#92400e"/>
+  <!-- Pilotis -->
+  <rect x="400" y="500" width="20" height="100" fill="#78350f"/>
+  <rect x="550" y="500" width="20" height="100" fill="#78350f"/>
+  <rect x="700" y="500" width="20" height="100" fill="#78350f"/>
+  <rect x="780" y="500" width="20" height="100" fill="#78350f"/>
+  <!-- Terrasse -->
+  <rect x="350" y="495" width="500" height="12" rx="4" fill="#a16207"/>
+  <!-- Palmiers -->
+  <rect x="140" y="350" width="14" height="200" fill="#365314"/>
+  <ellipse cx="147" cy="340" rx="60" ry="40" fill="#4d7c0f" opacity="0.9"/>
+  <ellipse cx="120" cy="320" rx="50" ry="30" fill="#65a30d" opacity="0.8"/>
+  <ellipse cx="175" cy="315" rx="55" ry="28" fill="#4d7c0f" opacity="0.8"/>
+  <rect x="1020" y="300" width="14" height="230" fill="#365314"/>
+  <ellipse cx="1027" cy="290" rx="65" ry="42" fill="#4d7c0f" opacity="0.9"/>
+  <ellipse cx="1000" cy="268" rx="55" ry="30" fill="#65a30d" opacity="0.8"/>
+  <!-- Texte -->
+  <rect x="0" y="690" width="1200" height="110" fill="rgba(0,0,0,0.55)"/>
+  <text x="600" y="740" text-anchor="middle" font-family="Georgia, serif" font-size="36" font-weight="bold" fill="white">Bungalow Lagune</text>
+  <text x="600" y="778" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="#fed7aa">Havre de Paix · Assinie · Vue Lagune</text>
+</svg>

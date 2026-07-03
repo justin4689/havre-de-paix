@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="sky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#0c4a6e"/>
+      <stop offset="40%" style="stop-color:#0369a1"/>
+      <stop offset="80%" style="stop-color:#0ea5e9"/>
+      <stop offset="100%" style="stop-color:#38bdf8"/>
+    </linearGradient>
+    <linearGradient id="lagoon" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#0369a1"/>
+      <stop offset="100%" style="stop-color:#1e3a8a"/>
+    </linearGradient>
+    <linearGradient id="sand" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#d97706"/>
+      <stop offset="100%" style="stop-color:#92400e"/>
+    </linearGradient>
+  </defs>
+  <!-- Ciel -->
+  <rect width="1920" height="1080" fill="url(#sky)"/>
+  <!-- Soleil -->
+  <circle cx="960" cy="280" r="110" fill="#fbbf24" opacity="0.9"/>
+  <circle cx="960" cy="280" r="160" fill="#fbbf24" opacity="0.2"/>
+  <circle cx="960" cy="280" r="220" fill="#fbbf24" opacity="0.08"/>
+  <!-- Nuages -->
+  <ellipse cx="250" cy="200" rx="160" ry="60" fill="white" opacity="0.75"/>
+  <ellipse cx="320" cy="175" rx="130" ry="50" fill="white" opacity="0.8"/>
+  <ellipse cx="180" cy="215" rx="110" ry="45" fill="white" opacity="0.65"/>
+  <ellipse cx="1600" cy="160" rx="180" ry="65" fill="white" opacity="0.7"/>
+  <ellipse cx="1680" cy="140" rx="140" ry="52" fill="white" opacity="0.75"/>
+  <ellipse cx="1520" cy="175" rx="120" ry="45" fill="white" opacity="0.65"/>
+  <ellipse cx="700" cy="120" rx="140" ry="48" fill="white" opacity="0.6"/>
+  <ellipse cx="1250" cy="100" rx="160" ry="55" fill="white" opacity="0.65"/>
+  <!-- Lagune/Mer -->
+  <rect x="0" y="540" width="1920" height="540" fill="url(#lagoon)"/>
+  <!-- Vagues -->
+  <path d="M0,580 Q240,555 480,580 Q720,605 960,580 Q1200,555 1440,580 Q1680,605 1920,580" stroke="white" stroke-width="3" fill="none" opacity="0.35"/>
+  <path d="M0,640 Q300,615 600,640 Q900,665 1200,640 Q1500,615 1920,640" stroke="white" stroke-width="2.5" fill="none" opacity="0.25"/>
+  <path d="M0,700 Q350,675 700,700 Q1050,725 1400,700 Q1680,678 1920,700" stroke="white" stroke-width="2" fill="none" opacity="0.2"/>
+  <!-- Reflet soleil eau -->
+  <ellipse cx="960" cy="590" rx="60" ry="200" fill="#fbbf24" opacity="0.2"/>
+  <!-- Plage / Rive -->
+  <ellipse cx="960" cy="545" rx="1200" ry="60" fill="url(#sand)" opacity="0.5"/>
+  <!-- Palmiers gauche -->
+  <rect x="100" y="280" width="22" height="340" fill="#365314" transform="rotate(-8 100 620)"/>
+  <ellipse cx="88" cy="265" rx="110" ry="75" fill="#15803d"/>
+  <ellipse cx="50" cy="230" rx="90" ry="58" fill="#22c55e" opacity="0.85"/>
+  <ellipse cx="135" cy="222" rx="95" ry="62" fill="#16a34a" opacity="0.9"/>
+  <ellipse cx="75" cy="195" rx="70" ry="45" fill="#4ade80" opacity="0.75"/>
+  <rect x="270" y="320" width="20" height="280" fill="#365314" transform="rotate(6 270 600)"/>
+  <ellipse cx="278" cy="305" rx="100" ry="68" fill="#15803d"/>
+  <ellipse cx="245" cy="278" rx="82" ry="54" fill="#22c55e" opacity="0.8"/>
+  <ellipse cx="315" cy="270" rx="88" ry="56" fill="#4ade80" opacity="0.8"/>
+  <!-- Palmiers droite -->
+  <rect x="1780" y="250" width="22" height="360" fill="#365314" transform="rotate(8 1780 610)"/>
+  <ellipse cx="1793" cy="235" rx="115" ry="78" fill="#15803d"/>
+  <ellipse cx="1755" cy="205" rx="92" ry="60" fill="#22c55e" opacity="0.85"/>
+  <ellipse cx="1835" cy="200" rx="98" ry="64" fill="#16a34a" opacity="0.9"/>
+  <rect x="1620" y="290" width="20" height="300" fill="#365314" transform="rotate(-5 1620 590)"/>
+  <ellipse cx="1613" cy="275" rx="105" ry="70" fill="#15803d"/>
+  <ellipse cx="1580" cy="250" rx="85" ry="56" fill="#22c55e" opacity="0.8"/>
+  <ellipse cx="1650" cy="245" rx="90" ry="58" fill="#4ade80" opacity="0.8"/>
+  <!-- Bungalow en silhouette -->
+  <rect x="720" y="400" width="480" height="180" rx="8" fill="#1e293b" opacity="0.7"/>
+  <polygon points="690,402 1230,402 1200,330 720,330" fill="#0f172a" opacity="0.8"/>
+  <!-- Lumières bungalow -->
+  <rect x="760" y="430" width="80" height="100" rx="4" fill="#fef3c7" opacity="0.7"/>
+  <rect x="880" y="430" width="80" height="100" rx="4" fill="#fef3c7" opacity="0.6"/>
+  <rect x="1010" y="430" width="80" height="100" rx="4" fill="#fef3c7" opacity="0.65"/>
+  <!-- Pilotis -->
+  <rect x="780" y="578" width="16" height="70" fill="#1e293b" opacity="0.8"/>
+  <rect x="940" y="578" width="16" height="70" fill="#1e293b" opacity="0.8"/>
+  <rect x="1100" y="578" width="16" height="70" fill="#1e293b" opacity="0.8"/>
+  <!-- Terrasse lumineuse -->
+  <rect x="720" y="575" width="480" height="8" rx="4" fill="#fbbf24" opacity="0.4"/>
+</svg>

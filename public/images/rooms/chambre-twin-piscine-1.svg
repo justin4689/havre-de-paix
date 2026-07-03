@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <defs>
+    <linearGradient id="pool" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#38bdf8"/>
+      <stop offset="100%" style="stop-color:#0369a1"/>
+    </linearGradient>
+    <linearGradient id="sky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#7dd3fc"/>
+      <stop offset="100%" style="stop-color:#bae6fd"/>
+    </linearGradient>
+    <linearGradient id="floor" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#e2e8f0"/>
+      <stop offset="100%" style="stop-color:#cbd5e1"/>
+    </linearGradient>
+  </defs>
+  <!-- Ciel -->
+  <rect width="1200" height="800" fill="url(#sky)"/>
+  <!-- Nuages -->
+  <ellipse cx="200" cy="100" rx="120" ry="45" fill="white" opacity="0.9"/>
+  <ellipse cx="250" cy="80" rx="100" ry="40" fill="white" opacity="0.85"/>
+  <ellipse cx="150" cy="110" rx="80" ry="35" fill="white" opacity="0.8"/>
+  <ellipse cx="900" cy="130" rx="110" ry="40" fill="white" opacity="0.85"/>
+  <ellipse cx="960" cy="115" rx="90" ry="35" fill="white" opacity="0.8"/>
+  <!-- Sol terrasse -->
+  <rect x="0" y="480" width="1200" height="320" fill="url(#floor)"/>
+  <!-- Lignes carrelage -->
+  <line x1="0" y1="530" x2="1200" y2="530" stroke="#94a3b8" stroke-width="1" opacity="0.5"/>
+  <line x1="0" y1="580" x2="1200" y2="580" stroke="#94a3b8" stroke-width="1" opacity="0.5"/>
+  <line x1="0" y1="630" x2="1200" y2="630" stroke="#94a3b8" stroke-width="1" opacity="0.5"/>
+  <line x1="200" y1="480" x2="200" y2="800" stroke="#94a3b8" stroke-width="1" opacity="0.5"/>
+  <line x1="400" y1="480" x2="400" y2="800" stroke="#94a3b8" stroke-width="1" opacity="0.5"/>
+  <line x1="600" y1="480" x2="600" y2="800" stroke="#94a3b8" stroke-width="1" opacity="0.5"/>
+  <line x1="800" y1="480" x2="800" y2="800" stroke="#94a3b8" stroke-width="1" opacity="0.5"/>
+  <line x1="1000" y1="480" x2="1000" y2="800" stroke="#94a3b8" stroke-width="1" opacity="0.5"/>
+  <!-- Piscine -->
+  <rect x="150" y="260" width="900" height="220" rx="16" fill="url(#pool)"/>
+  <!-- Reflets piscine -->
+  <ellipse cx="400" cy="350" rx="100" ry="20" fill="white" opacity="0.15"/>
+  <ellipse cx="750" cy="310" rx="80" ry="15" fill="white" opacity="0.12"/>
+  <path d="M160,330 Q350,310 550,330 Q750,350 940,330" stroke="white" stroke-width="2" fill="none" opacity="0.3"/>
+  <path d="M160,380 Q400,360 600,380 Q800,400 1040,380" stroke="white" stroke-width="2" fill="none" opacity="0.25"/>
+  <!-- Bord piscine -->
+  <rect x="140" y="250" width="920" height="15" rx="6" fill="#e2e8f0"/>
+  <rect x="140" y="475" width="920" height="15" rx="6" fill="#e2e8f0"/>
+  <!-- Chaises longues -->
+  <rect x="200" y="500" width="180" height="55" rx="8" fill="#f97316" opacity="0.9"/>
+  <rect x="240" y="490" width="50" height="25" rx="6" fill="#f97316"/>
+  <rect x="820" y="500" width="180" height="55" rx="8" fill="#f97316" opacity="0.9"/>
+  <rect x="910" y="490" width="50" height="25" rx="6" fill="#f97316"/>
+  <!-- Table -->
+  <circle cx="600" cy="540" r="40" fill="#fed7aa"/>
+  <rect x="586" y="540" width="28" height="60" fill="#92400e"/>
+  <!-- Palmiers en pots -->
+  <circle cx="100" cy="400" r="35" fill="#064e3b"/>
+  <rect x="90" y="260" width="20" height="160" fill="#365314"/>
+  <ellipse cx="100" cy="245" rx="70" ry="48" fill="#15803d"/>
+  <ellipse cx="70" cy="220" rx="55" ry="36" fill="#22c55e" opacity="0.9"/>
+  <ellipse cx="135" cy="215" rx="58" ry="38" fill="#16a34a" opacity="0.8"/>
+  <circle cx="1100" cy="400" r="35" fill="#064e3b"/>
+  <rect x="1090" y="260" width="20" height="160" fill="#365314"/>
+  <ellipse cx="1100" cy="245" rx="70" ry="48" fill="#15803d"/>
+  <ellipse cx="1070" cy="220" rx="55" ry="36" fill="#22c55e" opacity="0.9"/>
+  <ellipse cx="1135" cy="215" rx="58" ry="38" fill="#16a34a" opacity="0.8"/>
+  <!-- Chambre en fond -->
+  <rect x="350" y="80" width="500" height="200" rx="8" fill="#f8fafc" opacity="0.9"/>
+  <rect x="380" y="100" width="100" height="130" rx="4" fill="#bae6fd" opacity="0.8"/>
+  <rect x="500" y="100" width="100" height="130" rx="4" fill="#bae6fd" opacity="0.8"/>
+  <rect x="620" y="100" width="100" height="130" rx="4" fill="#bae6fd" opacity="0.8"/>
+  <polygon points="330,82 870,82 840,30 360,30" fill="#475569"/>
+  <!-- Texte -->
+  <rect x="0" y="700" width="1200" height="100" fill="rgba(3,69,161,0.8)"/>
+  <text x="600" y="745" text-anchor="middle" font-family="Georgia, serif" font-size="36" font-weight="bold" fill="white">Chambre Twin Piscine</text>
+  <text x="600" y="783" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="#bae6fd">Havre de Paix · Assinie · Accès direct piscine</text>
+</svg>

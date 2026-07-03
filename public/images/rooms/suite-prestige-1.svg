@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <defs>
+    <linearGradient id="wall" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e293b"/>
+      <stop offset="100%" style="stop-color:#0f172a"/>
+    </linearGradient>
+    <linearGradient id="bed" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#f8fafc"/>
+      <stop offset="100%" style="stop-color:#e2e8f0"/>
+    </linearGradient>
+    <linearGradient id="view" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#0c4a6e"/>
+      <stop offset="50%" style="stop-color:#0369a1"/>
+      <stop offset="100%" style="stop-color:#1e3a8a"/>
+    </linearGradient>
+  </defs>
+  <!-- Mur sombre luxueux -->
+  <rect width="1200" height="800" fill="url(#wall)"/>
+  <!-- Parquet -->
+  <rect x="0" y="600" width="1200" height="200" fill="#92400e" opacity="0.6"/>
+  <line x1="0" y1="640" x2="1200" y2="640" stroke="#78350f" stroke-width="2"/>
+  <line x1="0" y1="680" x2="1200" y2="680" stroke="#78350f" stroke-width="2"/>
+  <line x1="200" y1="600" x2="200" y2="800" stroke="#78350f" stroke-width="1" opacity="0.5"/>
+  <line x1="400" y1="600" x2="400" y2="800" stroke="#78350f" stroke-width="1" opacity="0.5"/>
+  <line x1="600" y1="600" x2="600" y2="800" stroke="#78350f" stroke-width="1" opacity="0.5"/>
+  <line x1="800" y1="600" x2="800" y2="800" stroke="#78350f" stroke-width="1" opacity="0.5"/>
+  <line x1="1000" y1="600" x2="1000" y2="800" stroke="#78350f" stroke-width="1" opacity="0.5"/>
+  <!-- Fenêtre panoramique -->
+  <rect x="50" y="50" width="680" height="440" rx="4" fill="url(#view)"/>
+  <!-- Vue nuit panoramique -->
+  <circle cx="620" cy="120" r="8" fill="#fbbf24" opacity="0.9"/>
+  <circle cx="200" cy="200" r="3" fill="white" opacity="0.8"/>
+  <circle cx="350" cy="150" r="2" fill="white" opacity="0.7"/>
+  <circle cx="500" cy="180" r="3" fill="white" opacity="0.6"/>
+  <circle cx="100" cy="100" r="2" fill="white" opacity="0.8"/>
+  <circle cx="450" cy="90" r="2" fill="white" opacity="0.7"/>
+  <!-- Lune sur eau -->
+  <ellipse cx="300" cy="350" rx="30" ry="60" fill="#fbbf24" opacity="0.2"/>
+  <!-- Cadre fenêtre doré -->
+  <rect x="44" y="44" width="692" height="452" rx="6" fill="none" stroke="#f97316" stroke-width="5"/>
+  <!-- Lit king size -->
+  <rect x="180" y="380" width="840" height="220" rx="10" fill="#1e293b"/>
+  <!-- Tête de lit -->
+  <rect x="160" y="350" width="880" height="60" rx="8" fill="#0f172a"/>
+  <rect x="170" y="355" width="860" height="48" rx="6" fill="#1e293b"/>
+  <!-- Literie -->
+  <rect x="190" y="385" width="820" height="200" rx="8" fill="url(#bed)"/>
+  <!-- Oreillers -->
+  <rect x="220" y="395" width="180" height="120" rx="10" fill="white"/>
+  <rect x="820" y="395" width="180" height="120" rx="10" fill="white"/>
+  <!-- Couverture -->
+  <rect x="190" y="510" width="820" height="65" rx="6" fill="#1e293b"/>
+  <rect x="200" y="515" width="800" height="54" rx="4" fill="#334155"/>
+  <!-- Lampe de chevet gauche -->
+  <rect x="90" y="490" width="12" height="100" fill="#92400e"/>
+  <ellipse cx="96" cy="485" rx="45" ry="30" fill="#fef3c7" opacity="0.9"/>
+  <circle cx="96" cy="485" r="8" fill="#fbbf24"/>
+  <!-- Lampe de chevet droite -->
+  <rect x="1098" y="490" width="12" height="100" fill="#92400e"/>
+  <ellipse cx="1104" cy="485" rx="45" ry="30" fill="#fef3c7" opacity="0.9"/>
+  <circle cx="1104" cy="485" r="8" fill="#fbbf24"/>
+  <!-- Table de chevet gauche -->
+  <rect x="60" y="575" width="120" height="25" rx="4" fill="#1e293b"/>
+  <!-- Table de chevet droite -->
+  <rect x="1020" y="575" width="120" height="25" rx="4" fill="#1e293b"/>
+  <!-- Texte -->
+  <rect x="0" y="700" width="1200" height="100" fill="rgba(0,0,0,0.8)"/>
+  <text x="600" y="745" text-anchor="middle" font-family="Georgia, serif" font-size="36" font-weight="bold" fill="white">Suite Prestige</text>
+  <text x="600" y="783" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="#fed7aa">Havre de Paix · 55 m² · Jacuzzi privatif · Vue panoramique</text>
+</svg>

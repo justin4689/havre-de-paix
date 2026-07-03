@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <defs>
+    <linearGradient id="sky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e40af"/>
+      <stop offset="60%" style="stop-color:#3b82f6"/>
+      <stop offset="100%" style="stop-color:#60a5fa"/>
+    </linearGradient>
+    <linearGradient id="sea" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1d4ed8"/>
+      <stop offset="100%" style="stop-color:#1e3a8a"/>
+    </linearGradient>
+    <linearGradient id="room" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#f8fafc"/>
+      <stop offset="100%" style="stop-color:#e2e8f0"/>
+    </linearGradient>
+  </defs>
+  <!-- Vue depuis la chambre - fenêtre large -->
+  <!-- Mur chambre -->
+  <rect width="1200" height="800" fill="url(#room)"/>
+  <!-- Fenêtre/balcon - vue mer -->
+  <rect x="150" y="80" width="900" height="560" rx="8" fill="url(#sky)"/>
+  <!-- Mer -->
+  <rect x="150" y="380" width="900" height="260" fill="url(#sea)"/>
+  <!-- Vagues -->
+  <path d="M150,400 Q300,380 450,400 Q600,420 750,400 Q900,380 1050,400" stroke="white" stroke-width="2" fill="none" opacity="0.4"/>
+  <path d="M150,440 Q280,420 430,440 Q580,460 730,440 Q880,420 1050,440" stroke="white" stroke-width="2" fill="none" opacity="0.3"/>
+  <path d="M150,480 Q350,460 550,480 Q750,500 950,480 Q1050,470 1050,480" stroke="white" stroke-width="2" fill="none" opacity="0.25"/>
+  <!-- Soleil sur mer -->
+  <circle cx="750" cy="220" r="60" fill="#fbbf24" opacity="0.95"/>
+  <circle cx="750" cy="220" r="90" fill="#fbbf24" opacity="0.15"/>
+  <!-- Reflet soleil sur eau -->
+  <ellipse cx="750" cy="415" rx="30" ry="80" fill="#fbbf24" opacity="0.25"/>
+  <!-- Nuages -->
+  <ellipse cx="300" cy="160" rx="100" ry="40" fill="white" opacity="0.7"/>
+  <ellipse cx="350" cy="145" rx="80" ry="35" fill="white" opacity="0.8"/>
+  <ellipse cx="230" cy="165" rx="70" ry="30" fill="white" opacity="0.6"/>
+  <ellipse cx="900" cy="200" rx="90" ry="35" fill="white" opacity="0.6"/>
+  <ellipse cx="950" cy="188" rx="70" ry="30" fill="white" opacity="0.7"/>
+  <!-- Cadre fenêtre -->
+  <rect x="145" y="75" width="910" height="575" rx="10" fill="none" stroke="#94a3b8" stroke-width="8"/>
+  <!-- Balustrade balcon -->
+  <rect x="150" y="620" width="900" height="35" rx="6" fill="#94a3b8"/>
+  <rect x="200" y="620" width="10" height="55" fill="#94a3b8"/>
+  <rect x="300" y="620" width="10" height="55" fill="#94a3b8"/>
+  <rect x="400" y="620" width="10" height="55" fill="#94a3b8"/>
+  <rect x="500" y="620" width="10" height="55" fill="#94a3b8"/>
+  <rect x="600" y="620" width="10" height="55" fill="#94a3b8"/>
+  <rect x="700" y="620" width="10" height="55" fill="#94a3b8"/>
+  <rect x="800" y="620" width="10" height="55" fill="#94a3b8"/>
+  <rect x="900" y="620" width="10" height="55" fill="#94a3b8"/>
+  <rect x="1000" y="620" width="10" height="55" fill="#94a3b8"/>
+  <!-- Mur chambre bas -->
+  <rect x="0" y="655" width="150" height="145" fill="#f1f5f9"/>
+  <rect x="1050" y="655" width="150" height="145" fill="#f1f5f9"/>
+  <rect x="0" y="655" width="1200" height="10" fill="#e2e8f0"/>
+  <!-- Texte -->
+  <rect x="0" y="700" width="1200" height="100" fill="rgba(15,23,42,0.7)"/>
+  <text x="600" y="745" text-anchor="middle" font-family="Georgia, serif" font-size="36" font-weight="bold" fill="white">Chambre Vue Mer</text>
+  <text x="600" y="783" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="#bae6fd">Havre de Paix · Assinie · Vue Océan Atlantique</text>
+</svg>

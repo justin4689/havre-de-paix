@@ -1,0 +1,79 @@
+<?php
+
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\PricingController;
+use App\Http\Controllers\Admin\ReservationController as AdminReservationController;
+use App\Http\Controllers\Admin\RoomController as AdminRoomController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\RoomController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
+// === PAGES PUBLIQUES ===
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/chambres', [RoomController::class, 'index'])->name('rooms.index');
+Route::get('/chambres/{slug}', [RoomController::class, 'show'])->name('rooms.show');
+
+// Tunnel de réservation
+Route::get('/reservation', [ReservationController::class, 'index'])->name('reservation.index');
+Route::post('/reservation', [ReservationController::class, 'store'])->name('reservation.store');
+Route::get('/reservation/{ref}/confirmation', [ReservationController::class, 'confirmation'])->name('reservation.confirmation');
+Route::get('/reservation/annuler/{token}', [ReservationController::class, 'cancel'])->name('reservation.cancel');
+
+// Pages statiques
+Route::view('/a-propos', 'about')->name('about');
+Route::view('/galerie', 'gallery')->name('gallery');
+Route::view('/mentions-legales', 'legal')->name('legal');
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
+
+// === AUTHENTIFICATION ADMIN ===
+Route::get('/admin/login', function () {
+    return view('auth.login');
+})->name('login')->middleware('guest');
+
+Route::post('/admin/login', function (\Illuminate\Http\Request $request) {
+    $credentials = $request->validate([
+        'email'    => 'required|email',
+        'password' => 'required',
+    ]);
+
+    if (Auth::attempt($credentials, $request->boolean('remember'))) {
+        $request->session()->regenerate();
+        return redirect()->intended(route('admin.dashboard'));
+    }
+
+    return back()->withErrors(['email' => 'Identifiants incorrects.'])->onlyInput('email');
+})->name('login.post')->middleware('guest');
+
+Route::post('/admin/logout', function (\Illuminate\Http\Request $request) {
+    Auth::logout();
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+    return redirect('/');
+})->name('logout');
+
+// === BACK-OFFICE (protégé) ===
+Route::prefix('admin')->name('admin.')->middleware(['auth', \App\Http\Middleware\AdminMiddleware::class])->group(function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::get('/reservations', [AdminReservationController::class, 'index'])->name('reservations.index');
+    Route::get('/reservations/nouvelle', [AdminReservationController::class, 'create'])->name('reservations.create');
+    Route::post('/reservations', [AdminReservationController::class, 'store'])->name('reservations.store');
+    Route::get('/reservations/{reservation}', [AdminReservationController::class, 'show'])->name('reservations.show');
+    Route::patch('/reservations/{reservation}', [AdminReservationController::class, 'update'])->name('reservations.update');
+
+    Route::get('/chambres', [AdminRoomController::class, 'index'])->name('rooms.index');
+    Route::get('/chambres/nouvelle', [AdminRoomController::class, 'create'])->name('rooms.create');
+    Route::post('/chambres', [AdminRoomController::class, 'store'])->name('rooms.store');
+    Route::get('/chambres/{room}/modifier', [AdminRoomController::class, 'edit'])->name('rooms.edit');
+    Route::patch('/chambres/{room}', [AdminRoomController::class, 'update'])->name('rooms.update');
+    Route::delete('/chambres/{room}', [AdminRoomController::class, 'destroy'])->name('rooms.destroy');
+
+    Route::get('/tarifs', [PricingController::class, 'index'])->name('pricing.index');
+    Route::post('/tarifs', [PricingController::class, 'store'])->name('pricing.store');
+    Route::delete('/tarifs/{pricingRule}', [PricingController::class, 'destroy'])->name('pricing.destroy');
+    Route::patch('/tarifs/{pricingRule}/toggle', [PricingController::class, 'toggle'])->name('pricing.toggle');
+});
