@@ -23,7 +23,10 @@ Route::get('/reservation/{ref}/confirmation', [ReservationController::class, 'co
 Route::get('/reservation/annuler/{token}', [ReservationController::class, 'cancel'])->name('reservation.cancel');
 
 // Pages statiques
-Route::view('/a-propos', 'about')->name('about');
+Route::get('/a-propos', function () {
+    $rooms = \App\Models\Room::where('status', 'active')->orderBy('price_per_night')->get();
+    return view('about', compact('rooms'));
+})->name('about');
 Route::view('/galerie', 'gallery')->name('gallery');
 Route::view('/mentions-legales', 'legal')->name('legal');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
