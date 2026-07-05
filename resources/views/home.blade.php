@@ -9,7 +9,7 @@
 <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
     {{-- Background image --}}
     <div class="absolute inset-0 z-0">
-        <img src="{{ asset('images/hero-bg.svg') }}"
+        <img src="{{ asset('images/hero-bg.jpg') }}"
              alt="Havre de Paix — Assinie"
              class="w-full h-full object-cover"
              loading="eager">
