@@ -184,6 +184,20 @@ POST /api/admin/pricing-rules
 
 ---
 
+## Architecture backend (obligatoire)
+
+```
+app/Http/Requests/          → FormRequests — TOUTE validation ici, jamais de $request->validate() inline
+app/Services/               → Logique métier (ReservationService, RoomService, PricingService…)
+app/Repositories/Contracts/ → Interfaces des repositories (ReservationRepositoryInterface…)
+app/Repositories/Eloquent/  → Implémentations Eloquent, liées aux interfaces dans un ServiceProvider
+app/Http/Controllers/       → Contrôleurs fins : injection du service, appel, réponse — zéro logique métier
+```
+
+- Contrôleur → FormRequest (validation) → Service (métier) → Repository (données).
+- Les services dépendent des **interfaces** de repositories, pas des implémentations.
+- Refactor complet effectué le 19/07/2026 : tout le code applicatif suit ce schéma.
+
 ## Conventions de code
 
 - **Composants** : PascalCase (`RoomCard`, `BookingWidget`, `AvailabilityCalendar`)

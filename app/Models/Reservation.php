@@ -24,12 +24,7 @@ class Reservation extends Model
         return $this->belongsTo(Room::class);
     }
 
-    public static function generateRef(): string
-    {
-        $year  = date('Y');
-        $last  = static::whereYear('created_at', $year)->count();
-        return 'HDP-' . $year . '-' . str_pad($last + 1, 4, '0', STR_PAD_LEFT);
-    }
+    // Génération de la référence → App\Services\ReservationService::nextRef()
 
     public function isCancellable(): bool
     {

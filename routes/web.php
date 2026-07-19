@@ -4,11 +4,11 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PricingController;
 use App\Http\Controllers\Admin\ReservationController as AdminReservationController;
 use App\Http\Controllers\Admin\RoomController as AdminRoomController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\RoomController;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 // === PAGES PUBLIQUES ===
@@ -38,30 +38,9 @@ Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
 
 // === AUTHENTIFICATION ADMIN ===
-Route::get('/admin/login', function () {
-    return view('auth.login');
-})->name('login')->middleware('guest');
-
-Route::post('/admin/login', function (\Illuminate\Http\Request $request) {
-    $credentials = $request->validate([
-        'email'    => 'required|email',
-        'password' => 'required',
-    ]);
-
-    if (Auth::attempt($credentials, $request->boolean('remember'))) {
-        $request->session()->regenerate();
-        return redirect()->intended(route('admin.dashboard'));
-    }
-
-    return back()->withErrors(['email' => 'Identifiants incorrects.'])->onlyInput('email');
-})->name('login.post')->middleware('guest');
-
-Route::post('/admin/logout', function (\Illuminate\Http\Request $request) {
-    Auth::logout();
-    $request->session()->invalidate();
-    $request->session()->regenerateToken();
-    return redirect('/');
-})->name('logout');
+Route::get('/admin/login', [AuthController::class, 'showLogin'])->name('login')->middleware('guest');
+Route::post('/admin/login', [AuthController::class, 'login'])->name('login.post')->middleware('guest');
+Route::post('/admin/logout', [AuthController::class, 'logout'])->name('logout');
 
 // === BACK-OFFICE (protégé) ===
 Route::prefix('admin')->name('admin.')->middleware(['auth', \App\Http\Middleware\AdminMiddleware::class])->group(function () {

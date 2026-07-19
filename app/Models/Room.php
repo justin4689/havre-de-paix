@@ -29,41 +29,8 @@ class Room extends Model
         return $this->hasMany(BlockedDate::class);
     }
 
-    public function isAvailable(string $checkIn, string $checkOut): bool
-    {
-        $hasReservation = $this->reservations()
-            ->where('status', 'confirmed')
-            ->where('check_in', '<', $checkOut)
-            ->where('check_out', '>', $checkIn)
-            ->exists();
-
-        $hasBlock = $this->blockedDates()
-            ->where('start_date', '<', $checkOut)
-            ->where('end_date', '>', $checkIn)
-            ->exists();
-
-        return ! $hasReservation && ! $hasBlock;
-    }
-
-    public function priceForStay(string $checkIn, string $checkOut): int
-    {
-        $nights = (int) (new \DateTime($checkOut))->diff(new \DateTime($checkIn))->days;
-        $base   = $this->price_per_night * $nights;
-
-        $rule = PricingRule::where('active', true)
-            ->where('start_date', '<=', $checkIn)
-            ->where('end_date', '>=', $checkOut)
-            ->orderByDesc('adjustment')
-            ->first();
-
-        if (! $rule) {
-            return $base;
-        }
-
-        return $rule->type === 'percentage'
-            ? (int) round($base * (1 + $rule->adjustment / 100))
-            : $base + ($rule->adjustment * $nights);
-    }
+    // Disponibilité → App\Services\AvailabilityService
+    // Prix du séjour → App\Services\PricingService
 
     /**
      * Description longue prête pour l'affichage : HTML assaini de l'éditeur riche,

@@ -3,43 +3,41 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\PricingRuleRequest;
 use App\Models\PricingRule;
-use Illuminate\Http\Request;
+use App\Services\PricingRuleService;
 
 class PricingController extends Controller
 {
+    public function __construct(
+        private readonly PricingRuleService $pricingRuleService,
+    ) {}
+
     public function index()
     {
-        $rules = PricingRule::orderByDesc('start_date')->get();
+        $rules = $this->pricingRuleService->all();
+
         return view('admin.pricing.index', compact('rules'));
     }
 
-    public function store(Request $request)
+    public function store(PricingRuleRequest $request)
     {
-        $validated = $request->validate([
-            'name'       => 'required|string|max:100',
-            'start_date' => 'required|date',
-            'end_date'   => 'required|date|after_or_equal:start_date',
-            'type'       => 'required|in:percentage,fixed',
-            'adjustment' => 'required|integer',
-            'min_nights' => 'nullable|integer|min:1',
-            'active'     => 'boolean',
-        ]);
-
-        PricingRule::create($validated);
+        $this->pricingRuleService->create($request->validated());
 
         return back()->with('success', 'Règle tarifaire créée.');
     }
 
     public function destroy(PricingRule $pricingRule)
     {
-        $pricingRule->delete();
+        $this->pricingRuleService->delete($pricingRule);
+
         return back()->with('success', 'Règle supprimée.');
     }
 
     public function toggle(PricingRule $pricingRule)
     {
-        $pricingRule->update(['active' => ! $pricingRule->active]);
+        $this->pricingRuleService->toggle($pricingRule);
+
         return back()->with('success', 'Règle mise à jour.');
     }
 }
