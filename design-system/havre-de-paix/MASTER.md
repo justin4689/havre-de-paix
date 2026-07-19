@@ -33,15 +33,27 @@
 
 ### Typography
 
-- **Heading Font:** Cormorant
-- **Body Font:** Montserrat
-- **Mood:** luxury, high-end, fashion, elegant, refined, premium
-- **Google Fonts:** [Cormorant + Montserrat](https://fonts.google.com/share?selection.family=Cormorant:wght@400;500;600;700|Montserrat:wght@300;400;500;600;700)
+> Direction actée : système mono-famille inspiré d'Airbnb (Cereal) et Booking.com.
+> Figtree est l'équivalent Google Fonts le plus proche d'Airbnb Cereal (propriétaire) ;
+> le repli est la pile système utilisée par Booking.com.
+
+- **Heading Font:** Figtree (bold 700/800, tracking-tight — la hiérarchie vient de la graisse, pas d'un changement de famille)
+- **Body Font:** Figtree (400/500 ; labels et UI en 600)
+- **Mood:** friendly, moderne, lisible, booking-platform
+- **Google Fonts:** [Figtree](https://fonts.google.com/specimen/Figtree)
+- **Prix :** gras sombre (navy), jamais en couleur accent — l'orange reste réservé aux CTA
 
 **CSS Import:**
 ```css
-@import url('https://fonts.googleapis.com/css2?family=Cormorant:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap');
 ```
+
+### Workflow patterns (Airbnb / Booking)
+
+- **Recherche** : barre « pill » segmentée (Arrivée | Départ | Voyageurs | bouton rond orange) dans le hero
+- **Listing** : cartes avec réassurance verte (« Annulation gratuite », « Aucun prépaiement ») + prix total du séjour quand les dates sont connues
+- **Fiche chambre** : carte de réservation sticky à droite — prix/nuit, bloc dates+voyageurs soudé, CTA, « Aucun montant débité aujourd'hui », détail du prix sous le bouton
+- **Tunnel** : 2 colonnes — formulaire en étapes numérotées à gauche, récap sticky à droite (photo, chambre, dates, total, réassurance), récap au-dessus du formulaire sur mobile
 
 ### Spacing Variables
 

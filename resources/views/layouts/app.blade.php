@@ -38,9 +38,13 @@
 </head>
 <body class="antialiased" style="font-family: var(--font-sans); background-color: var(--color-snow); color: var(--color-navy);">
 
-    {{-- NAVBAR --}}
-    <header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" x-data="{ open: false, scrolled: false }" @scroll.window="scrolled = window.scrollY > 60">
-        <div :class="scrolled || open ? 'bg-white shadow-md' : 'bg-transparent'" class="transition-all duration-300">
+    {{-- NAVBAR : transparente uniquement sur les pages qui déclarent @section('hero_nav')
+         (hero sombre plein écran derrière) — blanche et solide dès le départ partout ailleurs. --}}
+    @php($heroNav = $__env->hasSection('hero_nav'))
+    <header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+            x-data="{ open: false, scrolled: {{ $heroNav ? 'false' : 'true' }} }"
+            @scroll.window="scrolled = {{ $heroNav ? 'window.scrollY > 60' : 'true' }}">
+        <div :class="scrolled || open ? 'bg-white shadow-md' : 'bg-transparent'" class="transition-all duration-300" {!! $heroNav ? '' : 'style="background-color: white;"' !!}>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex items-center justify-between h-16 lg:h-20">
 
@@ -61,8 +65,8 @@
                             ['route' => 'home', 'label' => 'Accueil'],
                             ['route' => 'rooms.index', 'label' => 'Nos Chambres'],
                             ['route' => 'about', 'label' => 'À Propos'],
-                            ['route' => 'gallery', 'label' => 'Galerie'],
                             ['route' => 'contact', 'label' => 'Contact'],
+                            ['route' => 'reservation.lookup', 'label' => 'Ma réservation'],
                         ] as $item)
                         <a href="{{ route($item['route']) }}"
                            class="text-sm font-medium transition-colors duration-200"
@@ -78,7 +82,7 @@
                         @auth
                         <a href="{{ route('admin.dashboard') }}" class="text-sm font-medium" style="color: var(--color-orange);">Back-office</a>
                         @endauth
-                        <a href="{{ route('reservation.index') }}" class="btn-primary text-sm">
+                        <a href="{{ route('rooms.index') }}" class="btn-primary text-sm">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                             Réserver
                         </a>
@@ -98,13 +102,13 @@
                     ['route' => 'home', 'label' => 'Accueil'],
                     ['route' => 'rooms.index', 'label' => 'Nos Chambres'],
                     ['route' => 'about', 'label' => 'À Propos'],
-                    ['route' => 'gallery', 'label' => 'Galerie'],
                     ['route' => 'contact', 'label' => 'Contact'],
+                    ['route' => 'reservation.lookup', 'label' => 'Ma réservation'],
                 ] as $item)
                 <a href="{{ route($item['route']) }}" class="block px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-orange-50 transition-colors" style="color: var(--color-navy);">{{ $item['label'] }}</a>
                 @endforeach
                 <div class="pt-2">
-                    <a href="{{ route('reservation.index') }}" class="btn-primary w-full text-center">Réserver maintenant</a>
+                    <a href="{{ route('rooms.index') }}" class="btn-primary w-full text-center">Réserver maintenant</a>
                 </div>
             </div>
         </div>
@@ -116,7 +120,7 @@
     </main>
 
     {{-- CTA FLOTTANT RÉSERVER --}}
-    <a href="{{ route('reservation.index') }}"
+    <a href="{{ route('rooms.index') }}"
        id="floating-cta"
        class="fixed bottom-6 right-6 z-40 btn-primary shadow-2xl hidden lg:inline-flex"
        style="display: none;"
@@ -155,9 +159,8 @@
                     <ul class="space-y-2.5 text-sm">
                         @foreach ([
                             ['route' => 'rooms.index', 'label' => 'Nos Chambres'],
-                            ['route' => 'reservation.index', 'label' => 'Réserver'],
+                            ['route' => 'reservation.lookup', 'label' => 'Ma réservation'],
                             ['route' => 'about', 'label' => 'À Propos'],
-                            ['route' => 'gallery', 'label' => 'Galerie'],
                             ['route' => 'contact', 'label' => 'Contact'],
                         ] as $item)
                         <li><a href="{{ route($item['route']) }}" class="hover:text-white transition-colors" style="color: rgba(255,255,255,0.6);">{{ $item['label'] }}</a></li>
@@ -188,9 +191,9 @@
             <div class="border-t mt-10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs" style="border-color: rgba(255,255,255,0.1); color: rgba(255,255,255,0.4);">
                 <p>© {{ date('Y') }} Havre de Paix — Assinie. Tous droits réservés.</p>
                 <div class="flex gap-4">
-                    <a href="{{ route('legal') }}" class="hover:text-white transition-colors">Mentions légales</a>
-                    <a href="{{ route('legal') }}" class="hover:text-white transition-colors">CGV</a>
-                    <a href="{{ route('legal') }}" class="hover:text-white transition-colors">Confidentialité</a>
+                    <a href="{{ route('legal') }}#mentions-legales" class="hover:text-white transition-colors">Mentions légales</a>
+                    <a href="{{ route('legal') }}#cgv" class="hover:text-white transition-colors">CGV</a>
+                    <a href="{{ route('legal') }}#confidentialite" class="hover:text-white transition-colors">Confidentialité</a>
                 </div>
             </div>
         </div>

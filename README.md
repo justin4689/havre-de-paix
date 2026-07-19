@@ -7,6 +7,44 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+# Havre de Paix Assinie
+
+Site vitrine + moteur de réservation — Laravel Blade · MySQL · Vite/Tailwind.
+
+## Démarrage avec Docker
+
+```bash
+docker compose up -d
+```
+
+Au premier lancement, le conteneur `app` fait tout seul : création du `.env`,
+`composer install`, génération de la clé, migrations et seed (chambres, comptes,
+réservations de démo). Comptez quelques minutes la première fois.
+
+| Service | URL / accès |
+|---------|-------------|
+| Site | http://localhost:8000 |
+| Vite (HMR) | http://localhost:5173 (chargé automatiquement par les pages) |
+| MySQL | `127.0.0.1:3306` — base `havre_de_paix`, user `havre` / `havre` |
+| Admin seedé | `admin@havredepaix-assinie.com` / `HDP@admin2024` |
+
+Commandes courantes :
+
+```bash
+docker compose exec app php artisan migrate     # migrations
+docker compose exec app php artisan test        # tests (Pest)
+docker compose exec app php artisan tinker      # REPL
+docker compose logs -f app queue vite           # logs
+docker compose down                             # arrêt (ajouter -v pour vider la BDD)
+```
+
+Le code est monté en volume : les modifications PHP/Blade sont visibles au
+rechargement, le CSS/JS est rechargé à chaud par Vite. Le `.env` est la source
+de vérité : Laravel le lit directement, et `docker-compose.yml` y puise les
+variables `DB_*` pour configurer le service MySQL.
+
+---
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:

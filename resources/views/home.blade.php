@@ -2,6 +2,7 @@
 
 @section('title', 'Havre de Paix Assinie — Résidence-Hôtel entre mer et lagune')
 @section('description', 'Réservez votre séjour au Havre de Paix, résidence-hôtel à Assinie Km 18,75, Côte d\'Ivoire. Chambres et suites avec vue mer ou lagune. Paiement à l\'arrivée.')
+@section('hero_nav', '1')
 
 @section('content')
 
@@ -32,38 +33,54 @@
             <strong style="color: white;">Paiement à l'arrivée — aucun prépaiement requis.</strong>
         </p>
 
-        {{-- Widget de recherche --}}
-        <div class="bg-white rounded-2xl shadow-2xl p-6 max-w-3xl mx-auto animate-fade-up" style="color: var(--color-navy);">
-            <p class="text-sm font-semibold mb-4 text-left uppercase tracking-wider" style="color: var(--color-orange);">Vérifier les disponibilités</p>
-            <form action="{{ route('rooms.index') }}" method="GET" class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                <div>
-                    <label for="check_in" class="form-label">Arrivée</label>
+        {{-- Barre de recherche « pill » segmentée --}}
+        <div class="max-w-3xl mx-auto animate-fade-up">
+            <form action="{{ route('rooms.index') }}" method="GET"
+                  class="bg-white rounded-2xl sm:rounded-full shadow-2xl p-2 flex flex-col sm:flex-row sm:items-center text-left"
+                  style="color: var(--color-navy);">
+
+                <div class="flex-1 min-w-0 px-5 py-2.5 rounded-2xl sm:rounded-full transition-colors hover:bg-slate-50">
+                    <label for="check_in" class="block text-xs font-bold uppercase tracking-wide mb-0.5">Arrivée</label>
                     <input type="date" id="check_in" name="check_in"
                            min="{{ date('Y-m-d') }}"
                            value="{{ request('check_in') }}"
-                           class="form-input" required>
+                           class="w-full bg-transparent text-sm font-medium outline-none border-0 p-0 cursor-pointer"
+                           required>
                 </div>
-                <div>
-                    <label for="check_out" class="form-label">Départ</label>
+
+                <div class="hidden sm:block w-px self-stretch my-3" style="background-color: var(--color-border);"></div>
+                <div class="sm:hidden h-px mx-5" style="background-color: var(--color-border);"></div>
+
+                <div class="flex-1 min-w-0 px-5 py-2.5 rounded-2xl sm:rounded-full transition-colors hover:bg-slate-50">
+                    <label for="check_out" class="block text-xs font-bold uppercase tracking-wide mb-0.5">Départ</label>
                     <input type="date" id="check_out" name="check_out"
                            min="{{ date('Y-m-d', strtotime('+1 day')) }}"
                            value="{{ request('check_out') }}"
-                           class="form-input" required>
+                           class="w-full bg-transparent text-sm font-medium outline-none border-0 p-0 cursor-pointer"
+                           required>
                 </div>
-                <div>
-                    <label for="guests" class="form-label">Personnes</label>
-                    <div class="flex gap-2">
-                        <select id="guests" name="capacity" class="form-input flex-1">
-                            @for ($i = 1; $i <= 8; $i++)
-                            <option value="{{ $i }}" {{ request('capacity') == $i ? 'selected' : '' }}>{{ $i }} {{ $i > 1 ? 'personnes' : 'personne' }}</option>
-                            @endfor
-                        </select>
-                        <button type="submit" class="btn-primary px-5">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                        </button>
-                    </div>
+
+                <div class="hidden sm:block w-px self-stretch my-3" style="background-color: var(--color-border);"></div>
+                <div class="sm:hidden h-px mx-5" style="background-color: var(--color-border);"></div>
+
+                <div class="flex-1 min-w-0 px-5 py-2.5 rounded-2xl sm:rounded-full transition-colors hover:bg-slate-50">
+                    <label for="guests" class="block text-xs font-bold uppercase tracking-wide mb-0.5">Voyageurs</label>
+                    <select id="guests" name="capacity" class="w-full bg-transparent text-sm font-medium outline-none border-0 p-0 cursor-pointer">
+                        @for ($i = 1; $i <= 8; $i++)
+                        <option value="{{ $i }}" {{ request('capacity') == $i ? 'selected' : '' }}>{{ $i }} {{ $i > 1 ? 'voyageurs' : 'voyageur' }}</option>
+                        @endfor
+                    </select>
                 </div>
+
+                <button type="submit" class="btn-search h-12 sm:w-12 w-auto px-6 sm:px-0 m-1 sm:m-0 sm:ml-2" aria-label="Rechercher les disponibilités">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                    <span class="sm:hidden">Rechercher</span>
+                </button>
             </form>
+
+            <p class="mt-5 text-sm font-medium" style="color: rgba(255,255,255,0.85);">
+                Annulation gratuite jusqu'à 48h &middot; Paiement à l'arrivée &middot; Confirmation immédiate
+            </p>
         </div>
     </div>
 
@@ -83,13 +100,15 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             @foreach ([
-                ['icon' => '🏖', 'title' => 'Plage privée', 'desc' => 'Accès direct à une plage privée de sable fin entre mer et lagune.'],
-                ['icon' => '🌴', 'title' => 'Cadre tropical', 'desc' => 'Un écrin de nature à 94 km d\'Abidjan, au cœur d\'Assinie.'],
-                ['icon' => '✅', 'title' => 'Paiement à l\'arrivée', 'desc' => 'Réservez sans risque. Vous payez uniquement à votre arrivée.'],
-                ['icon' => '⚡', 'title' => 'Confirmation immédiate', 'desc' => 'Votre réservation est confirmée en ligne en moins de 5 minutes.'],
+                ['icon' => 'M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z', 'title' => 'Plage privée', 'desc' => 'Accès direct à une plage privée de sable fin entre mer et lagune.'],
+                ['icon' => 'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z', 'title' => 'Cadre tropical', 'desc' => 'Un écrin de nature à 94 km d\'Abidjan, au cœur d\'Assinie.'],
+                ['icon' => 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z', 'title' => 'Paiement à l\'arrivée', 'desc' => 'Réservez sans risque. Vous payez uniquement à votre arrivée.'],
+                ['icon' => 'M13 10V3L4 14h7v7l9-11h-7z', 'title' => 'Confirmation immédiate', 'desc' => 'Votre réservation est confirmée en ligne en moins de 5 minutes.'],
             ] as $feat)
             <div class="text-center p-6 rounded-2xl transition-all duration-300 hover:-translate-y-1" style="background-color: var(--color-snow);">
-                <div class="text-4xl mb-4">{{ $feat['icon'] }}</div>
+                <div class="w-12 h-12 mx-auto mb-4 rounded-full flex items-center justify-center" style="background-color: var(--color-sand);">
+                    <svg class="w-6 h-6" style="color: #9A3412;" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $feat['icon'] }}"/></svg>
+                </div>
                 <h3 class="font-semibold text-base mb-2" style="color: var(--color-navy);">{{ $feat['title'] }}</h3>
                 <p class="text-sm leading-relaxed" style="color: var(--color-slate);">{{ $feat['desc'] }}</p>
             </div>
@@ -170,6 +189,36 @@
     </div>
 </section>
 
+{{-- ===== LE LIEU EN IMAGES ===== --}}
+<section class="py-20 px-4 sm:px-6 lg:px-8" style="background-color: white;">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-12">
+            <p class="text-sm font-semibold uppercase tracking-widest mb-2" style="color: var(--color-orange);">Le lieu</p>
+            <h2 class="section-title">Le décor de votre séjour</h2>
+            <p class="section-subtitle max-w-md mx-auto">Plage privée, piscine et terrasses face à la lagune, au Kilomètre 18,75 d'Assinie.</p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 md:grid-rows-2 gap-3 md:h-[480px]">
+            <div class="col-span-2 md:row-span-2 rounded-2xl overflow-hidden group aspect-[16/10] md:aspect-auto">
+                <img src="{{ asset('images/beach-access.jpg') }}" alt="Accès à la plage privée, entre mer et lagune"
+                     class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+            </div>
+            <div class="rounded-2xl overflow-hidden group aspect-square md:aspect-auto">
+                <img src="{{ asset('images/pool.jpg') }}" alt="Piscine du Havre de Paix"
+                     class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+            </div>
+            <div class="rounded-2xl overflow-hidden group aspect-square md:aspect-auto">
+                <img src="{{ asset('images/terrace.jpg') }}" alt="Terrasse face à la lagune"
+                     class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+            </div>
+            <div class="col-span-2 rounded-2xl overflow-hidden group aspect-[16/9] md:aspect-auto">
+                <img src="{{ asset('images/hero-bg.jpg') }}" alt="Vue du domaine du Havre de Paix à Assinie"
+                     class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+            </div>
+        </div>
+    </div>
+</section>
+
 {{-- ===== TÉMOIGNAGES ===== --}}
 <section class="py-20 px-4 sm:px-6 lg:px-8" style="background-color: var(--color-navy);">
     <div class="max-w-5xl mx-auto text-center">
@@ -201,7 +250,7 @@
     <div class="max-w-2xl mx-auto">
         <h2 class="section-title mb-4">Prêt pour votre escapade ?</h2>
         <p class="section-subtitle mb-8">Réservez votre chambre en ligne en moins de 5 minutes. Confirmation instantanée. Paiement à l'arrivée.</p>
-        <a href="{{ route('reservation.index') }}" class="btn-primary text-base px-10 py-4">
+        <a href="{{ route('rooms.index') }}" class="btn-primary text-base px-10 py-4">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
             Réserver maintenant
         </a>

@@ -31,6 +31,14 @@
     </div>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+
+        @if (session('info'))
+        <div class="mb-6 p-4 rounded-xl text-sm flex items-center gap-3" style="background-color: var(--color-sky); color: #0c4a6e;">
+            <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            {{ session('info') }}
+        </div>
+        @endif
+
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
 
             {{-- ===== COLONNE GAUCHE ===== --}}
@@ -74,15 +82,16 @@
                     </div>
                 </div>
 
-                {{-- Titre + badges --}}
+                {{-- Titre + caractéristiques --}}
                 <div class="mb-6">
-                    <div class="flex flex-wrap gap-2 mb-3">
-                        <span class="badge">{{ $room->view_label }}</span>
-                        <span class="badge">{{ $room->bed_type_label }}</span>
-                        @if ($room->size_m2) <span class="badge">{{ $room->size_m2 }} m²</span> @endif
-                        <span class="badge">Étage {{ $room->floor }}</span>
-                    </div>
                     <h1 class="section-title">{{ $room->name }}</h1>
+                    <p class="mt-2 text-sm font-medium" style="color: var(--color-navy);">
+                        {{ $room->capacity_adults }} voyageur{{ $room->capacity_adults > 1 ? 's' : '' }}
+                        &middot; {{ $room->bed_type_label }}
+                        @if ($room->size_m2) &middot; {{ $room->size_m2 }} m² @endif
+                        &middot; Vue {{ mb_strtolower($room->view_label) }}
+                        &middot; Étage {{ $room->floor }}
+                    </p>
                     <p class="section-subtitle">{{ $room->description_short }}</p>
                 </div>
 
@@ -124,62 +133,63 @@
                 <div class="sticky top-24 bg-white rounded-2xl shadow-lg border p-6" style="border-color: var(--color-border);"
                      x-data="bookingWidget({{ $room->id }}, {{ $room->price_per_night }})">
 
-                    <div class="flex items-baseline gap-2 mb-6">
+                    <div class="flex items-baseline gap-1.5 mb-5">
                         <span class="price-tag text-3xl">{{ number_format($room->price_per_night, 0, ',', ' ') }}</span>
                         <span class="text-sm" style="color: var(--color-slate);">FCFA / nuit</span>
                     </div>
 
-                    {{-- Dates --}}
-                    <div class="grid grid-cols-2 gap-3 mb-3">
-                        <div>
-                            <label class="form-label text-xs">Arrivée</label>
-                            <input type="date" x-model="checkIn"
-                                   @change="updatePrice()"
-                                   :min="today"
-                                   value="{{ request('check_in') }}"
-                                   class="form-input text-sm" id="room-check-in">
+                    {{-- Bloc dates + voyageurs soudé --}}
+                    <div class="rounded-xl border mb-4 overflow-hidden" style="border-color: #94A3B8;">
+                        <div class="grid grid-cols-2">
+                            <div class="p-3">
+                                <label for="room-check-in" class="block text-[10px] font-bold uppercase tracking-wide" style="color: var(--color-navy);">Arrivée</label>
+                                <input type="date" x-model="checkIn"
+                                       @change="updatePrice()"
+                                       :min="today"
+                                       value="{{ request('check_in') }}"
+                                       class="w-full bg-transparent text-sm outline-none border-0 p-0 cursor-pointer"
+                                       id="room-check-in">
+                            </div>
+                            <div class="p-3 border-l" style="border-color: #94A3B8;">
+                                <label for="room-check-out" class="block text-[10px] font-bold uppercase tracking-wide" style="color: var(--color-navy);">Départ</label>
+                                <input type="date" x-model="checkOut"
+                                       @change="updatePrice()"
+                                       :min="minCheckOut"
+                                       value="{{ request('check_out') }}"
+                                       class="w-full bg-transparent text-sm outline-none border-0 p-0 cursor-pointer"
+                                       id="room-check-out">
+                            </div>
                         </div>
-                        <div>
-                            <label class="form-label text-xs">Départ</label>
-                            <input type="date" x-model="checkOut"
-                                   @change="updatePrice()"
-                                   :min="minCheckOut"
-                                   value="{{ request('check_out') }}"
-                                   class="form-input text-sm" id="room-check-out">
+                        <div class="p-3 border-t" style="border-color: #94A3B8;">
+                            <label for="room-guests" class="block text-[10px] font-bold uppercase tracking-wide" style="color: var(--color-navy);">Voyageurs</label>
+                            <select x-model="guests" id="room-guests" class="w-full bg-transparent text-sm outline-none border-0 p-0 cursor-pointer">
+                                @for ($i = 1; $i <= $room->capacity_adults; $i++)
+                                <option value="{{ $i }}">{{ $i }} {{ $i > 1 ? 'voyageurs' : 'voyageur' }}</option>
+                                @endfor
+                            </select>
                         </div>
-                    </div>
-
-                    <div class="mb-4">
-                        <label class="form-label text-xs">Personnes</label>
-                        <select x-model="guests" class="form-input text-sm">
-                            @for ($i = 1; $i <= $room->capacity_adults; $i++)
-                            <option value="{{ $i }}">{{ $i }} {{ $i > 1 ? 'personnes' : 'personne' }}</option>
-                            @endfor
-                        </select>
-                    </div>
-
-                    {{-- Résumé prix --}}
-                    <div x-show="nights > 0" class="rounded-xl p-4 mb-4" style="background-color: var(--color-snow);">
-                        <div class="flex justify-between text-sm mb-2" style="color: var(--color-slate);">
-                            <span x-text="pricePerNight.toLocaleString('fr-FR') + ' FCFA × ' + nights + ' nuit(s)'"></span>
-                            <span x-text="totalPrice.toLocaleString('fr-FR') + ' FCFA'"></span>
-                        </div>
-                        <div class="flex justify-between font-semibold border-t pt-2" style="border-color: var(--color-border); color: var(--color-navy);">
-                            <span>Total du séjour</span>
-                            <span x-text="totalPrice.toLocaleString('fr-FR') + ' FCFA'" style="color: var(--color-orange);"></span>
-                        </div>
-                        <p class="text-xs mt-2" style="color: var(--color-slate);">Paiement à l'arrivée uniquement</p>
                     </div>
 
                     <a :href="nights > 0 ? reservationUrl : '#'"
                        @click.prevent="nights > 0 ? window.location.href = reservationUrl : null"
                        class="btn-primary w-full text-base py-3.5"
                        :class="nights === 0 ? 'opacity-50 cursor-not-allowed' : ''">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                        <span x-text="nights > 0 ? 'Réserver cette chambre' : 'Sélectionner les dates'"></span>
+                        <span x-text="nights > 0 ? 'Réserver' : 'Sélectionner les dates'"></span>
                     </a>
 
-                    <p class="text-center text-xs mt-3" style="color: var(--color-slate);">Confirmation instantanée par email</p>
+                    <p class="text-center text-xs mt-3" style="color: var(--color-slate);">Aucun montant débité aujourd'hui &middot; Confirmation instantanée</p>
+
+                    {{-- Détail du prix --}}
+                    <div x-show="nights > 0" class="mt-5 pt-4 border-t" style="border-color: var(--color-border);">
+                        <div class="flex justify-between text-sm mb-3" style="color: var(--color-navy);">
+                            <span class="underline" x-text="pricePerNight.toLocaleString('fr-FR') + ' FCFA × ' + nights + ' nuit(s)'"></span>
+                            <span x-text="totalPrice.toLocaleString('fr-FR') + ' FCFA'"></span>
+                        </div>
+                        <div class="flex justify-between font-bold border-t pt-3" style="border-color: var(--color-border); color: var(--color-navy);">
+                            <span>Total <span class="font-normal text-sm">(payé à l'arrivée)</span></span>
+                            <span x-text="totalPrice.toLocaleString('fr-FR') + ' FCFA'"></span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

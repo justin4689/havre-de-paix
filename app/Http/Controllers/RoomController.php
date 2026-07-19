@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Room;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Arr;
 
 class RoomController extends Controller
 {
@@ -26,12 +28,30 @@ class RoomController extends Controller
         $checkIn  = $request->get('check_in');
         $checkOut = $request->get('check_out');
 
-        $rooms = $query->orderBy('price_per_night')->get();
+        match ($request->get('sort', 'price_asc')) {
+            'price_desc' => $query->orderByDesc('price_per_night'),
+            'capacity'   => $query->orderByDesc('capacity_adults'),
+            default      => $query->orderBy('price_per_night'),
+        };
+
+        $rooms = $query->get();
 
         // Filtrer par disponibilité si dates fournies
         if ($checkIn && $checkOut && $checkIn < $checkOut) {
-            $rooms = $rooms->filter(fn ($r) => $r->isAvailable($checkIn, $checkOut));
+            $rooms = $rooms->filter(fn ($r) => $r->isAvailable($checkIn, $checkOut))->values();
         }
+
+        // Pagination sur la collection (le filtre de disponibilité est en PHP,
+        // une pagination SQL fausserait les comptes par page).
+        $perPage = 8;
+        $page    = max(1, (int) $request->get('page', 1));
+        $rooms   = new LengthAwarePaginator(
+            $rooms->forPage($page, $perPage)->values(),
+            $rooms->count(),
+            $perPage,
+            $page,
+            ['path' => $request->url(), 'query' => Arr::except($request->query(), 'page')]
+        );
 
         return view('rooms.index', compact('rooms', 'checkIn', 'checkOut'));
     }

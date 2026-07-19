@@ -1,0 +1,72 @@
+name: havre-de-paix
+
+# Source de vérité : le fichier .env (lu par Laravel via le montage du code,
+# et par compose pour les ${VAR} ci-dessous). Les valeurs par défaut ne servent
+# qu'au tout premier lancement, avant que l'entrypoint ne crée le .env.
+
+services:
+  app:
+    build:
+      context: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      mysql:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8000/up"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      # Large marge : le premier composer install peut être long.
+      start_period: 300s
+
+  queue:
+    build:
+      context: .
+    command: ["php", "artisan", "queue:listen", "--tries=1"]
+    environment:
+      SKIP_SETUP: "1"
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      app:
+        condition: service_healthy
+
+  vite:
+    image: node:22-alpine
+    working_dir: /var/www/html
+    command: sh -c "npm install && exec npm run dev"
+    ports:
+      - "5173:5173"
+    volumes:
+      - .:/var/www/html
+      # Volume dédié : les binaires natifs de node_modules ne doivent pas
+      # être partagés entre macOS (hôte) et Linux (conteneur).
+      - node_modules:/var/www/html/node_modules
+
+  mysql:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE:-havre_de_paix}
+      MYSQL_USER: ${DB_USERNAME:-havre}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-havre}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-root}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      # 127.0.0.1 force le TCP : évite le faux positif du serveur temporaire
+      # (socket uniquement) pendant l'initialisation de l'image MySQL.
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p\"$$MYSQL_ROOT_PASSWORD\""]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+volumes:
+  mysql_data:
+  node_modules:

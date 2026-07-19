@@ -12,16 +12,27 @@ class ReservationController extends Controller
 {
     public function index(Request $request)
     {
-        $room     = null;
-        $checkIn  = $request->get('check_in');
-        $checkOut = $request->get('check_out');
-        $guests   = $request->get('guests', 1);
-
-        if ($request->filled('room_id')) {
-            $room = Room::findOrFail($request->room_id);
+        // Le checkout exige un séjour déjà choisi (chambre + dates) :
+        // pas de sélection de chambre ici, comme chez Airbnb/Booking.
+        if (! $request->filled('room_id')) {
+            return redirect()->route('rooms.index')
+                ->with('info', 'Choisissez d\'abord votre chambre pour réserver.');
         }
 
-        return view('reservation.index', compact('room', 'checkIn', 'checkOut', 'guests'));
+        $room     = Room::findOrFail($request->room_id);
+        $checkIn  = $request->get('check_in');
+        $checkOut = $request->get('check_out');
+
+        if (! $checkIn || ! $checkOut || $checkOut <= $checkIn) {
+            return redirect()->route('rooms.show', $room->slug)
+                ->with('info', 'Sélectionnez vos dates de séjour pour continuer.');
+        }
+
+        $guests     = min(max(1, (int) $request->get('guests', 1)), $room->capacity_adults);
+        $nights     = (int) (new \DateTime($checkOut))->diff(new \DateTime($checkIn))->days;
+        $totalPrice = $room->priceForStay($checkIn, $checkOut);
+
+        return view('reservation.index', compact('room', 'checkIn', 'checkOut', 'guests', 'nights', 'totalPrice'));
     }
 
     public function store(Request $request)
@@ -81,6 +92,34 @@ class ReservationController extends Controller
     {
         $reservation = Reservation::where('ref', $ref)->with('room')->firstOrFail();
         return view('reservation.confirmation', compact('reservation'));
+    }
+
+    public function lookupForm()
+    {
+        return view('reservation.lookup');
+    }
+
+    public function lookup(Request $request)
+    {
+        $validated = $request->validate([
+            'ref'   => 'required|string|max:20',
+            'email' => 'required|email|max:150',
+        ], [], ['ref' => 'référence', 'email' => 'email']);
+
+        // Couple référence + email : évite qu'une référence seule (séquentielle,
+        // donc devinable) suffise à consulter la réservation d'un tiers.
+        $reservation = Reservation::whereRaw('UPPER(ref) = ?', [mb_strtoupper(trim($validated['ref']))])
+            ->whereRaw('LOWER(guest_email) = ?', [mb_strtolower(trim($validated['email']))])
+            ->with('room')
+            ->first();
+
+        if (! $reservation) {
+            return back()
+                ->withErrors(['ref' => 'Aucune réservation trouvée avec cette référence et cet email. Vérifiez l\'email de confirmation reçu.'])
+                ->withInput();
+        }
+
+        return view('reservation.manage', compact('reservation'));
     }
 
     public function cancel(string $token)

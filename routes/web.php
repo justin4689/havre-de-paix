@@ -22,12 +22,17 @@ Route::post('/reservation', [ReservationController::class, 'store'])->name('rese
 Route::get('/reservation/{ref}/confirmation', [ReservationController::class, 'confirmation'])->name('reservation.confirmation');
 Route::get('/reservation/annuler/{token}', [ReservationController::class, 'cancel'])->name('reservation.cancel');
 
+// Retrouver sa réservation (référence + email, limité contre l'énumération)
+Route::get('/ma-reservation', [ReservationController::class, 'lookupForm'])->name('reservation.lookup');
+Route::post('/ma-reservation', [ReservationController::class, 'lookup'])
+    ->middleware('throttle:10,1')
+    ->name('reservation.lookup.submit');
+
 // Pages statiques
 Route::get('/a-propos', function () {
     $rooms = \App\Models\Room::where('status', 'active')->orderBy('price_per_night')->get();
     return view('about', compact('rooms'));
 })->name('about');
-Route::view('/galerie', 'gallery')->name('gallery');
 Route::view('/mentions-legales', 'legal')->name('legal');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');

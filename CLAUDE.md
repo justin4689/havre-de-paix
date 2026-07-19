@@ -62,10 +62,9 @@ Extraite du logo : soleil orange + lagon bleu + silhouettes nuit.
 /                        → Accueil (hero + widget recherche + chambres vedettes)
 /chambres                → Listing toutes les chambres
 /chambres/[slug]         → Fiche détail chambre (galerie + calendrier + réservation)
-/reservation             → Tunnel de réservation (3 étapes)
+/reservation             → Checkout (exige chambre + dates choisies, sinon redirection)
 /reservation/confirmation → Page de confirmation post-réservation
-/a-propos                → Histoire de l'établissement
-/galerie                 → Galerie photo
+/a-propos                → Histoire de l'établissement (inclut une section galerie)
 /contact                 → Formulaire + carte + accès
 /mentions-legales        → CGV + politique de confidentialité
 ```
@@ -132,11 +131,11 @@ id, room_id, start_date, end_date, reason
         ↓
 3. Fiche chambre → sélection
         ↓
-4. Étape 1 — Récapitulatif (chambre, dates, prix total)
+4. Checkout — séjour verrouillé en récap sidebar (prix serveur avec règles saisonnières, lien « Modifier »)
         ↓
-5. Étape 2 — Coordonnées (nom, email, tél, demandes)
+5. Étape — Coordonnées (nom, email, tél, demandes)
         ↓
-6. Étape 3 — Confirmation (acceptation CGV)
+6. Étape — Confirmation (acceptation CGV)
         ↓
 7. POST /api/reservations
         ↓
