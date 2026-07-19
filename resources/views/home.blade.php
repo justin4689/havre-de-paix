@@ -158,8 +158,8 @@
                     {{-- Équipements --}}
                     <div class="flex gap-3 mb-4 flex-wrap">
                         @foreach (array_slice($room->amenities ?? [], 0, 3) as $amenity)
-                        <span class="text-xs flex items-center gap-1" style="color: var(--color-slate);">
-                            <svg class="w-3 h-3" style="color: var(--color-orange);" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        <span class="text-xs flex items-center gap-1.5" style="color: var(--color-slate);">
+                            <x-amenity-icon :name="$amenity" class="w-3.5 h-3.5 shrink-0" style="color: var(--color-orange);" />
                             {{ $amenity }}
                         </span>
                         @endforeach
@@ -262,14 +262,6 @@
 
 @push('scripts')
 <script>
-// CTA flottant : apparaît après le hero
-const floatingCta = document.getElementById('floating-cta');
-if (floatingCta) {
-    window.addEventListener('scroll', () => {
-        floatingCta.style.display = window.scrollY > window.innerHeight * 0.8 ? 'inline-flex' : 'none';
-    }, { passive: true });
-}
-
 // Date minimum check_in → check_out
 const checkIn  = document.getElementById('check_in');
 const checkOut = document.getElementById('check_out');

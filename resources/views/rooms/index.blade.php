@@ -25,63 +25,97 @@
         </div>
         @endif
 
-        <div class="grid grid-cols-1 lg:grid-cols-5 gap-6 items-start">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 items-start">
 
             {{-- ===== FILTRES (colonne gauche) ===== --}}
-            <aside class="lg:sticky lg:top-24 bg-white rounded-2xl shadow-sm border p-5" style="border-color: var(--color-border);">
-                <h2 class="font-bold text-base mb-4 flex items-center gap-2" style="color: var(--color-navy);">
-                    <svg class="w-4 h-4" style="color: var(--color-orange);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
-                    Filtrer
-                </h2>
+            <aside class="lg:sticky lg:top-24">
                 <form action="{{ route('rooms.index') }}" method="GET" class="space-y-4">
                     <input type="hidden" name="sort" value="{{ request('sort', 'price_asc') }}">
-                    <div>
-                        <label class="form-label text-xs">Arrivée</label>
-                        <input type="date" name="check_in" value="{{ $checkIn }}" min="{{ date('Y-m-d') }}" class="form-input text-sm">
+
+                    {{-- Votre séjour --}}
+                    <div class="rounded-2xl shadow-sm overflow-hidden border" style="border-color: var(--color-border);">
+                        <div class="px-5 py-3" style="background-color: var(--color-navy);">
+                            <h2 class="text-sm font-bold text-white flex items-center gap-2">
+                                <svg class="w-4 h-4" style="color: var(--color-orange);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                                Votre séjour
+                            </h2>
+                        </div>
+                        <div class="bg-white p-4 space-y-3">
+                            <div>
+                                <label class="form-label text-xs">Arrivée</label>
+                                <input type="date" name="check_in" value="{{ $checkIn }}" min="{{ date('Y-m-d') }}" class="form-input text-sm">
+                            </div>
+                            <div>
+                                <label class="form-label text-xs">Départ</label>
+                                <input type="date" name="check_out" value="{{ $checkOut }}" min="{{ date('Y-m-d', strtotime('+1 day')) }}" class="form-input text-sm">
+                            </div>
+                            <div>
+                                <label class="form-label text-xs">Voyageurs</label>
+                                <select name="capacity" class="form-input text-sm">
+                                    <option value="">Tous</option>
+                                    @for ($i = 1; $i <= 6; $i++)
+                                    <option value="{{ $i }}" {{ request('capacity') == $i ? 'selected' : '' }}>{{ $i }} voyageur{{ $i > 1 ? 's' : '' }}</option>
+                                    @endfor
+                                </select>
+                            </div>
+                            <button type="submit" class="btn-primary w-full text-sm py-2.5">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                                Rechercher
+                            </button>
+                        </div>
                     </div>
-                    <div>
-                        <label class="form-label text-xs">Départ</label>
-                        <input type="date" name="check_out" value="{{ $checkOut }}" min="{{ date('Y-m-d', strtotime('+1 day')) }}" class="form-input text-sm">
-                    </div>
-                    <div>
-                        <label class="form-label text-xs">Voyageurs</label>
-                        <select name="capacity" class="form-input text-sm">
-                            <option value="">Tous</option>
-                            @for ($i = 1; $i <= 6; $i++)
-                            <option value="{{ $i }}" {{ request('capacity') == $i ? 'selected' : '' }}>{{ $i }} voyageur{{ $i > 1 ? 's' : '' }}</option>
-                            @endfor
-                        </select>
-                    </div>
-                    <div>
-                        <label class="form-label text-xs">Vue</label>
-                        <select name="view" class="form-input text-sm">
-                            <option value="">Toutes</option>
-                            <option value="sea" {{ request('view') === 'sea' ? 'selected' : '' }}>Mer</option>
-                            <option value="lagoon" {{ request('view') === 'lagoon' ? 'selected' : '' }}>Lagune</option>
-                            <option value="pool" {{ request('view') === 'pool' ? 'selected' : '' }}>Piscine</option>
-                            <option value="garden" {{ request('view') === 'garden' ? 'selected' : '' }}>Jardin</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="form-label text-xs">Prix max / nuit</label>
-                        <select name="price_max" class="form-input text-sm">
-                            <option value="">Tous</option>
-                            <option value="50000" {{ request('price_max') == 50000 ? 'selected' : '' }}>50 000 FCFA</option>
-                            <option value="100000" {{ request('price_max') == 100000 ? 'selected' : '' }}>100 000 FCFA</option>
-                            <option value="200000" {{ request('price_max') == 200000 ? 'selected' : '' }}>200 000 FCFA</option>
-                        </select>
-                    </div>
-                    <div class="flex gap-2 pt-1">
-                        <button type="submit" class="btn-primary flex-1 text-sm py-2.5">Filtrer</button>
-                        <a href="{{ route('rooms.index') }}" class="btn-outline text-sm py-2.5 px-3" aria-label="Réinitialiser les filtres">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-                        </a>
+
+                    {{-- Filtrer par --}}
+                    <div class="bg-white rounded-2xl shadow-sm border p-5" style="border-color: var(--color-border);">
+                        <div class="flex items-center justify-between mb-3">
+                            <h2 class="text-xs font-bold uppercase tracking-wide" style="color: var(--color-navy);">Filtrer par</h2>
+                            @if (request()->hasAny(['view', 'price_max', 'capacity']))
+                            <a href="{{ route('rooms.index', array_filter(['check_in' => $checkIn, 'check_out' => $checkOut, 'sort' => request('sort')])) }}"
+                               class="text-xs font-medium underline transition-colors" style="color: var(--color-blue);">
+                                Tout effacer
+                            </a>
+                            @endif
+                        </div>
+
+                        {{-- Vue --}}
+                        <p class="text-sm font-semibold mb-1" style="color: var(--color-navy);">Vue</p>
+                        @foreach (['sea' => 'Mer', 'lagoon' => 'Lagune', 'pool' => 'Piscine', 'garden' => 'Jardin'] as $value => $label)
+                        <label class="flex items-center justify-between py-1.5 cursor-pointer rounded-lg -mx-2 px-2 transition-colors hover:bg-slate-50">
+                            <span class="flex items-center gap-2.5 text-sm" style="color: var(--color-navy);">
+                                <input type="checkbox" name="view[]" value="{{ $value }}"
+                                       onchange="this.form.submit()"
+                                       {{ in_array($value, (array) request('view', [])) ? 'checked' : '' }}
+                                       class="w-4 h-4 rounded cursor-pointer" style="accent-color: var(--color-orange);">
+                                {{ $label }}
+                            </span>
+                            <span class="text-xs" style="color: var(--color-slate);">{{ $viewCounts[$value] ?? 0 }}</span>
+                        </label>
+                        @endforeach
+
+                        {{-- Prix (curseur) --}}
+                        <div class="flex items-center justify-between mb-2 mt-4 pt-4 border-t" style="border-color: var(--color-border);">
+                            <p class="text-sm font-semibold" style="color: var(--color-navy);">Prix par nuit</p>
+                            <span id="price-max-label" class="text-xs font-medium" style="color: var(--color-orange);">
+                                {{ request('price_max') ? 'Jusqu\'à ' . number_format((int) request('price_max'), 0, ',', ' ') . ' FCFA' : 'Tous les prix' }}
+                            </span>
+                        </div>
+                        <input type="range" name="price_max"
+                               min="{{ $priceBounds['min'] }}" max="{{ $priceBounds['max'] }}" step="5000"
+                               value="{{ request('price_max', $priceBounds['max']) }}"
+                               oninput="document.getElementById('price-max-label').textContent = this.value == this.max ? 'Tous les prix' : 'Jusqu\'à ' + Number(this.value).toLocaleString('fr-FR') + ' FCFA'"
+                               onchange="if (this.value == this.max) this.disabled = true; this.form.submit();"
+                               class="w-full cursor-pointer" style="accent-color: var(--color-orange);"
+                               aria-label="Prix maximum par nuit">
+                        <div class="flex justify-between text-xs mt-1" style="color: var(--color-slate);">
+                            <span>{{ number_format($priceBounds['min'], 0, ',', ' ') }}</span>
+                            <span>{{ number_format($priceBounds['max'], 0, ',', ' ') }} FCFA</span>
+                        </div>
                     </div>
                 </form>
             </aside>
 
             {{-- ===== RÉSULTATS (colonne droite) ===== --}}
-            <div class="lg:col-span-4">
+            <div class="lg:col-span-3">
 
                 {{-- Compteur + tri --}}
                 @php $sortUrl = fn ($s) => route('rooms.index', array_merge(request()->query(), ['sort' => $s])); @endphp

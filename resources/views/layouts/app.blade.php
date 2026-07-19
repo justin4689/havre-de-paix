@@ -119,16 +119,6 @@
         @yield('content')
     </main>
 
-    {{-- CTA FLOTTANT RÉSERVER --}}
-    <a href="{{ route('rooms.index') }}"
-       id="floating-cta"
-       class="fixed bottom-6 right-6 z-40 btn-primary shadow-2xl hidden lg:inline-flex"
-       style="display: none;"
-       aria-label="Réserver maintenant">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-        Réserver maintenant
-    </a>
-
     {{-- FOOTER --}}
     <footer style="background-color: var(--color-navy); color: rgba(255,255,255,0.8);">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">

@@ -110,8 +110,8 @@
                     <h2 class="font-semibold text-lg mb-4" style="color: var(--color-navy); font-family: var(--font-serif);">Équipements</h2>
                     <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
                         @foreach ($room->amenities ?? [] as $amenity)
-                        <div class="flex items-center gap-2 text-sm" style="color: var(--color-slate);">
-                            <svg class="w-4 h-4 shrink-0" style="color: var(--color-orange);" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        <div class="flex items-center gap-2.5 text-sm" style="color: var(--color-slate);">
+                            <x-amenity-icon :name="$amenity" class="w-5 h-5 shrink-0" style="color: var(--color-orange);" />
                             {{ $amenity }}
                         </div>
                         @endforeach

@@ -18,12 +18,22 @@ class RoomController extends Controller
         }
 
         if ($request->filled('view')) {
-            $query->where('view', $request->view);
+            $query->whereIn('view', (array) $request->view);
         }
 
         if ($request->filled('price_max')) {
             $query->where('price_per_night', '<=', $request->price_max);
         }
+
+        // Compteurs et bornes de prix du panneau de filtres (catalogue actif complet)
+        $allActive   = Room::where('status', 'active')->get(['view', 'price_per_night']);
+        $viewCounts  = $allActive->countBy('view');
+        $priceBounds = $allActive->isEmpty()
+            ? ['min' => 0, 'max' => 200000]
+            : [
+                'min' => (int) floor($allActive->min('price_per_night') / 5000) * 5000,
+                'max' => (int) ceil($allActive->max('price_per_night') / 5000) * 5000,
+            ];
 
         $checkIn  = $request->get('check_in');
         $checkOut = $request->get('check_out');
@@ -53,7 +63,7 @@ class RoomController extends Controller
             ['path' => $request->url(), 'query' => Arr::except($request->query(), 'page')]
         );
 
-        return view('rooms.index', compact('rooms', 'checkIn', 'checkOut'));
+        return view('rooms.index', compact('rooms', 'checkIn', 'checkOut', 'viewCounts', 'priceBounds'));
     }
 
     public function show(string $slug)
