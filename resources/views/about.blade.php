@@ -2,19 +2,21 @@
 @section('title', 'Havre de Paix Assinie — Résidence-Hôtel entre mer et lagune')
 @section('description', 'Découvrez le Havre de Paix : résidence-hôtel à Assinie Km 18,75, Côte d\'Ivoire. 5 chambres & suites, accès mer et lagune, 94 km d\'Abidjan. Tout ce qu\'il faut savoir avant votre séjour.')
 
+@section('hero_nav', '1')
+
 @section('content')
-<div class="pt-20">
+<div>
 
 {{-- ═══════════════════════════════════════════
      1. HERO
 ═══════════════════════════════════════════ --}}
-<section class="relative h-[75vh] min-h-[500px] flex items-end overflow-hidden">
-    <img src="{{ asset('images/hero-bg.jpg') }}"
-         alt="Havre de Paix — Assinie"
+<section class="relative h-[60vh] min-h-[420px] flex items-center overflow-hidden">
+    <img src="{{ asset('images/about-hero.jpg') }}"
+         alt="Bungalows sur pilotis entre mer et lagune"
          class="absolute inset-0 w-full h-full object-cover">
     <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(30,41,59,0.92) 0%, rgba(30,41,59,0.4) 55%, rgba(30,41,59,0.1) 100%);"></div>
 
-    <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+    <div class="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-16">
         <span class="inline-flex items-center gap-2 text-xs font-semibold tracking-widest uppercase text-white/70 mb-4">
             <svg class="w-3 h-3" style="color: var(--color-orange);" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
             Assinie · Km 18,75 · Côte d'Ivoire
@@ -22,10 +24,10 @@
         <h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold text-white mb-4 leading-tight" style="font-family: var(--font-serif);">
             Havre de Paix
         </h1>
-        <p class="text-lg text-white/80 mb-8 max-w-xl">
+        <p class="text-lg text-white/80 mb-8 max-w-xl mx-auto">
             Résidence-hôtel entre l'océan Atlantique et la lagune Aby. Un refuge tropical à seulement 94 km d'Abidjan.
         </p>
-        <div class="flex flex-wrap gap-3 mb-8">
+        <div class="flex flex-wrap justify-center gap-3 mb-8">
             @foreach (['Entre mer & lagune', '5 chambres & suites', '94 km d\'Abidjan', 'Paiement à l\'arrivée'] as $badge)
             <span class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-semibold text-white border border-white/30 backdrop-blur-sm" style="background: rgba(255,255,255,0.12);">
                 <svg class="w-3 h-3" style="color: var(--color-orange);" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
@@ -33,8 +35,8 @@
             </span>
             @endforeach
         </div>
-        <div class="flex gap-3">
-            <a href="{{ route('reservation.index') }}" class="btn-primary text-sm px-7 py-3.5">
+        <div class="flex flex-wrap justify-center gap-3">
+            <a href="{{ route('rooms.index') }}" class="btn-primary text-sm px-7 py-3.5">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                 Réserver maintenant
             </a>
@@ -57,7 +59,7 @@
         })
      ">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center gap-1 overflow-x-auto hide-scrollbar py-1">
+        <div class="flex items-center lg:justify-center gap-1 overflow-x-auto hide-scrollbar py-1">
             @foreach ([
                 ['id' => 'presentation', 'label' => 'Présentation'],
                 ['id' => 'equipements',  'label' => 'Équipements'],
@@ -73,9 +75,6 @@
                 {{ $anchor['label'] }}
             </a>
             @endforeach
-            <div class="ml-auto shrink-0 py-2">
-                <a href="{{ route('reservation.index') }}" class="btn-primary text-xs px-5 py-2">Réserver</a>
-            </div>
         </div>
     </div>
 </nav>
@@ -85,10 +84,10 @@
 ═══════════════════════════════════════════ --}}
 <div class="bg-white border-b" style="border-color: var(--color-border);">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <div class="flex flex-wrap items-center gap-6 text-sm">
+        <div class="flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-sm">
             @foreach ([
-                ['icon' => 'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z', 'label' => 'Check-in',   'value' => 'À partir de 14h00'],
-                ['icon' => 'M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1', 'label' => 'Check-out',  'value' => 'Avant 12h00'],
+                ['icon' => 'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z', 'label' => 'Arrivée',    'value' => 'À partir de 14h00'],
+                ['icon' => 'M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1', 'label' => 'Départ',     'value' => 'Avant 12h00'],
                 ['icon' => 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z', 'label' => 'Paiement',   'value' => 'À l\'arrivée uniquement'],
                 ['icon' => 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z', 'label' => 'Annulation', 'value' => 'Gratuite 48h avant'],
             ] as $item)
@@ -442,7 +441,7 @@
                 [
                     'icon'  => 'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z',
                     'title' => 'Arrivée & départ',
-                    'items' => ['Check-in : à partir de 14h00', 'Check-out : avant 12h00', 'Arrivée tardive possible (prévenir)', 'Départ express sur demande'],
+                    'items' => ['Arrivée : à partir de 14h00', 'Départ : avant 12h00', 'Arrivée tardive possible (prévenir)', 'Départ express sur demande'],
                 ],
                 [
                     'icon'  => 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z',

@@ -147,6 +147,29 @@
         border-color: #16a34a;
         color: white;
     }
+
+    /* Contenu issu de l'éditeur riche (description longue des chambres) */
+    .rich-text div, .rich-text p { margin-bottom: 0.75rem; }
+    .rich-text div:last-child, .rich-text p:last-child { margin-bottom: 0; }
+    .rich-text h1, .rich-text h2, .rich-text h3 {
+        font-weight: 700;
+        color: var(--color-navy);
+        margin: 1rem 0 0.5rem;
+    }
+    .rich-text h1 { font-size: 1.25rem; }
+    .rich-text h2 { font-size: 1.125rem; }
+    .rich-text h3 { font-size: 1rem; }
+    .rich-text ul { list-style: disc; padding-left: 1.25rem; margin-bottom: 0.75rem; }
+    .rich-text ol { list-style: decimal; padding-left: 1.25rem; margin-bottom: 0.75rem; }
+    .rich-text li { margin-bottom: 0.25rem; }
+    .rich-text a { color: var(--color-blue); text-decoration: underline; }
+    .rich-text blockquote {
+        border-left: 3px solid var(--color-border);
+        padding-left: 1rem;
+        font-style: italic;
+        margin-bottom: 0.75rem;
+    }
+    .rich-text strong { color: var(--color-navy); }
 }
 
 /* Animations */
@@ -155,6 +178,23 @@
     to   { opacity: 1; transform: translateY(0); }
 }
 .animate-fade-up { animation: fadeUp 0.5s ease-out forwards; }
+
+/* Défilement continu des témoignages : la piste contient deux copies,
+   -50% ramène exactement au début pour une boucle invisible. */
+@keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+.marquee-track {
+    animation: marquee 45s linear infinite;
+}
+.marquee:hover .marquee-track {
+    animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+    .marquee { overflow-x: auto; }
+    .marquee-track { animation: none; }
+}
 
 @keyframes shimmer {
     0%   { background-position: -200% 0; }

@@ -16,6 +16,9 @@ if [ "${SKIP_SETUP:-0}" != "1" ]; then
         php artisan key:generate --force --no-interaction
     fi
 
+    echo "==> Lien de stockage public (photos uploadées)"
+    php artisan storage:link --force
+
     echo "==> Migrations"
     tries=0
     until php artisan migrate --force; do

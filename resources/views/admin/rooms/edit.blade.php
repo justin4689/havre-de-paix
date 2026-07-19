@@ -10,7 +10,7 @@
     </a>
 </div>
 
-<div class="max-w-2xl">
+<div>
     <div class="bg-white rounded-xl border shadow-sm p-6" style="border-color: var(--color-border);">
         <h2 class="text-lg font-semibold mb-6" style="color: var(--color-navy);">Modifier : {{ $room->name }}</h2>
 
@@ -27,11 +27,11 @@
             @method('PATCH')
 
             <div class="grid grid-cols-2 gap-4">
-                <div class="col-span-2">
+                <div class="col-span-2 lg:col-span-1">
                     <label class="form-label">Nom de la chambre <span class="text-red-500">*</span></label>
                     <input type="text" name="name" value="{{ old('name', $room->name) }}" class="form-input" required>
                 </div>
-                <div class="col-span-2">
+                <div class="col-span-2 lg:col-span-1">
                     <label class="form-label">Slug URL</label>
                     <input type="text" name="slug" value="{{ old('slug', $room->slug) }}" class="form-input">
                 </div>
@@ -41,13 +41,14 @@
                 </div>
                 <div class="col-span-2">
                     <label class="form-label">Description longue</label>
-                    <textarea name="description_long" rows="4" class="form-input resize-none">{{ old('description_long', $room->description_long) }}</textarea>
+                    <input type="hidden" id="description_long" name="description_long" value="{{ old('description_long', $room->description_long) }}">
+                    <trix-editor input="description_long" class="trix-content" placeholder="Décrivez la chambre en détail : cadre, décoration, atouts..."></trix-editor>
                 </div>
             </div>
 
             <hr style="border-color: var(--color-border);">
 
-            <div class="grid grid-cols-2 gap-4">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
                 <div>
                     <label class="form-label">Capacité adultes</label>
                     <input type="number" name="capacity_adults" value="{{ old('capacity_adults', $room->capacity_adults) }}" min="1" max="10" class="form-input">
@@ -98,10 +99,7 @@
                 </div>
             </div>
 
-            <div>
-                <label class="form-label">Équipements (un par ligne)</label>
-                <textarea name="amenities" rows="4" class="form-input resize-none font-mono text-sm">{{ old('amenities', is_array($room->amenities) ? implode("\n", $room->amenities) : $room->amenities) }}</textarea>
-            </div>
+            @include('admin.rooms._amenities-field', ['amenities' => (array) old('amenities', $room->amenities ?? [])])
 
             {{-- Photos existantes --}}
             @if ($room->images && count($room->images))
@@ -115,11 +113,7 @@
             </div>
             @endif
 
-            <div>
-                <label class="form-label">Ajouter des photos</label>
-                <input type="file" name="images[]" multiple accept="image/*" class="block w-full text-sm cursor-pointer" style="color: var(--color-slate);">
-                <p class="text-xs mt-1" style="color: var(--color-slate);">Les nouvelles photos s'ajouteront aux existantes.</p>
-            </div>
+            @include('admin.rooms._images-field', ['label' => 'Ajouter des photos'])
 
             <div class="flex gap-3 pt-2">
                 <button type="submit" class="btn-primary">Enregistrer</button>
@@ -130,3 +124,20 @@
 </div>
 
 @endsection
+
+@push('head')
+<link rel="stylesheet" href="//unpkg.com/trix@2/dist/trix.css">
+<script src="//unpkg.com/trix@2/dist/trix.umd.min.js" defer></script>
+<style>
+    trix-editor { min-height: 160px; background: white; border: 1px solid var(--color-border); border-radius: 0.5rem; padding: 0.75rem 1rem; font-size: 0.875rem; color: var(--color-navy); }
+    trix-editor:focus { outline: none; border-color: var(--color-orange); box-shadow: 0 0 0 3px rgba(249,115,22,0.15); }
+    trix-toolbar .trix-button-group--file-tools { display: none; }
+</style>
+@endpush
+
+@push('scripts')
+<script>
+// Pas d'upload de fichiers dans la description (photos gérées par le champ dédié)
+document.addEventListener('trix-file-accept', e => e.preventDefault());
+</script>
+@endpush

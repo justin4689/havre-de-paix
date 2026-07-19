@@ -25,6 +25,7 @@ class RoomController extends Controller
         $validated = $this->validateRoom($request);
         $validated['slug'] = Str::slug($validated['name']);
         $validated['images'] = $this->handleImages($request);
+        $validated['description_long'] = $this->sanitizeHtml($validated['description_long'] ?? null);
 
         Room::create($validated);
 
@@ -39,6 +40,7 @@ class RoomController extends Controller
     public function update(Request $request, Room $room)
     {
         $validated = $this->validateRoom($request);
+        $validated['description_long'] = $this->sanitizeHtml($validated['description_long'] ?? null);
 
         if ($request->hasFile('new_images')) {
             $validated['images'] = array_merge(
@@ -71,10 +73,31 @@ class RoomController extends Controller
             'floor'            => 'required|integer|min:0|max:10',
             'view'             => 'required|in:sea,lagoon,garden,pool',
             'amenities'        => 'nullable|array',
+            'amenities.*'      => 'string|max:100',
+            'new_images'       => 'nullable|array',
+            'new_images.*'     => 'image|max:2048',
             'price_per_night'  => 'required|integer|min:1000',
             'min_nights'       => 'nullable|integer|min:1',
             'status'           => 'required|in:active,inactive,maintenance',
         ]);
+    }
+
+    /**
+     * Assainit le HTML produit par l'éditeur riche (Trix) : seules les balises
+     * de mise en forme sont conservées, tout script ou attribut dangereux est retiré.
+     */
+    private function sanitizeHtml(?string $html): ?string
+    {
+        if (! $html) {
+            return null;
+        }
+
+        $config = \HTMLPurifier_Config::createDefault();
+        $config->set('Cache.DefinitionImpl', null);
+        $config->set('HTML.Allowed', 'div,p,br,strong,b,em,i,del,ul,ol,li,h1,h2,h3,blockquote,pre,a[href]');
+        $config->set('AutoFormat.RemoveEmpty', true);
+
+        return (new \HTMLPurifier($config))->purify($html);
     }
 
     private function handleImages(Request $request): array

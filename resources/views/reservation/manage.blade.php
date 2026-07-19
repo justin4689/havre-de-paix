@@ -13,7 +13,7 @@ $badgeStyles = [
 
 @section('content')
 <div class="pt-24 pb-20 min-h-screen px-4 sm:px-6" style="background-color: var(--color-snow);">
-    <div class="max-w-xl mx-auto">
+    <div class="max-w-5xl mx-auto">
 
         <div class="text-center mb-8">
             <h1 class="text-3xl font-bold tracking-tight mb-2" style="color: var(--color-navy);">Votre réservation</h1>
@@ -34,10 +34,10 @@ $badgeStyles = [
         @endif
 
         {{-- Récapitulatif --}}
-        <div class="bg-white rounded-2xl shadow-sm border overflow-hidden mb-4" style="border-color: var(--color-border);">
+        <div class="bg-white rounded-2xl shadow-sm border overflow-hidden mb-4 md:flex" style="border-color: var(--color-border);">
             <img src="{{ asset($reservation->room->first_image) }}" alt="{{ $reservation->room->name }}"
-                 class="w-full aspect-[16/7] object-cover" loading="lazy">
-            <div class="p-6">
+                 class="w-full aspect-[16/7] md:aspect-auto md:w-2/5 object-cover" loading="lazy">
+            <div class="p-6 flex-1">
                 <div class="flex items-center justify-between mb-5 pb-4 border-b" style="border-color: var(--color-border);">
                     <div>
                         <p class="text-xs font-bold uppercase tracking-wide mb-1" style="color: var(--color-orange);">Référence</p>

@@ -99,8 +99,8 @@
                 @if ($room->description_long)
                 <div class="bg-white rounded-2xl p-6 mb-6 shadow-sm border" style="border-color: var(--color-border);">
                     <h2 class="font-semibold text-lg mb-3" style="color: var(--color-navy); font-family: var(--font-serif);">Description</h2>
-                    <div class="text-sm leading-relaxed prose max-w-none" style="color: var(--color-slate);">
-                        {!! nl2br(e($room->description_long)) !!}
+                    <div class="text-sm leading-relaxed rich-text" style="color: var(--color-slate);">
+                        {!! $room->description_long_html !!}
                     </div>
                 </div>
                 @endif

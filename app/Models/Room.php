@@ -65,6 +65,17 @@ class Room extends Model
             : $base + ($rule->adjustment * $nights);
     }
 
+    /**
+     * Description longue prête pour l'affichage : HTML assaini de l'éditeur riche,
+     * ou texte brut hérité (converti avec des sauts de ligne).
+     */
+    public function getDescriptionLongHtmlAttribute(): string
+    {
+        $value = (string) $this->description_long;
+
+        return str_contains($value, '<') ? $value : nl2br(e($value));
+    }
+
     public function getFirstImageAttribute(): string
     {
         $images = $this->images ?? [];

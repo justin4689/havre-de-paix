@@ -2,18 +2,24 @@
 
 @section('title', 'Nos Chambres & Suites — Havre de Paix Assinie')
 @section('description', 'Découvrez nos chambres et suites avec vue mer, lagune ou jardin à Assinie. Réservez en ligne avec confirmation instantanée.')
+@section('hero_nav', '1')
 
 @section('content')
 
-<div class="pt-20" style="background-color: var(--color-snow);">
+<div style="background-color: var(--color-snow);">
 
     {{-- Header --}}
-    <div class="py-14 px-4 sm:px-6 lg:px-8 text-center" style="background-color: var(--color-navy);">
-        <p class="text-sm font-semibold uppercase tracking-widest mb-3" style="color: var(--color-orange);">Hébergement</p>
-        <h1 class="text-4xl sm:text-5xl font-bold text-white mb-4" style="font-family: var(--font-serif);">Nos Chambres & Suites</h1>
-        <p class="max-w-xl mx-auto" style="color: rgba(255,255,255,0.7);">
-            Du confort standard à la suite présidentielle — chaque hébergement offre un cadre tropical unique entre mer et lagune.
-        </p>
+    <div class="relative flex items-center justify-center text-center h-[60vh] min-h-[420px] px-4 sm:px-6 lg:px-8 overflow-hidden">
+        <img src="{{ asset('images/rooms-hero.jpg') }}" alt="Chambre du Havre de Paix"
+             class="absolute inset-0 w-full h-full object-cover" loading="eager">
+        <div class="absolute inset-0 hero-overlay"></div>
+        <div class="relative z-10 pt-16">
+            <p class="text-sm font-semibold uppercase tracking-widest mb-3" style="color: var(--color-orange);">Hébergement</p>
+            <h1 class="text-4xl sm:text-5xl font-bold text-white mb-4" style="font-family: var(--font-serif);">Nos Chambres & Suites</h1>
+            <p class="max-w-xl mx-auto" style="color: rgba(255,255,255,0.85);">
+                Du confort standard à la suite présidentielle — chaque hébergement offre un cadre tropical unique entre mer et lagune.
+            </p>
+        </div>
     </div>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">

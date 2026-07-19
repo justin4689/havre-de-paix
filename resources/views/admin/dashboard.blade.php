@@ -13,12 +13,17 @@
     ] as $kpi)
     <div class="bg-white rounded-xl p-5 border shadow-sm" style="border-color: var(--color-border);">
         <div class="flex items-center justify-between mb-3">
-            <p class="text-xs font-medium uppercase tracking-wide" style="color: var(--color-slate);">{{ $kpi['label'] }}</p>
-            <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background-color: {{ $kpi['color'] }}20;">
+            <p class="text-xs font-semibold uppercase tracking-wide" style="color: var(--color-slate);">{{ $kpi['label'] }}</p>
+            <div class="w-8 h-8 rounded-lg flex items-center justify-center shrink-0" style="background-color: {{ $kpi['color'] }}20;">
                 <svg class="w-4 h-4" style="color: {{ $kpi['color'] }};" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $kpi['icon'] }}"/></svg>
             </div>
         </div>
-        <p class="text-2xl font-bold" style="color: var(--color-navy);">{{ $kpi['value'] }}</p>
+        <p class="text-2xl font-bold tracking-tight tabular-nums" style="color: var(--color-navy);">{{ $kpi['value'] }}</p>
+        @if ($kpi['label'] === 'Taux d\'occupation')
+        <div class="mt-2.5 h-1.5 rounded-full overflow-hidden" style="background-color: var(--color-border);">
+            <div class="h-full rounded-full transition-all duration-500" style="width: {{ min(100, (int) $occupancy) }}%; background-color: var(--color-blue);"></div>
+        </div>
+        @endif
     </div>
     @endforeach
 </div>
@@ -31,14 +36,14 @@
             <h2 class="font-semibold" style="color: var(--color-navy);">Arrivées aujourd'hui ({{ now()->format('d/m/Y') }})</h2>
             <span class="text-xs px-2 py-1 rounded-full font-semibold" style="background-color: var(--color-sand); color: #9a3412;">{{ $arrivals->count() }}</span>
         </div>
-        <div class="divide-y" style="--tw-divide-color: var(--color-border);">
+        <div class="divide-y divide-slate-100">
             @forelse ($arrivals as $r)
-            <div class="px-5 py-3 flex items-center justify-between">
-                <div>
-                    <p class="font-medium text-sm" style="color: var(--color-navy);">{{ $r->guest_name }}</p>
-                    <p class="text-xs" style="color: var(--color-slate);">{{ $r->room->name }} · {{ $r->guests }} pers.</p>
+            <div class="px-5 py-3 flex items-center justify-between gap-3 transition-colors hover:bg-slate-50">
+                <div class="min-w-0">
+                    <p class="font-medium text-sm truncate" style="color: var(--color-navy);">{{ $r->guest_name }}</p>
+                    <p class="text-xs" style="color: var(--color-slate);">{{ $r->room->name }} · {{ $r->guests }} pers. · <a href="tel:{{ $r->guest_phone }}" class="hover:underline">{{ $r->guest_phone }}</a></p>
                 </div>
-                <a href="{{ route('admin.reservations.show', $r) }}" class="text-xs px-2 py-1 rounded-lg transition-colors" style="color: var(--color-blue); background-color: var(--color-sky);">Détails</a>
+                <a href="{{ route('admin.reservations.show', $r) }}" class="text-xs font-medium px-2.5 py-1.5 rounded-lg transition-colors shrink-0 cursor-pointer hover:opacity-80" style="color: var(--color-blue); background-color: var(--color-sky);">Détails</a>
             </div>
             @empty
             <div class="px-5 py-8 text-center text-sm" style="color: var(--color-slate);">Aucune arrivée prévue aujourd'hui</div>
@@ -50,11 +55,11 @@
     <div class="bg-white rounded-xl border shadow-sm" style="border-color: var(--color-border);">
         <div class="px-5 py-4 border-b flex items-center justify-between" style="border-color: var(--color-border);">
             <h2 class="font-semibold" style="color: var(--color-navy);">Dernières réservations</h2>
-            <a href="{{ route('admin.reservations.index') }}" class="text-xs" style="color: var(--color-blue);">Voir tout →</a>
+            <a href="{{ route('admin.reservations.index') }}" class="text-xs font-medium hover:underline" style="color: var(--color-blue);">Voir tout</a>
         </div>
-        <div class="divide-y">
+        <div class="divide-y divide-slate-100">
             @forelse ($recent as $r)
-            <div class="px-5 py-3 flex items-center gap-3">
+            <div class="px-5 py-3 flex items-center gap-3 transition-colors hover:bg-slate-50">
                 <div class="flex-1 min-w-0">
                     <div class="flex items-center gap-2 mb-0.5">
                         <span class="text-xs font-mono font-semibold" style="color: var(--color-orange);">{{ $r->ref }}</span>
@@ -66,7 +71,7 @@
                     <p class="text-sm font-medium truncate" style="color: var(--color-navy);">{{ $r->guest_name }}</p>
                     <p class="text-xs" style="color: var(--color-slate);">{{ $r->room->name }} · {{ $r->check_in->format('d/m') }} → {{ $r->check_out->format('d/m/Y') }}</p>
                 </div>
-                <p class="text-sm font-semibold shrink-0" style="color: var(--color-orange);">{{ number_format($r->total_price, 0, ',', ' ') }}<span class="text-xs font-normal" style="color: var(--color-slate);"> FCFA</span></p>
+                <p class="text-sm font-bold shrink-0 tabular-nums" style="color: var(--color-navy);">{{ number_format($r->total_price, 0, ',', ' ') }}<span class="text-xs font-normal" style="color: var(--color-slate);"> FCFA</span></p>
             </div>
             @empty
             <div class="px-5 py-8 text-center text-sm" style="color: var(--color-slate);">Aucune réservation</div>

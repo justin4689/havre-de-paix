@@ -6,13 +6,19 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Back-office') — Havre de Paix Admin</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @stack('head')
 </head>
 <body class="antialiased" style="font-family: var(--font-sans); background-color: #f1f5f9;">
 
 <div class="flex h-screen overflow-hidden" x-data="{ sidebarOpen: false }">
 
-    {{-- Sidebar --}}
-    <aside class="hidden lg:flex flex-col w-64 shrink-0 shadow-lg"
+    {{-- Overlay mobile --}}
+    <div x-show="sidebarOpen" x-transition.opacity @click="sidebarOpen = false"
+         class="fixed inset-0 z-40 bg-black/50 lg:hidden" style="display: none;"></div>
+
+    {{-- Sidebar (fixe sur mobile, statique sur desktop) --}}
+    <aside class="fixed inset-y-0 left-0 z-50 flex flex-col w-64 shrink-0 shadow-lg transform transition-transform duration-200 lg:static lg:translate-x-0"
+           :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'"
            style="background-color: var(--color-navy);">
         {{-- Logo --}}
         <div class="flex items-center gap-3 px-6 h-16 border-b" style="border-color: rgba(255,255,255,0.1);">
@@ -68,8 +74,13 @@
     {{-- Main --}}
     <div class="flex-1 flex flex-col overflow-hidden">
         {{-- Top bar --}}
-        <header class="bg-white border-b h-16 flex items-center justify-between px-6 shrink-0" style="border-color: var(--color-border);">
-            <h1 class="text-lg font-semibold" style="color: var(--color-navy); font-family: var(--font-serif);">@yield('page-title', 'Tableau de bord')</h1>
+        <header class="bg-white border-b h-16 flex items-center justify-between px-4 sm:px-6 shrink-0" style="border-color: var(--color-border);">
+            <div class="flex items-center gap-2">
+                <button @click="sidebarOpen = true" class="lg:hidden p-2 -ml-2 rounded-lg cursor-pointer transition-colors hover:bg-slate-100" style="color: var(--color-navy);" aria-label="Ouvrir le menu">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                </button>
+                <h1 class="text-lg font-bold tracking-tight" style="color: var(--color-navy);">@yield('page-title', 'Tableau de bord')</h1>
+            </div>
             <div class="flex items-center gap-3">
                 <a href="{{ route('home') }}" target="_blank" class="text-sm flex items-center gap-1.5 transition-colors" style="color: var(--color-slate);">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>

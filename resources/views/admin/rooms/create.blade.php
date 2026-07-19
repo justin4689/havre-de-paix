@@ -10,7 +10,7 @@
     </a>
 </div>
 
-<div class="max-w-2xl">
+<div>
     <div class="bg-white rounded-xl border shadow-sm p-6" style="border-color: var(--color-border);">
         <h2 class="text-lg font-semibold mb-6" style="color: var(--color-navy);">Créer une chambre</h2>
 
@@ -26,11 +26,11 @@
             @csrf
 
             <div class="grid grid-cols-2 gap-4">
-                <div class="col-span-2">
+                <div class="col-span-2 lg:col-span-1">
                     <label class="form-label">Nom de la chambre <span class="text-red-500">*</span></label>
                     <input type="text" name="name" value="{{ old('name') }}" class="form-input" required>
                 </div>
-                <div class="col-span-2">
+                <div class="col-span-2 lg:col-span-1">
                     <label class="form-label">Slug URL <span class="text-red-500">*</span></label>
                     <input type="text" name="slug" value="{{ old('slug') }}" class="form-input" placeholder="ex: suite-lagune" required>
                 </div>
@@ -40,14 +40,15 @@
                 </div>
                 <div class="col-span-2">
                     <label class="form-label">Description longue</label>
-                    <textarea name="description_long" rows="4" class="form-input resize-none">{{ old('description_long') }}</textarea>
+                    <input type="hidden" id="description_long" name="description_long" value="{{ old('description_long') }}">
+                    <trix-editor input="description_long" class="trix-content" placeholder="Décrivez la chambre en détail : cadre, décoration, atouts..."></trix-editor>
                 </div>
             </div>
 
             <hr style="border-color: var(--color-border);">
             <h3 class="font-medium text-sm" style="color: var(--color-navy);">Caractéristiques</h3>
 
-            <div class="grid grid-cols-2 gap-4">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
                 <div>
                     <label class="form-label">Capacité adultes <span class="text-red-500">*</span></label>
                     <input type="number" name="capacity_adults" value="{{ old('capacity_adults', 2) }}" min="1" max="10" class="form-input" required>
@@ -100,17 +101,9 @@
                 </div>
             </div>
 
-            <div>
-                <label class="form-label">Équipements (un par ligne)</label>
-                <textarea name="amenities" rows="4" class="form-input resize-none font-mono text-sm" placeholder="WiFi haut débit&#10;Climatisation&#10;Télévision satellite&#10;Mini-bar">{{ old('amenities') }}</textarea>
-                <p class="text-xs mt-1" style="color: var(--color-slate);">Entrez chaque équipement sur une ligne séparée.</p>
-            </div>
+            @include('admin.rooms._amenities-field', ['amenities' => (array) old('amenities', [])])
 
-            <div>
-                <label class="form-label">Photos de la chambre</label>
-                <input type="file" name="images[]" multiple accept="image/*" class="block w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium cursor-pointer" style="color: var(--color-slate); file:background-color: var(--color-sand); file:color: var(--color-navy);">
-                <p class="text-xs mt-1" style="color: var(--color-slate);">JPG, PNG — max 2 Mo par image. La première image sera utilisée comme photo principale.</p>
-            </div>
+            @include('admin.rooms._images-field', ['label' => 'Photos de la chambre'])
 
             <div class="flex gap-3 pt-2">
                 <button type="submit" class="btn-primary">Créer la chambre</button>
@@ -121,3 +114,20 @@
 </div>
 
 @endsection
+
+@push('head')
+<link rel="stylesheet" href="//unpkg.com/trix@2/dist/trix.css">
+<script src="//unpkg.com/trix@2/dist/trix.umd.min.js" defer></script>
+<style>
+    trix-editor { min-height: 160px; background: white; border: 1px solid var(--color-border); border-radius: 0.5rem; padding: 0.75rem 1rem; font-size: 0.875rem; color: var(--color-navy); }
+    trix-editor:focus { outline: none; border-color: var(--color-orange); box-shadow: 0 0 0 3px rgba(249,115,22,0.15); }
+    trix-toolbar .trix-button-group--file-tools { display: none; }
+</style>
+@endpush
+
+@push('scripts')
+<script>
+// Pas d'upload de fichiers dans la description (photos gérées par le champ dédié)
+document.addEventListener('trix-file-accept', e => e.preventDefault());
+</script>
+@endpush

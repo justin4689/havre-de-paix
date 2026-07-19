@@ -7,7 +7,7 @@
 @section('content')
 
 {{-- ===== HERO ===== --}}
-<section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+<section class="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
     {{-- Background image --}}
     <div class="absolute inset-0 z-0">
         <img src="{{ asset('images/hero-bg.jpg') }}"
@@ -219,26 +219,42 @@
     </div>
 </section>
 
-{{-- ===== TÉMOIGNAGES ===== --}}
-<section class="py-20 px-4 sm:px-6 lg:px-8" style="background-color: var(--color-navy);">
-    <div class="max-w-5xl mx-auto text-center">
+{{-- ===== TÉMOIGNAGES (défilement continu) ===== --}}
+<section class="py-20 overflow-hidden" style="background-color: var(--color-navy);">
+    <div class="max-w-5xl mx-auto text-center px-4 sm:px-6 lg:px-8 mb-12">
         <p class="text-sm font-semibold uppercase tracking-widest mb-3" style="color: var(--color-orange);">Avis clients</p>
-        <h2 class="text-4xl font-semibold text-white mb-12" style="font-family: var(--font-serif);">Ce que disent nos hôtes</h2>
+        <h2 class="text-4xl font-bold text-white tracking-tight">Ce que disent nos hôtes</h2>
+    </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            @foreach ([
-                ['name' => 'Kofi A.', 'note' => '5/5', 'text' => 'Un séjour parfait en famille. La plage privée est magnifique et le service impeccable.'],
-                ['name' => 'Sophie M.', 'note' => '5/5', 'text' => 'Cadre exceptionnel entre mer et lagune. Les chambres sont propres et bien équipées.'],
-                ['name' => 'Jean-Paul K.', 'note' => '4/5', 'text' => 'Idéal pour un séminaire résidentiel. Personnel accueillant et cuisine délicieuse.'],
-            ] as $t)
-            <div class="rounded-2xl p-6 text-left" style="background-color: rgba(255,255,255,0.08);">
-                <div class="flex items-center gap-1 mb-3">
-                    @for ($i = 0; $i < 5; $i++)
-                    <svg class="w-4 h-4" style="color: var(--color-orange);" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+    @php
+    $reviews = [
+        ['name' => 'Kofi A.',        'note' => 5, 'context' => 'Séjour en famille · Avril 2026',      'text' => 'Un séjour parfait en famille. La plage privée est magnifique et le service impeccable.'],
+        ['name' => 'Aminata D.',     'note' => 5, 'context' => 'Lune de miel · Mars 2026',            'text' => 'Le bungalow sur la lagune est magique. Réveil face à l\'eau, personnel aux petits soins. On reviendra !'],
+        ['name' => 'Sophie M.',      'note' => 5, 'context' => 'Séjour en couple · Février 2026',     'text' => 'Cadre exceptionnel entre mer et lagune. Les chambres sont propres et bien équipées.'],
+        ['name' => 'Yao K.',         'note' => 5, 'context' => 'Anniversaire · Mai 2026',             'text' => 'Réservation en ligne simple, paiement à l\'arrivée rassurant. La Suite Prestige vaut chaque franc.'],
+        ['name' => 'Jean-Paul K.',   'note' => 4, 'context' => 'Séminaire d\'entreprise · Janv. 2026','text' => 'Idéal pour un séminaire résidentiel. Personnel accueillant et cuisine délicieuse.'],
+        ['name' => 'Mariam T.',      'note' => 4, 'context' => 'Week-end entre amies · Juin 2026',    'text' => 'Cadre superbe entre mer et lagune. Le restaurant mérite le détour, poissons grillés excellents.'],
+        ['name' => 'Franck B.',      'note' => 5, 'context' => 'Séjour en famille · Déc. 2025',       'text' => 'À 1h30 d\'Abidjan, la déconnexion totale. Plage privée impeccable, les enfants étaient ravis.'],
+        ['name' => 'Awa S.',         'note' => 5, 'context' => 'Voyage solo · Mai 2026',              'text' => 'L\'annulation gratuite m\'a décidée, l\'accueil m\'a conquise. Chambre Vue Mer parfaite.'],
+    ];
+    @endphp
+
+    <div class="relative marquee">
+        {{-- Fondus latéraux --}}
+        <div class="absolute inset-y-0 left-0 w-16 sm:w-32 z-10 pointer-events-none" style="background: linear-gradient(to right, var(--color-navy), transparent);"></div>
+        <div class="absolute inset-y-0 right-0 w-16 sm:w-32 z-10 pointer-events-none" style="background: linear-gradient(to left, var(--color-navy), transparent);"></div>
+
+        <div class="marquee-track flex w-max gap-5">
+            @foreach (array_merge($reviews, $reviews) as $t)
+            <div class="w-80 shrink-0 rounded-2xl p-6 text-left" style="background-color: rgba(255,255,255,0.08);">
+                <div class="flex items-center gap-1 mb-3" role="img" aria-label="Note : {{ $t['note'] }} sur 5">
+                    @for ($i = 1; $i <= 5; $i++)
+                    <svg class="w-4 h-4" style="color: {{ $i <= $t['note'] ? 'var(--color-orange)' : 'rgba(255,255,255,0.2)' }};" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
                     @endfor
                 </div>
                 <p class="text-sm leading-relaxed mb-4" style="color: rgba(255,255,255,0.8);">"{{ $t['text'] }}"</p>
-                <p class="text-sm font-semibold text-white">— {{ $t['name'] }}</p>
+                <p class="text-sm font-semibold text-white">{{ $t['name'] }}</p>
+                <p class="text-xs mt-0.5" style="color: rgba(255,255,255,0.5);">{{ $t['context'] }}</p>
             </div>
             @endforeach
         </div>
