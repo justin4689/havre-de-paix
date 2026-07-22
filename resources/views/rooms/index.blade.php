@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Nos Chambres & Suites — Havre de Paix Assinie')
-@section('description', 'Découvrez nos chambres et suites avec vue mer, lagune ou jardin à Assinie. Réservez en ligne avec confirmation instantanée.')
+@section('title', 'Nos Chambres & Suites — Résidence Hôtel Cascades')
+@section('description', 'Découvrez nos chambres et suites avec vue mer, lagune ou jardin à Abidjan. Réservez en ligne avec confirmation instantanée.')
 @section('hero_nav', '1')
 
 @section('content')
@@ -10,14 +10,14 @@
 
     {{-- Header --}}
     <div class="relative flex items-center justify-center text-center h-[60vh] min-h-[420px] px-4 sm:px-6 lg:px-8 overflow-hidden">
-        <img src="{{ asset('images/rooms-hero.jpg') }}" alt="Chambre du Havre de Paix"
+        <img src="{{ asset('images/rooms-hero.jpg') }}" alt="Chambre de la Résidence Hôtel Cascades"
              class="absolute inset-0 w-full h-full object-cover" loading="eager">
         <div class="absolute inset-0 hero-overlay"></div>
         <div class="relative z-10 pt-16">
             <p class="text-sm font-semibold uppercase tracking-widest mb-3" style="color: var(--color-orange);">Hébergement</p>
             <h1 class="text-4xl sm:text-5xl font-bold text-white mb-4" style="font-family: var(--font-serif);">Nos Chambres & Suites</h1>
             <p class="max-w-xl mx-auto" style="color: rgba(255,255,255,0.85);">
-                Du confort standard à la suite présidentielle — chaque hébergement offre un cadre tropical unique entre mer et lagune.
+                Du confort standard à la suite présidentielle — chaque hébergement offre un cadre tropical unique au cœur de Cocody.
             </p>
         </div>
     </div>

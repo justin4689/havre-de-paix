@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connexion — Havre de Paix Admin</title>
+    <title>Connexion — Résidence Hôtel Cascades Admin</title>
     @vite(['resources/css/app.css'])
 </head>
 <body style="background-color: var(--color-navy); font-family: var(--font-sans);" class="min-h-screen flex items-center justify-center p-4">
     <div class="w-full max-w-sm">
         {{-- Logo --}}
         <div class="text-center mb-8">
-            <div class="w-14 h-14 rounded-2xl mx-auto mb-3 flex items-center justify-center text-white font-bold text-xl shadow-xl" style="background-color: var(--color-orange);">HDP</div>
-            <h1 class="text-2xl font-bold text-white" style="font-family: var(--font-serif);">Havre de Paix</h1>
+            <div class="w-14 h-14 rounded-2xl mx-auto mb-3 flex items-center justify-center text-white font-bold text-xl shadow-xl" style="background-color: var(--color-orange);">RHC</div>
+            <h1 class="text-2xl font-bold text-white" style="font-family: var(--font-serif);">Résidence Hôtel Cascades</h1>
             <p class="text-sm mt-1" style="color: rgba(255,255,255,0.5);">Back-office hôtelier</p>
         </div>
 

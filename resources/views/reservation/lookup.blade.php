@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Retrouver ma réservation — Havre de Paix Assinie')
-@section('description', 'Consultez ou annulez votre réservation au Havre de Paix avec votre référence (HDP-AAAA-XXXX) et votre email.')
+@section('title', 'Retrouver ma réservation — Résidence Hôtel Cascades')
+@section('description', 'Consultez ou annulez votre réservation à la Résidence Hôtel Cascades avec votre référence (RHC-AAAA-XXXX) et votre email.')
 
 @section('content')
 <div class="pt-24 pb-20 min-h-screen px-4 sm:px-6" style="background-color: var(--color-snow);">
@@ -25,7 +25,7 @@
                 <label for="ref" class="form-label">Référence de réservation <span class="text-red-500">*</span></label>
                 <input type="text" name="ref" id="ref"
                        value="{{ old('ref') }}"
-                       placeholder="HDP-{{ date('Y') }}-0001"
+                       placeholder="RHC-{{ date('Y') }}-0001"
                        class="form-input uppercase"
                        autocomplete="off" required>
                 @error('ref')<p class="text-xs text-red-600 mt-1.5">{{ $message }}</p>@enderror
@@ -47,7 +47,7 @@
         </form>
 
         <p class="text-center text-xs mt-5 leading-relaxed" style="color: var(--color-slate);">
-            Référence introuvable ? Elle figure dans l'objet de votre email de confirmation (format HDP-AAAA-XXXX).<br>
+            Référence introuvable ? Elle figure dans l'objet de votre email de confirmation (format RHC-AAAA-XXXX).<br>
             Besoin d'aide ? <a href="{{ route('contact') }}" class="underline" style="color: var(--color-blue);">Contactez la réception</a>.
         </p>
     </div>

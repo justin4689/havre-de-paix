@@ -15,15 +15,15 @@ class DatabaseSeeder extends Seeder
     {
         // Users
         User::create([
-            'name'     => 'Admin Havre de Paix',
-            'email'    => 'admin@havredepaix-assinie.com',
+            'name'     => 'Admin Résidence Hôtel Cascades',
+            'email'    => 'admin@residencehotelcascades.com',
             'password' => Hash::make('HDP@admin2024'),
             'role'     => 'admin',
         ]);
 
         User::create([
             'name'     => 'Réception HDP',
-            'email'    => 'reception@havredepaix-assinie.com',
+            'email'    => 'reception@residencehotelcascades.com',
             'password' => Hash::make('reception2024'),
             'role'     => 'receptionist',
         ]);
@@ -34,7 +34,7 @@ class DatabaseSeeder extends Seeder
                 'slug'              => 'bungalow-lagune',
                 'name'              => 'Bungalow Lagune',
                 'description_short' => 'Bungalow en bois flotté sur pilotis, vue directe sur la lagune. Le matin, le soleil se lève face à vous.',
-                'description_long'  => "<div>Plongez dans un cadre unique avec ce bungalow sur pilotis offrant une <strong>vue panoramique sur la lagune d'Assinie</strong>. Décoré avec des matériaux naturels — bois flotté, rotin, lin — cet espace de 32 m² invite au calme absolu.</div><h2>Ce qui rend ce bungalow unique</h2><ul><li>Terrasse privée au-dessus de l'eau avec chaises longues</li><li>Lever de soleil face à la lagune depuis le lit</li><li>Douche extérieure en bois flotté</li></ul><div>La terrasse privée est l'endroit idéal pour siroter un cocktail au coucher du soleil.</div>",
+                'description_long'  => "<div>Plongez dans un cadre unique avec ce bungalow sur pilotis offrant une <strong>vue panoramique sur la lagune d'Abidjan</strong>. Décoré avec des matériaux naturels — bois flotté, rotin, lin — cet espace de 32 m² invite au calme absolu.</div><h2>Ce qui rend ce bungalow unique</h2><ul><li>Terrasse privée au-dessus de l'eau avec chaises longues</li><li>Lever de soleil face à la lagune depuis le lit</li><li>Douche extérieure en bois flotté</li></ul><div>La terrasse privée est l'endroit idéal pour siroter un cocktail au coucher du soleil.</div>",
                 'capacity_adults'   => 2,
                 'capacity_children' => 1,
                 'size_m2'           => 32,
@@ -68,7 +68,7 @@ class DatabaseSeeder extends Seeder
                 'slug'              => 'suite-prestige',
                 'name'              => 'Suite Prestige',
                 'description_short' => 'Notre suite la plus spacieuse — salon séparé, jacuzzi sur terrasse et vue à 180° sur lagune et mer.',
-                'description_long'  => "La Suite Prestige est l'hébergement le plus exclusif du Havre de Paix. Avec ses 55 m², elle comprend une chambre avec lit king size, un salon séparé, et une large terrasse panoramique où trône un jacuzzi privatif.\n\nParfaite pour une lune de miel ou une occasion spéciale.",
+                'description_long'  => "La Suite Prestige est l'hébergement le plus exclusif de la Résidence Hôtel Cascades. Avec ses 55 m², elle comprend une chambre avec lit king size, un salon séparé, et une large terrasse panoramique où trône un jacuzzi privatif.\n\nParfaite pour une lune de miel ou une occasion spéciale.",
                 'capacity_adults'   => 2,
                 'capacity_children' => 2,
                 'size_m2'           => 55,
@@ -85,7 +85,7 @@ class DatabaseSeeder extends Seeder
                 'slug'              => 'chambre-jardin',
                 'name'              => 'Chambre Jardin',
                 'description_short' => 'Chambre cosy face aux jardins tropicaux. Idéale pour les amoureux de nature et de calme.',
-                'description_long'  => "Nichée au cœur des jardins tropicaux du Havre de Paix, cette chambre de 24 m² offre un cadre verdoyant et serein. La végétation luxuriante visible depuis la terrasse privée en fait un véritable havre de paix.",
+                'description_long'  => "Nichée au cœur des jardins tropicaux de la Résidence Hôtel Cascades, cette chambre de 24 m² offre un cadre verdoyant et serein. La végétation luxuriante visible depuis la terrasse privée en fait un véritable havre de paix.",
                 'capacity_adults'   => 2,
                 'capacity_children' => 1,
                 'size_m2'           => 24,
@@ -158,7 +158,7 @@ class DatabaseSeeder extends Seeder
         $room3 = Room::where('slug', 'suite-prestige')->first();
 
         Reservation::create([
-            'ref'              => 'HDP-2026-0001',
+            'ref'              => 'RHC-2026-0001',
             'room_id'          => $room1->id,
             'guest_name'       => 'Marie Konan',
             'guest_email'      => 'marie.konan@email.com',
@@ -174,7 +174,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Reservation::create([
-            'ref'          => 'HDP-2026-0002',
+            'ref'          => 'RHC-2026-0002',
             'room_id'      => $room2->id,
             'guest_name'   => 'Jean-Baptiste Diallo',
             'guest_email'  => 'jb.diallo@gmail.com',
@@ -189,7 +189,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Reservation::create([
-            'ref'          => 'HDP-2026-0003',
+            'ref'          => 'RHC-2026-0003',
             'room_id'      => $room3->id,
             'guest_name'   => 'Sophie Renard',
             'guest_email'  => 'sophie.renard@outlook.fr',

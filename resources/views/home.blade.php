@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Havre de Paix Assinie — Résidence-Hôtel entre mer et lagune')
-@section('description', 'Réservez votre séjour au Havre de Paix, résidence-hôtel à Assinie Km 18,75, Côte d\'Ivoire. Chambres et suites avec vue mer ou lagune. Paiement à l\'arrivée.')
+@section('title', 'Résidence Hôtel Cascades — Résidence-Hôtel au cœur de Cocody')
+@section('description', 'Réservez votre séjour à la Résidence Hôtel Cascades, résidence-hôtel à Cocody, Abidjan, Côte d\'Ivoire. Chambres et suites tout confort dans un cadre calme et verdoyant. Paiement à l\'arrivée.')
 @section('hero_nav', '1')
 
 @section('content')
@@ -11,7 +11,7 @@
     {{-- Background image --}}
     <div class="absolute inset-0 z-0">
         <img src="{{ asset('images/hero-bg.jpg') }}"
-             alt="Havre de Paix — Assinie"
+             alt="Résidence Hôtel Cascades — Abidjan"
              class="w-full h-full object-cover"
              loading="eager">
         <div class="absolute inset-0 hero-overlay"></div>
@@ -20,16 +20,16 @@
     <div class="relative z-10 text-center text-white px-4 sm:px-6 max-w-5xl mx-auto pt-24">
         <div class="badge-orange mb-6 inline-flex">
             <svg class="w-3.5 h-3.5 mr-1.5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-            Assinie · Km 18,75 · Côte d'Ivoire
+            Abidjan · Cocody · Côte d'Ivoire
         </div>
 
         <h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight" style="font-family: var(--font-serif);">
-            Votre Havre<br>
-            <span style="color: var(--color-orange);">de Paix</span>
+            Résidence Hôtel<br>
+            <span style="color: var(--color-orange);">Cascades</span>
         </h1>
 
         <p class="text-lg sm:text-xl mb-10 leading-relaxed max-w-2xl mx-auto" style="color: rgba(255,255,255,0.85);">
-            Entre mer et lagune, à 94 km d'Abidjan. Chambres et suites en cadre tropical.
+            Au cœur de Cocody, à Abidjan. Chambres et suites dans un cadre calme et verdoyant.
             <strong style="color: white;">Paiement à l'arrivée — aucun prépaiement requis.</strong>
         </p>
 
@@ -95,13 +95,13 @@
     <div class="max-w-7xl mx-auto">
         <div class="text-center mb-14">
             <p class="text-sm font-semibold uppercase tracking-widest mb-3" style="color: var(--color-orange);">Notre différence</p>
-            <h2 class="section-title">Pourquoi choisir le Havre de Paix ?</h2>
+            <h2 class="section-title">Pourquoi choisir la Résidence Hôtel Cascades ?</h2>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             @foreach ([
-                ['icon' => 'M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z', 'title' => 'Plage privée', 'desc' => 'Accès direct à une plage privée de sable fin entre mer et lagune.'],
-                ['icon' => 'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z', 'title' => 'Cadre tropical', 'desc' => 'Un écrin de nature à 94 km d\'Abidjan, au cœur d\'Assinie.'],
+                ['icon' => 'M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z', 'title' => 'Piscine & jardins', 'desc' => 'Détendez-vous au bord de la piscine, dans un cadre verdoyant et paisible.'],
+                ['icon' => 'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z', 'title' => 'Emplacement idéal', 'desc' => 'Au cœur de Cocody, à quelques minutes des commerces, ambassades et du Plateau.'],
                 ['icon' => 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z', 'title' => 'Paiement à l\'arrivée', 'desc' => 'Réservez sans risque. Vous payez uniquement à votre arrivée.'],
                 ['icon' => 'M13 10V3L4 14h7v7l9-11h-7z', 'title' => 'Confirmation immédiate', 'desc' => 'Votre réservation est confirmée en ligne en moins de 5 minutes.'],
             ] as $feat)
@@ -195,24 +195,24 @@
         <div class="text-center mb-12">
             <p class="text-sm font-semibold uppercase tracking-widest mb-2" style="color: var(--color-orange);">Le lieu</p>
             <h2 class="section-title">Le décor de votre séjour</h2>
-            <p class="section-subtitle max-w-md mx-auto">Plage privée, piscine et terrasses face à la lagune, au Kilomètre 18,75 d'Assinie.</p>
+            <p class="section-subtitle max-w-md mx-auto">Piscine, terrasses et jardins — un havre de calme en plein Abidjan.</p>
         </div>
 
         <div class="grid grid-cols-2 md:grid-cols-4 md:grid-rows-2 gap-3 md:h-[480px]">
             <div class="col-span-2 md:row-span-2 rounded-2xl overflow-hidden group aspect-[16/10] md:aspect-auto">
-                <img src="{{ asset('images/beach-access.jpg') }}" alt="Accès à la plage privée, entre mer et lagune"
+                <img src="{{ asset('images/beach-access.jpg') }}" alt="Les jardins de la résidence"
                      class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
             </div>
             <div class="rounded-2xl overflow-hidden group aspect-square md:aspect-auto">
-                <img src="{{ asset('images/pool.jpg') }}" alt="Piscine du Havre de Paix"
+                <img src="{{ asset('images/pool.jpg') }}" alt="Piscine de la Résidence Hôtel Cascades"
                      class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
             </div>
             <div class="rounded-2xl overflow-hidden group aspect-square md:aspect-auto">
-                <img src="{{ asset('images/terrace.jpg') }}" alt="Terrasse face à la lagune"
+                <img src="{{ asset('images/terrace.jpg') }}" alt="La terrasse de la résidence"
                      class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
             </div>
             <div class="col-span-2 rounded-2xl overflow-hidden group aspect-[16/9] md:aspect-auto">
-                <img src="{{ asset('images/hero-bg.jpg') }}" alt="Vue du domaine du Havre de Paix à Assinie"
+                <img src="{{ asset('images/hero-bg.jpg') }}" alt="Vue du domaine de la Résidence Hôtel Cascades à Abidjan"
                      class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
             </div>
         </div>
@@ -228,14 +228,14 @@
 
     @php
     $reviews = [
-        ['name' => 'Kofi A.',        'note' => 5, 'context' => 'Séjour en famille · Avril 2026',      'text' => 'Un séjour parfait en famille. La plage privée est magnifique et le service impeccable.'],
-        ['name' => 'Aminata D.',     'note' => 5, 'context' => 'Lune de miel · Mars 2026',            'text' => 'Le bungalow sur la lagune est magique. Réveil face à l\'eau, personnel aux petits soins. On reviendra !'],
-        ['name' => 'Sophie M.',      'note' => 5, 'context' => 'Séjour en couple · Février 2026',     'text' => 'Cadre exceptionnel entre mer et lagune. Les chambres sont propres et bien équipées.'],
+        ['name' => 'Kofi A.',        'note' => 5, 'context' => 'Séjour en famille · Avril 2026',      'text' => 'Un séjour parfait en famille. La piscine est superbe et le service impeccable.'],
+        ['name' => 'Aminata D.',     'note' => 5, 'context' => 'Voyage d\'affaires · Mars 2026',      'text' => 'Idéalement situé, calme absolu à deux pas de mes rendez-vous à Cocody. Personnel aux petits soins.'],
+        ['name' => 'Sophie M.',      'note' => 5, 'context' => 'Séjour en couple · Février 2026',     'text' => 'Cadre verdoyant et reposant en pleine ville. Les chambres sont propres et très bien équipées.'],
         ['name' => 'Yao K.',         'note' => 5, 'context' => 'Anniversaire · Mai 2026',             'text' => 'Réservation en ligne simple, paiement à l\'arrivée rassurant. La Suite Prestige vaut chaque franc.'],
         ['name' => 'Jean-Paul K.',   'note' => 4, 'context' => 'Séminaire d\'entreprise · Janv. 2026','text' => 'Idéal pour un séminaire résidentiel. Personnel accueillant et cuisine délicieuse.'],
-        ['name' => 'Mariam T.',      'note' => 4, 'context' => 'Week-end entre amies · Juin 2026',    'text' => 'Cadre superbe entre mer et lagune. Le restaurant mérite le détour, poissons grillés excellents.'],
-        ['name' => 'Franck B.',      'note' => 5, 'context' => 'Séjour en famille · Déc. 2025',       'text' => 'À 1h30 d\'Abidjan, la déconnexion totale. Plage privée impeccable, les enfants étaient ravis.'],
-        ['name' => 'Awa S.',         'note' => 5, 'context' => 'Voyage solo · Mai 2026',              'text' => 'L\'annulation gratuite m\'a décidée, l\'accueil m\'a conquise. Chambre Vue Mer parfaite.'],
+        ['name' => 'Mariam T.',      'note' => 4, 'context' => 'Week-end entre amies · Juin 2026',    'text' => 'Cadre superbe et calme rare à Abidjan. Le restaurant mérite le détour, poissons grillés excellents.'],
+        ['name' => 'Franck B.',      'note' => 5, 'context' => 'Séjour en famille · Déc. 2025',       'text' => 'En plein Cocody et pourtant la déconnexion totale. Piscine impeccable, les enfants étaient ravis.'],
+        ['name' => 'Awa S.',         'note' => 5, 'context' => 'Voyage solo · Mai 2026',              'text' => 'L\'annulation gratuite m\'a décidée, l\'accueil m\'a conquise. Chambre parfaite, quartier sûr.'],
     ];
     @endphp
 

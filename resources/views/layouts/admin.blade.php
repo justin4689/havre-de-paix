@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Back-office') — Havre de Paix Admin</title>
+    <title>@yield('title', 'Back-office') — Résidence Hôtel Cascades Admin</title>
+    <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('head')
 </head>
@@ -22,9 +23,9 @@
            style="background-color: var(--color-navy);">
         {{-- Logo --}}
         <div class="flex items-center gap-3 px-6 h-16 border-b" style="border-color: rgba(255,255,255,0.1);">
-            <div class="w-8 h-8 rounded-lg flex items-center justify-center text-white font-bold text-sm" style="background-color: var(--color-orange);">HDP</div>
+            <img src="{{ asset('images/logo.png') }}" alt="Résidence Hôtel Cascades" class="w-10 h-10 rounded-full bg-white object-contain p-1">
             <div>
-                <div class="text-white font-semibold text-sm" style="font-family: var(--font-serif);">Havre de Paix</div>
+                <div class="text-white font-semibold text-sm">Hôtel Cascades</div>
                 <div class="text-xs" style="color: rgba(255,255,255,0.5);">Back-office</div>
             </div>
         </div>

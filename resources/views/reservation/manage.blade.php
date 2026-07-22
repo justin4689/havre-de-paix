@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Ma réservation ' . $reservation->ref . ' — Havre de Paix Assinie')
+@section('title', 'Ma réservation ' . $reservation->ref . ' — Résidence Hôtel Cascades')
 
 @php
 $badgeStyles = [

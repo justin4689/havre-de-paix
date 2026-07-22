@@ -7,7 +7,7 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-# Havre de Paix Assinie
+# Résidence Hôtel Cascades
 
 Site vitrine + moteur de réservation — Laravel Blade · MySQL · Vite/Tailwind.
 
@@ -26,7 +26,7 @@ réservations de démo). Comptez quelques minutes la première fois.
 | Site | http://localhost:8000 |
 | Vite (HMR) | http://localhost:5173 (chargé automatiquement par les pages) |
 | MySQL | `127.0.0.1:3306` — base `havre_de_paix`, user `havre` / `havre` |
-| Admin seedé | `admin@havredepaix-assinie.com` / `HDP@admin2024` |
+| Admin seedé | `admin@residencehotelcascades.com` / `HDP@admin2024` |
 
 Commandes courantes :
 
@@ -42,6 +42,31 @@ Le code est monté en volume : les modifications PHP/Blade sont visibles au
 rechargement, le CSS/JS est rechargé à chaud par Vite. Le `.env` est la source
 de vérité : Laravel le lit directement, et `docker-compose.yml` y puise les
 variables `DB_*` pour configurer le service MySQL.
+
+## Déploiement production (VPS)
+
+Pile dédiée [docker-compose.prod.yml](docker-compose.prod.yml) : image immuable
+(code + vendor `--no-dev` + assets Vite compilés), PHP-FPM derrière Nginx,
+queue `queue:work` et scheduler supervisés, MySQL non exposé, tout en `www-data`.
+
+```bash
+# Sur le VPS — première mise en place
+cp .env.production.example .env          # puis compléter les CHANGER-MOI
+docker compose -f docker-compose.prod.yml run --rm --no-deps app php artisan key:generate --show
+                                         # → coller la clé dans APP_KEY du .env
+docker compose -f docker-compose.prod.yml up -d --build
+docker compose -f docker-compose.prod.yml exec app php artisan migrate --force
+
+# Déploiement d'une nouvelle version
+git pull
+docker compose -f docker-compose.prod.yml up -d --build
+docker compose -f docker-compose.prod.yml exec app php artisan migrate --force
+```
+
+- Les caches Laravel (config/routes/vues) sont générés au démarrage du conteneur.
+- Les migrations sont une étape de déploiement manuelle (ou `RUN_MIGRATIONS=1` dans le `.env`).
+- Seuls les uploads (`storage/app/public`), les logs et MySQL vivent dans des volumes.
+- TLS : à terminer en amont (Cloudflare ou reverse proxy du VPS) — Nginx écoute sur `HTTP_PORT` (80 par défaut).
 
 ---
 

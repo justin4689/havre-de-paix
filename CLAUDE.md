@@ -1,11 +1,11 @@
-# CLAUDE.md — Havre de Paix Assinie
+# CLAUDE.md — Résidence Hôtel Cascades
 ## Site web avec moteur de réservation de chambres
 
 ---
 
 ## Présentation du projet
 
-Site vitrine + moteur de réservation en ligne pour le **Havre de Paix**, résidence-hôtel située à Assinie Kilomètre 18,75, Côte d'Ivoire.
+Site vitrine + moteur de réservation en ligne pour le **Résidence Hôtel Cascades**, résidence-hôtel située à Cocody, Abidjan, Côte d'Ivoire.
 
 - **Stack** : LARAVEL BLADE · MYSQL · Brevo (emails)
 - **Hébergement** : VPS Linux (OVH ou DigitalOcean) + Cloudflare CDN
@@ -16,19 +16,24 @@ Site vitrine + moteur de réservation en ligne pour le **Havre de Paix**, résid
 
 ## Palette de couleurs
 
-Extraite du logo : soleil orange + lagon bleu + silhouettes nuit.
+Extraite du logo : cascade cyan + typographie noire.
 
 ```css
 :root {
   /* Primaires */
-  --color-orange:      #F97316; /* CTA, boutons principaux, accents */
-  --color-orange-dark: #EA580C; /* hover des boutons orange */
-  --color-navy:        #1E293B; /* textes titres, fond hero, navigation */
-  --color-blue:        #0369A1; /* liens, icônes, éléments secondaires */
+  --color-primary:      #42B6DA; /* cyan du logo — CTA, accents */
+  --color-primary-dark: #2D9EC4; /* hover des CTA */
+  --color-ink:          #0B1215; /* noir du logo — titres, structure, fonds sombres */
+
+  /* Alias hérités (les vues utilisent encore ces noms) */
+  --color-orange:      var(--color-primary);
+  --color-orange-dark: var(--color-primary-dark);
+  --color-navy:        var(--color-ink);
+  --color-blue:        #1B7EA0; /* cyan foncé — liens lisibles sur blanc (AA) */
 
   /* Secondaires */
-  --color-sky:         #BAE6FD; /* fonds légers, badges informatifs */
-  --color-sand:        #FED7AA; /* encarts promo, highlights doux */
+  --color-sky:         #D5F1FA; /* fonds légers, badges informatifs */
+  --color-sand:        #BFE9F6; /* encarts highlight */
 
   /* Neutres */
   --color-white:       #FFFFFF;
@@ -37,6 +42,9 @@ Extraite du logo : soleil orange + lagon bleu + silhouettes nuit.
   --color-border:      #E2E8F0; /* bordures, séparateurs */
 }
 ```
+
+> Choix marque : les CTA cyan utilisent du texte **blanc** (décision du client,
+> assumée malgré un contraste AA limite sur #42B6DA — graisse bold obligatoire).
 
 ### Règles d'usage
 
@@ -49,10 +57,10 @@ Extraite du logo : soleil orange + lagon bleu + silhouettes nuit.
 | Corps de texte           | `--color-slate`            |
 | Fond page intérieure     | `--color-snow`             |
 | Fond hero / header       | `--color-navy`             |
-| Badges / tags            | `--color-sky` + texte `#075985` |
+| Badges / tags            | `--color-sky` + texte `#0F5E77` |
 | Bordures / séparateurs   | `--color-border`           |
 
-> **Règle simple** : orange pour l'action, navy pour la structure, bleu pour l'information, slate pour le contenu.
+> **Règle simple** : cyan pour l'action (texte blanc en gras), noir pour la structure, cyan foncé pour les liens, slate pour le contenu.
 
 ---
 
@@ -94,7 +102,7 @@ images: string[], created_at
 ### `reservations` — Réservations
 
 ```ts
-id, ref,           // ex: HDP-2026-0001
+id, ref,           // ex: RHC-2026-0001
 room_id,
 guest_name, guest_email, guest_phone,
 check_in, check_out, nights,
@@ -141,7 +149,7 @@ id, room_id, start_date, end_date, reason
         ↓
    ┌─────────────────────────────────┐
    │  Chambre bloquée en BDD        │
-   │  Ref générée : HDP-YYYY-XXXX   │
+   │  Ref générée : RHC-YYYY-XXXX   │
    │  Email confirmation → client   │
    │  Email alerte → hôtel          │
    └─────────────────────────────────┘
@@ -176,10 +184,10 @@ POST /api/admin/pricing-rules
 
 | Déclencheur         | Destinataire | Objet                                      |
 |---------------------|--------------|--------------------------------------------|
-| Réservation créée   | Client       | Confirmation réservation HDP-YYYY-XXXX     |
+| Réservation créée   | Client       | Confirmation réservation RHC-YYYY-XXXX     |
 | Réservation créée   | Hôtel        | Nouvelle réservation — [Nom client]        |
 | J-1 avant arrivée   | Client       | Rappel : votre séjour commence demain      |
-| Annulation client   | Client       | Annulation confirmée — HDP-YYYY-XXXX      |
+| Annulation client   | Client       | Annulation confirmée — RHC-YYYY-XXXX      |
 | Annulation client   | Hôtel        | Annulation reçue — [Nom client]            |
 
 ---
@@ -216,7 +224,7 @@ app/Http/Controllers/       → Contrôleurs fins : injection du service, appel,
 - Le prix affiché est toujours le prix total du séjour (nuits × tarif applicable)
 - La politique d'annulation par défaut : gratuite jusqu'à 48h avant l'arrivée
 - Aucun prépaiement — paiement intégral à l'arrivée
-- Référence réservation : `HDP-{YEAR}-{4 chiffres séquentiels}` ex: `HDP-2026-0042`
+- Référence réservation : `RHC-{YEAR}-{4 chiffres séquentiels}` ex: `RHC-2026-0042`
 
 ---
 
@@ -224,7 +232,7 @@ app/Http/Controllers/       → Contrôleurs fins : injection du service, appel,
 
 - Schema.org `LodgingBusiness` sur la page d'accueil
 - Schema.org `HotelRoom` sur chaque fiche chambre
-- Meta title pattern : `{Nom chambre} — Havre de Paix Assinie | Réservation en ligne`
+- Meta title pattern : `{Nom chambre} — Résidence Hôtel Cascades | Réservation en ligne`
 - Alt text obligatoire sur toutes les images
 - Sitemap XML généré automatiquement à chaque ajout de chambre
 

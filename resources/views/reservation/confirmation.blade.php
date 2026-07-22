@@ -79,10 +79,10 @@
                 Comment nous trouver ?
             </h2>
             <p class="text-sm mb-2" style="color: var(--color-slate);">
-                <strong>Havre de Paix — Assinie Km 18,75</strong>, Côte d'Ivoire<br>
-                À 94 km d'Abidjan par l'autoroute de Bassam, puis Assinie.
+                <strong>Résidence Hôtel Cascades — Abidjan Km 18,75</strong>, Côte d'Ivoire<br>
+                À 94 km d'Abidjan par l'autoroute de Bassam, puis Abidjan.
             </p>
-            <a href="https://maps.google.com/?q=Assinie+Km+18,75+Cote+d+Ivoire" target="_blank" rel="noopener"
+            <a href="https://maps.google.com/?q=Cocody+Abidjan+Cote+d+Ivoire" target="_blank" rel="noopener"
                class="text-sm font-medium flex items-center gap-1.5 mt-3 transition-colors" style="color: var(--color-blue);">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                 Ouvrir dans Google Maps

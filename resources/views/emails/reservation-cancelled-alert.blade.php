@@ -5,7 +5,7 @@
 <title>Annulation — {{ $reservation->ref }}</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: 'Segoe UI', Arial, sans-serif; background: #F8FAFC; color: #1E293B; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #F8FAFC; color: #0B1215; }
   .wrapper { max-width: 540px; margin: 32px auto; background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,.08); }
   .header { background: #DC2626; padding: 20px 32px; }
   .header h1 { color: #fff; font-size: 17px; font-weight: 700; }
@@ -15,7 +15,7 @@
   .kv { display: flex; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid #E2E8F0; font-size: 14px; }
   .kv:last-child { border-bottom: none; }
   .kv .k { color: #64748B; }
-  .kv .v { font-weight: 600; color: #1E293B; }
+  .kv .v { font-weight: 600; color: #0B1215; }
   .footer { padding: 18px 32px; border-top: 1px solid #E2E8F0; font-size: 12px; color: #94A3B8; }
 </style>
 </head>
@@ -23,7 +23,7 @@
 <div class="wrapper">
   <div class="header">
     <h1>Réservation annulée</h1>
-    <p>Havre de Paix — Back-office</p>
+    <p>Résidence Hôtel Cascades — Back-office</p>
   </div>
   <div class="body">
     <div class="ref">{{ $reservation->ref }}</div>

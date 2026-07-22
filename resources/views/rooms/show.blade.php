@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $room->name . ' — Havre de Paix Assinie')
+@section('title', $room->name . ' — Résidence Hôtel Cascades')
 @section('description', $room->description_short . ' Vue ' . $room->view_label . '. Réservez en ligne.')
 
 @push('head')

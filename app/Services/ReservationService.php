@@ -63,7 +63,7 @@ class ReservationService
         ]);
 
         $this->sendSafely(fn () => Mail::to($reservation->guest_email)->send(new \App\Mail\ReservationConfirmation($reservation)));
-        $this->sendSafely(fn () => Mail::to(config('mail.hotel_email', 'hotel@havredepaix-assinie.com'))->send(new \App\Mail\ReservationAlert($reservation)));
+        $this->sendSafely(fn () => Mail::to(config('mail.hotel_email', 'hotel@residencehotelcascades.com'))->send(new \App\Mail\ReservationAlert($reservation)));
 
         return $reservation;
     }
@@ -94,7 +94,7 @@ class ReservationService
         ]);
 
         $this->sendSafely(fn () => Mail::to($reservation->guest_email)->send(new \App\Mail\ReservationCancelled($reservation)));
-        $this->sendSafely(fn () => Mail::to(config('mail.hotel_email', 'hotel@havredepaix-assinie.com'))->send(new \App\Mail\ReservationCancelledAlert($reservation)));
+        $this->sendSafely(fn () => Mail::to(config('mail.hotel_email', 'hotel@residencehotelcascades.com'))->send(new \App\Mail\ReservationCancelledAlert($reservation)));
 
         return $reservation;
     }
@@ -129,7 +129,7 @@ class ReservationService
     {
         $year = (int) date('Y');
 
-        return 'HDP-' . $year . '-' . str_pad((string) ($this->reservations->countCreatedInYear($year) + 1), 4, '0', STR_PAD_LEFT);
+        return 'RHC-' . $year . '-' . str_pad((string) ($this->reservations->countCreatedInYear($year) + 1), 4, '0', STR_PAD_LEFT);
     }
 
     /** La réservation ne doit jamais échouer à cause d'un email. */

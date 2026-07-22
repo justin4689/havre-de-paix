@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Mentions légales, CGV & Confidentialité — Havre de Paix Assinie')
-@section('description', 'Mentions légales, conditions générales de vente et politique de confidentialité du Havre de Paix, résidence-hôtel à Assinie, Côte d\'Ivoire.')
+@section('title', 'Mentions légales, CGV & Confidentialité — Résidence Hôtel Cascades')
+@section('description', 'Mentions légales, conditions générales de vente et politique de confidentialité de la Résidence Hôtel Cascades, résidence-hôtel à Abidjan, Côte d\'Ivoire.')
 
 @section('content')
 <div class="pt-20 pb-20" style="background-color: var(--color-snow);">
@@ -38,9 +38,9 @@
                         <div>
                             <h3 class="font-bold text-base mb-2" style="color: var(--color-navy);">Éditeur du site</h3>
                             <p>
-                                <strong>Havre de Paix</strong> — Résidence-Hôtel<br>
-                                Assinie Kilomètre 18,75, Côte d'Ivoire<br>
-                                Email : <a href="mailto:contact@havredepaix-assinie.com" class="underline" style="color: var(--color-blue);">contact@havredepaix-assinie.com</a><br>
+                                <strong>Résidence Hôtel Cascades</strong> — Résidence-Hôtel<br>
+                                Cocody, Abidjan, Côte d'Ivoire<br>
+                                Email : <a href="mailto:contact@residencehotelcascades.com" class="underline" style="color: var(--color-blue);">contact@residencehotelcascades.com</a><br>
                                 Téléphone : +225 XX XX XX XX XX <span class="badge-orange ml-1">À compléter</span><br>
                                 RCCM : <span class="badge-orange">À compléter</span><br>
                                 Directeur de la publication : <span class="badge-orange">À compléter</span>
@@ -57,7 +57,7 @@
                             <h3 class="font-bold text-base mb-2" style="color: var(--color-navy);">Propriété intellectuelle</h3>
                             <p>
                                 L'ensemble des contenus de ce site (textes, photographies, logo, charte graphique) est la propriété exclusive
-                                du Havre de Paix, sauf mention contraire. Toute reproduction, représentation ou diffusion, totale ou partielle,
+                                de la Résidence Hôtel Cascades, sauf mention contraire. Toute reproduction, représentation ou diffusion, totale ou partielle,
                                 sans autorisation écrite préalable est interdite.
                             </p>
                         </div>
@@ -73,7 +73,7 @@
                             <h3 class="font-bold text-base mb-2" style="color: var(--color-navy);">2.1 Objet et acceptation</h3>
                             <p>
                                 Les présentes conditions générales de vente régissent les réservations d'hébergement effectuées sur le site
-                                du Havre de Paix. Toute réservation implique l'acceptation pleine et entière des présentes CGV, matérialisée
+                                de la Résidence Hôtel Cascades. Toute réservation implique l'acceptation pleine et entière des présentes CGV, matérialisée
                                 par la case à cocher lors de la confirmation de la réservation.
                             </p>
                         </div>
@@ -92,7 +92,7 @@
                             <p>
                                 La réservation s'effectue en ligne en trois étapes : choix du séjour, saisie des coordonnées, confirmation.
                                 Elle est confirmée instantanément par email, avec un numéro de référence unique au format
-                                <strong>HDP-AAAA-XXXX</strong>. Le client s'engage à fournir des informations exactes ; l'établissement se
+                                <strong>RHC-AAAA-XXXX</strong>. Le client s'engage à fournir des informations exactes ; l'établissement se
                                 réserve le droit d'annuler une réservation manifestement erronée ou frauduleuse.
                             </p>
                         </div>
@@ -198,7 +198,7 @@
                                 Conformément à la <strong>loi ivoirienne n° 2013-450 du 19 juin 2013</strong> relative à la protection des
                                 données à caractère personnel (autorité de contrôle : ARTCI), vous disposez d'un droit d'accès, de
                                 rectification, d'opposition et de suppression de vos données. Pour l'exercer, écrivez-nous à
-                                <a href="mailto:contact@havredepaix-assinie.com" class="underline" style="color: var(--color-blue);">contact@havredepaix-assinie.com</a>.
+                                <a href="mailto:contact@residencehotelcascades.com" class="underline" style="color: var(--color-blue);">contact@residencehotelcascades.com</a>.
                             </p>
                         </div>
 

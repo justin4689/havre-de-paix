@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title', 'Havre de Paix Assinie') — Résidence-Hôtel · Assinie Km 18,75</title>
-    <meta name="description" content="@yield('description', 'Havre de Paix, résidence-hôtel entre mer et lagune à Assinie Km 18,75, Côte d\'Ivoire. Réservez en ligne, confirmation instantanée, paiement à l\'arrivée.')">
+    <title>@yield('title', 'Résidence Hôtel Cascades') — Résidence-Hôtel · Cocody, Abidjan</title>
+    <meta name="description" content="@yield('description', 'Résidence Hôtel Cascades, résidence-hôtel au cœur de Cocody à Cocody, Abidjan, Côte d\'Ivoire. Réservez en ligne, confirmation instantanée, paiement à l\'arrivée.')">
 
     {{-- Open Graph --}}
-    <meta property="og:title" content="@yield('title', 'Havre de Paix Assinie')">
-    <meta property="og:description" content="@yield('description', 'Résidence-hôtel à Assinie, Côte d\'Ivoire.')">
+    <meta property="og:title" content="@yield('title', 'Résidence Hôtel Cascades')">
+    <meta property="og:description" content="@yield('description', 'Résidence-hôtel à Abidjan, Côte d\'Ivoire.')">
     <meta property="og:type" content="website">
     <meta property="og:image" content="{{ asset('images/og-cover.jpg') }}">
 
@@ -19,13 +19,13 @@
     {
         "@@context": "https://schema.org",
         "@@type": "LodgingBusiness",
-        "name": "Havre de Paix",
-        "description": "Résidence-hôtel entre mer et lagune à Assinie, Côte d'Ivoire.",
+        "name": "Résidence Hôtel Cascades",
+        "description": "Résidence-hôtel au cœur de Cocody, à Abidjan, Côte d'Ivoire.",
         "url": "{{ url('/') }}",
         "address": {
             "@@type": "PostalAddress",
             "streetAddress": "Kilomètre 18,75",
-            "addressLocality": "Assinie",
+            "addressLocality": "Abidjan",
             "addressCountry": "CI"
         },
         "telephone": "+225 00 00 00 00",
@@ -33,6 +33,7 @@
     }
     </script>
 
+    <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('head')
 </head>
@@ -50,12 +51,11 @@
 
                     {{-- Logo --}}
                     <a href="{{ route('home') }}" class="flex items-center gap-3 group">
-                        <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg transition-transform group-hover:scale-105" style="background-color: var(--color-orange);">
-                            HDP
-                        </div>
+                        <img src="{{ asset('images/logo.png') }}" alt="Résidence Hôtel Cascades"
+                             class="w-12 h-12 lg:w-14 lg:h-14 rounded-full bg-white object-contain p-1.5 shadow-md transition-transform group-hover:scale-105">
                         <div>
-                            <div class="font-bold text-base leading-none transition-colors" :style="scrolled || open ? 'color: var(--color-navy)' : 'color: white'" style="font-family: var(--font-serif);">Havre de Paix</div>
-                            <div class="text-xs leading-none mt-0.5 transition-colors" :style="scrolled || open ? 'color: var(--color-slate)' : 'color: rgba(255,255,255,0.8)'">Assinie · Côte d'Ivoire</div>
+                            <div class="font-bold text-base leading-none transition-colors" :style="scrolled || open ? 'color: var(--color-navy)' : 'color: white'">Résidence Hôtel Cascades</div>
+                            <div class="text-xs leading-none mt-0.5 transition-colors" :style="scrolled || open ? 'color: var(--color-slate)' : 'color: rgba(255,255,255,0.8)'">Abidjan · Cocody</div>
                         </div>
                     </a>
 
@@ -127,14 +127,14 @@
                 {{-- Branding --}}
                 <div class="lg:col-span-2">
                     <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold" style="background-color: var(--color-orange);">HDP</div>
+                        <img src="{{ asset('images/logo.png') }}" alt="Résidence Hôtel Cascades" class="w-16 h-16 rounded-full bg-white object-contain p-2">
                         <div>
-                            <div class="font-bold text-white text-lg" style="font-family: var(--font-serif);">Havre de Paix</div>
-                            <div class="text-xs" style="color: rgba(255,255,255,0.6);">Assinie · Côte d'Ivoire</div>
+                            <div class="font-bold text-white text-lg">Résidence Hôtel Cascades</div>
+                            <div class="text-xs" style="color: rgba(255,255,255,0.6);">Abidjan · Cocody</div>
                         </div>
                     </div>
                     <p class="text-sm leading-relaxed max-w-xs" style="color: rgba(255,255,255,0.6);">
-                        Résidence-hôtel entre mer et lagune, au Kilomètre 18,75 d'Assinie. Un cadre tropical exceptionnel à 94 km d'Abidjan.
+                        Résidence-hôtel au cœur de Cocody, à Abidjan. Un havre de calme et de confort en pleine ville.
                     </p>
                     <div class="flex gap-3 mt-5">
                         <a href="https://wa.me/2250000000000" class="w-9 h-9 rounded-full flex items-center justify-center transition-colors" style="background-color: rgba(255,255,255,0.1);" aria-label="WhatsApp">
@@ -164,7 +164,7 @@
                     <ul class="space-y-3 text-sm" style="color: rgba(255,255,255,0.6);">
                         <li class="flex items-start gap-2">
                             <svg class="w-4 h-4 mt-0.5 shrink-0" style="color: var(--color-orange);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                            Assinie Km 18,75, Côte d'Ivoire
+                            Cocody, Abidjan, Côte d'Ivoire
                         </li>
                         <li class="flex items-center gap-2">
                             <svg class="w-4 h-4 shrink-0" style="color: var(--color-orange);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
@@ -172,14 +172,14 @@
                         </li>
                         <li class="flex items-center gap-2">
                             <svg class="w-4 h-4 shrink-0" style="color: var(--color-orange);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                            contact@havredepaix-assinie.com
+                            contact@residencehotelcascades.com
                         </li>
                     </ul>
                 </div>
             </div>
 
             <div class="border-t mt-10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs" style="border-color: rgba(255,255,255,0.1); color: rgba(255,255,255,0.4);">
-                <p>© {{ date('Y') }} Havre de Paix — Assinie. Tous droits réservés.</p>
+                <p>© {{ date('Y') }} Résidence Hôtel Cascades — Abidjan. Tous droits réservés.</p>
                 <div class="flex gap-4">
                     <a href="{{ route('legal') }}#mentions-legales" class="hover:text-white transition-colors">Mentions légales</a>
                     <a href="{{ route('legal') }}#cgv" class="hover:text-white transition-colors">CGV</a>

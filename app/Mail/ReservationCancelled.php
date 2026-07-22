@@ -18,7 +18,7 @@ class ReservationCancelled extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Annulation confirmée — ' . $this->reservation->ref . ' — Havre de Paix',
+            subject: 'Annulation confirmée — ' . $this->reservation->ref . ' — Résidence Hôtel Cascades',
         );
     }
 

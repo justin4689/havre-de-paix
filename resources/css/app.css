@@ -12,13 +12,18 @@
     --font-sans: 'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, ui-sans-serif, sans-serif;
     --font-serif: 'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, ui-sans-serif, sans-serif;
 
-    /* Palette marque Havre de Paix */
-    --color-orange:      #F97316;
-    --color-orange-dark: #EA580C;
-    --color-navy:        #1E293B;
-    --color-blue:        #0369A1;
-    --color-sky:         #BAE6FD;
-    --color-sand:        #FED7AA;
+    /* Palette marque Résidence Hôtel Cascades : cyan cascade + noir du logo */
+    --color-primary:      #42B6DA; /* cyan du logo — CTA, accents */
+    --color-primary-dark: #2D9EC4; /* hover des CTA */
+    --color-ink:          #0B1215; /* noir du logo — titres, structure */
+
+    /* Alias hérités (les vues référencent encore ces noms) */
+    --color-orange:      var(--color-primary);
+    --color-orange-dark: var(--color-primary-dark);
+    --color-navy:        var(--color-ink);
+    --color-blue:        #1B7EA0; /* cyan foncé — liens lisibles sur blanc (AA) */
+    --color-sky:         #D5F1FA; /* fond léger, badges */
+    --color-sand:        #BFE9F6; /* encarts highlight */
     --color-snow:        #F8FAFC;
     --color-slate:       #64748B;
     --color-border:      #E2E8F0;
@@ -33,13 +38,13 @@
 /* Utilitaires personnalisés */
 @layer components {
     .btn-primary {
-        @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-semibold text-sm tracking-wide text-white transition-all duration-200 cursor-pointer;
+        @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-bold text-sm tracking-wide text-white transition-all duration-200 cursor-pointer;
         background-color: var(--color-orange);
     }
     .btn-primary:hover {
         background-color: var(--color-orange-dark);
         transform: translateY(-1px);
-        box-shadow: 0 4px 16px rgba(249, 115, 22, 0.35);
+        box-shadow: 0 4px 16px rgba(66, 182, 218, 0.4);
     }
     .btn-primary:active { transform: translateY(0); }
 
@@ -57,13 +62,13 @@
         @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-semibold text-sm tracking-wide text-white transition-all duration-200 cursor-pointer;
         background-color: var(--color-navy);
     }
-    .btn-navy:hover { background-color: #263347; }
+    .btn-navy:hover { background-color: #1E2A30; }
 
     .card {
         @apply bg-white rounded-xl shadow-sm border overflow-hidden transition-shadow duration-300;
         border-color: var(--color-border);
     }
-    .card:hover { box-shadow: 0 8px 32px rgba(30,41,59,0.12); }
+    .card:hover { box-shadow: 0 8px 32px rgba(11,18,21,0.12); }
 
     .section-title {
         font-family: var(--font-sans);
@@ -80,13 +85,13 @@
     .badge {
         @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold tracking-wide;
         background-color: var(--color-sky);
-        color: #075985;
+        color: #0F5E77;
     }
 
     .badge-orange {
         @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold tracking-wide;
         background-color: var(--color-sand);
-        color: #9A3412;
+        color: #0F5E77;
     }
 
     .form-label {
@@ -102,7 +107,7 @@
     }
     .form-input:focus {
         border-color: var(--color-orange);
-        box-shadow: 0 0 0 3px rgba(249,115,22,0.15);
+        box-shadow: 0 0 0 3px rgba(66,182,218,0.25);
     }
     .form-input::placeholder { color: #94a3b8; }
 
@@ -115,7 +120,7 @@
 
     /* Bouton rond de la barre de recherche « pill » */
     .btn-search {
-        @apply shrink-0 rounded-full flex items-center justify-center gap-2 text-white font-semibold transition-colors duration-200 cursor-pointer;
+        @apply shrink-0 rounded-full flex items-center justify-center gap-2 font-bold text-white transition-colors duration-200 cursor-pointer;
         background-color: var(--color-orange);
     }
     .btn-search:hover { background-color: var(--color-orange-dark); }
@@ -217,8 +222,8 @@
 .hero-overlay {
     background: linear-gradient(
         to bottom,
-        rgba(30,41,59,0.5) 0%,
-        rgba(30,41,59,0.3) 40%,
-        rgba(30,41,59,0.7) 100%
+        rgba(11,18,21,0.55) 0%,
+        rgba(11,18,21,0.3) 40%,
+        rgba(11,18,21,0.72) 100%
     );
 }

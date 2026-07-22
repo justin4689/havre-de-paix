@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Finaliser ma réservation — Havre de Paix Assinie')
+@section('title', 'Finaliser ma réservation — Résidence Hôtel Cascades')
 
 @php
 $basePrice  = $room->price_per_night * $nights;
@@ -114,7 +114,7 @@ $adjustment = $totalPrice - $basePrice;
                            class="mt-0.5 w-4 h-4 rounded cursor-pointer"
                            style="accent-color: var(--color-orange);" required>
                     <span class="text-sm" style="color: var(--color-slate);">
-                        J'ai lu et j'accepte les <a href="{{ route('legal') }}#cgv" target="_blank" class="underline transition-colors" style="color: var(--color-blue);">conditions générales de vente</a> et la <a href="{{ route('legal') }}#confidentialite" target="_blank" class="underline transition-colors" style="color: var(--color-blue);">politique de confidentialité</a> du Havre de Paix. <span class="text-red-500">*</span>
+                        J'ai lu et j'accepte les <a href="{{ route('legal') }}#cgv" target="_blank" class="underline transition-colors" style="color: var(--color-blue);">conditions générales de vente</a> et la <a href="{{ route('legal') }}#confidentialite" target="_blank" class="underline transition-colors" style="color: var(--color-blue);">politique de confidentialité</a> de la Résidence Hôtel Cascades. <span class="text-red-500">*</span>
                     </span>
                 </label>
             </div>

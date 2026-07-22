@@ -18,7 +18,7 @@ class ReservationConfirmation extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Confirmation de réservation ' . $this->reservation->ref . ' — Havre de Paix Assinie',
+            subject: 'Confirmation de réservation ' . $this->reservation->ref . ' — Résidence Hôtel Cascades',
         );
     }
 

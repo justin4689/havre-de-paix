@@ -115,6 +115,6 @@ return [
         'name' => env('MAIL_FROM_NAME', env('APP_NAME', 'Laravel')),
     ],
 
-    'hotel_email' => env('HOTEL_EMAIL', 'contact@havredepaix-assinie.com'),
+    'hotel_email' => env('HOTEL_EMAIL', 'contact@residencehotelcascades.com'),
 
 ];
