@@ -4,7 +4,7 @@
 @section('content')
 <div>
     <div class="relative flex items-center justify-center text-center h-[60vh] min-h-[420px] px-4 overflow-hidden">
-        <img src="{{ asset('images/contact-hero.jpg') }}" alt="Plage d'Abidjan au coucher du soleil"
+        <img src="{{ asset('images/hero1.webp') }}" alt="L'entrée de la Résidence Hôtel Cascades de nuit"
              class="absolute inset-0 w-full h-full object-cover" loading="eager">
         <div class="absolute inset-0 hero-overlay"></div>
         <div class="relative z-10 pt-16">

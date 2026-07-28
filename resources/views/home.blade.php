@@ -10,8 +10,8 @@
 <section class="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
     {{-- Background image --}}
     <div class="absolute inset-0 z-0">
-        <img src="{{ asset('images/hero-bg.jpg') }}"
-             alt="Résidence Hôtel Cascades — Abidjan"
+        <img src="{{ asset('images/hero2.webp') }}"
+             alt="La Résidence Hôtel Cascades illuminée de nuit — Cocody, Abidjan"
              class="w-full h-full object-cover"
              loading="eager">
         <div class="absolute inset-0 hero-overlay"></div>
@@ -189,35 +189,186 @@
     </div>
 </section>
 
+{{-- ===== LE LIEU & SAVEURS (galerie avec lightbox) ===== --}}
+<div x-data="homeGallery()"
+     @keydown.escape.window="close()"
+     @keydown.arrow-right.window="opened && next()"
+     @keydown.arrow-left.window="opened && prev()">
+
 {{-- ===== LE LIEU EN IMAGES ===== --}}
 <section class="py-20 px-4 sm:px-6 lg:px-8" style="background-color: white;">
     <div class="max-w-7xl mx-auto">
         <div class="text-center mb-12">
             <p class="text-sm font-semibold uppercase tracking-widest mb-2" style="color: var(--color-orange);">Le lieu</p>
             <h2 class="section-title">Le décor de votre séjour</h2>
-            <p class="section-subtitle max-w-md mx-auto">Piscine, terrasses et jardins — un havre de calme en plein Abidjan.</p>
+            <p class="section-subtitle max-w-md mx-auto">Lobby, salons, jardins et terrasses — un havre de calme en plein Abidjan. Cliquez sur une photo pour l'agrandir.</p>
         </div>
 
-        <div class="grid grid-cols-2 md:grid-cols-4 md:grid-rows-2 gap-3 md:h-[480px]">
-            <div class="col-span-2 md:row-span-2 rounded-2xl overflow-hidden group aspect-[16/10] md:aspect-auto">
-                <img src="{{ asset('images/beach-access.jpg') }}" alt="Les jardins de la résidence"
+        <div class="grid grid-cols-2 md:grid-cols-4 md:grid-rows-3 gap-3 md:h-[760px]">
+            @foreach ([
+                ['img' => 'decor4.jpg', 'label' => 'Le lobby',            'alt' => 'Le lobby de la Résidence Hôtel Cascades et son plafond lumineux', 'class' => 'col-span-2 md:row-span-2 aspect-[4/3] md:aspect-auto'],
+                ['img' => 'decor1.jpg', 'label' => 'L\'entrée végétale',  'alt' => 'L\'entrée et son mur végétal orné de sculptures',                'class' => 'aspect-square md:aspect-auto'],
+                ['img' => 'decor7.jpg', 'label' => 'La réception',        'alt' => 'La réception en marbre et bois',                                  'class' => 'aspect-square md:aspect-auto'],
+                ['img' => 'decor6.jpg', 'label' => 'L\'escalier',         'alt' => 'L\'escalier design et ses motifs géométriques',                  'class' => 'aspect-square md:aspect-auto'],
+                ['img' => 'decor3.jpg', 'label' => 'Le hall',             'alt' => 'Le hall et ses assises traditionnelles en bois',                  'class' => 'aspect-square md:aspect-auto'],
+                ['img' => 'decor5.jpg', 'label' => 'L\'entrée',           'alt' => 'L\'escalier d\'entrée bordé de verdure',                         'class' => 'aspect-square md:aspect-auto'],
+                ['img' => 'decor8.jpg', 'label' => 'Le salon',            'alt' => 'Le salon lounge et ses plantes',                                  'class' => 'aspect-square md:aspect-auto'],
+                ['img' => 'decor2.jpg', 'label' => 'Le couloir d\'accueil', 'alt' => 'Le couloir d\'accueil vers la réception',                      'class' => 'col-span-2 aspect-[16/9] md:aspect-auto'],
+            ] as $tile)
+            <div class="relative rounded-2xl overflow-hidden group cursor-zoom-in {{ $tile['class'] }}"
+                 data-gallery="decor" role="button" tabindex="0"
+                 @click="show($event.currentTarget)" @keydown.enter="show($event.currentTarget)">
+                <img src="{{ asset('images/' . $tile['img']) }}" alt="{{ $tile['alt'] }}"
                      class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+                <div class="absolute inset-0 flex items-end justify-between p-4 opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity duration-300"
+                     style="background: linear-gradient(to top, rgba(11,18,21,0.72), transparent 55%);">
+                    <span class="text-white text-sm font-semibold">{{ $tile['label'] }}</span>
+                    <span class="w-8 h-8 rounded-full flex items-center justify-center shrink-0" style="background-color: rgba(255,255,255,0.2); backdrop-filter: blur(4px);">
+                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V6a2 2 0 012-2h2M4 16v2a2 2 0 002 2h2m8-16h2a2 2 0 012 2v2m-4 12h2a2 2 0 002-2v-2"/></svg>
+                    </span>
+                </div>
             </div>
-            <div class="rounded-2xl overflow-hidden group aspect-square md:aspect-auto">
-                <img src="{{ asset('images/pool.jpg') }}" alt="Piscine de la Résidence Hôtel Cascades"
-                     class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
-            </div>
-            <div class="rounded-2xl overflow-hidden group aspect-square md:aspect-auto">
-                <img src="{{ asset('images/terrace.jpg') }}" alt="La terrasse de la résidence"
-                     class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
-            </div>
-            <div class="col-span-2 rounded-2xl overflow-hidden group aspect-[16/9] md:aspect-auto">
-                <img src="{{ asset('images/hero-bg.jpg') }}" alt="Vue du domaine de la Résidence Hôtel Cascades à Abidjan"
-                     class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
-            </div>
+            @endforeach
         </div>
     </div>
 </section>
+
+{{-- ===== BAR & RESTAURANT ===== --}}
+<section class="py-20 px-4 sm:px-6 lg:px-8" style="background-color: var(--color-snow);">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-12">
+            <p class="text-sm font-semibold uppercase tracking-widest mb-2" style="color: var(--color-orange);">Saveurs</p>
+            <h2 class="section-title">Bar & Restaurant</h2>
+            <p class="section-subtitle max-w-md mx-auto">Du petit-déjeuner au dernier verre — nos espaces gourmands vous accueillent toute la journée.</p>
+        </div>
+
+        {{-- Deux espaces --}}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div class="card group">
+                <div class="relative aspect-[16/10] overflow-hidden cursor-zoom-in"
+                     data-gallery="saveurs" role="button" tabindex="0"
+                     @click="show($event.currentTarget)" @keydown.enter="show($event.currentTarget)">
+                    <img src="{{ asset('images/resto2.jpg') }}" alt="La salle du restaurant de la Résidence Hôtel Cascades"
+                         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+                    <span class="absolute top-4 left-4 px-3 py-1.5 rounded-full text-xs font-bold text-white" style="background-color: rgba(11,18,21,0.55); backdrop-filter: blur(6px);">Le Restaurant</span>
+                    <span class="absolute bottom-4 right-4 w-8 h-8 rounded-full items-center justify-center hidden group-hover:flex" style="background-color: rgba(255,255,255,0.2); backdrop-filter: blur(4px);">
+                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V6a2 2 0 012-2h2M4 16v2a2 2 0 002 2h2m8-16h2a2 2 0 012 2v2m-4 12h2a2 2 0 002-2v-2"/></svg>
+                    </span>
+                </div>
+                <div class="p-6">
+                    <h3 class="font-bold text-lg mb-2" style="color: var(--color-navy);">Une table généreuse</h3>
+                    <p class="text-sm leading-relaxed mb-4" style="color: var(--color-slate);">
+                        Cuisine ivoirienne et internationale préparée avec des produits frais, servie dans une salle
+                        chaleureuse — et de grandes tablées dans le jardin pour vos événements.
+                    </p>
+                    <div class="flex flex-wrap gap-x-5 gap-y-2 pt-4 border-t text-xs font-medium" style="border-color: var(--color-border); color: var(--color-slate);">
+                        <span class="flex items-center gap-1.5">
+                            <svg class="w-3.5 h-3.5" style="color: var(--color-orange);" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            Petit-déjeuner · Déjeuner · Dîner
+                        </span>
+                        <span class="flex items-center gap-1.5">
+                            <svg class="w-3.5 h-3.5" style="color: var(--color-orange);" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                            Tablées événements au jardin
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card group">
+                <div class="relative aspect-[16/10] overflow-hidden cursor-zoom-in"
+                     data-gallery="saveurs" role="button" tabindex="0"
+                     @click="show($event.currentTarget)" @keydown.enter="show($event.currentTarget)">
+                    <img src="{{ asset('images/bar1.jpg') }}" alt="Le comptoir du bar de la Résidence Hôtel Cascades"
+                         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+                    <span class="absolute top-4 left-4 px-3 py-1.5 rounded-full text-xs font-bold text-white" style="background-color: rgba(11,18,21,0.55); backdrop-filter: blur(6px);">Le Bar</span>
+                    <span class="absolute bottom-4 right-4 w-8 h-8 rounded-full items-center justify-center hidden group-hover:flex" style="background-color: rgba(255,255,255,0.2); backdrop-filter: blur(4px);">
+                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V6a2 2 0 012-2h2M4 16v2a2 2 0 002 2h2m8-16h2a2 2 0 012 2v2m-4 12h2a2 2 0 002-2v-2"/></svg>
+                    </span>
+                </div>
+                <div class="p-6">
+                    <h3 class="font-bold text-lg mb-2" style="color: var(--color-navy);">L'heure du cocktail</h3>
+                    <p class="text-sm leading-relaxed mb-4" style="color: var(--color-slate);">
+                        Cocktails, jus frais et belle sélection de spiritueux au comptoir, dans une ambiance
+                        feutrée qui s'anime en soirée — pour nos hôtes comme pour leurs invités.
+                    </p>
+                    <div class="flex flex-wrap gap-x-5 gap-y-2 pt-4 border-t text-xs font-medium" style="border-color: var(--color-border); color: var(--color-slate);">
+                        <span class="flex items-center gap-1.5">
+                            <svg class="w-3.5 h-3.5" style="color: var(--color-orange);" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M8 22h8M12 11v11M19 3l-7 8-7-8h14z"/></svg>
+                            Cocktails & jus frais
+                        </span>
+                        <span class="flex items-center gap-1.5">
+                            <svg class="w-3.5 h-3.5" style="color: var(--color-orange);" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 9l10.5-3m0 6.553v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 11-.99-3.467l2.31-.66a2.25 2.25 0 001.632-2.163zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 01-.99-3.467l2.31-.66A2.25 2.25 0 009 15.553z"/></svg>
+                            Ambiance lounge en soirée
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{-- Ambiances --}}
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+            @foreach ([
+                ['img' => 'resto3.jpg', 'label' => 'Le soir venu',      'alt' => 'Le restaurant en ambiance du soir'],
+                ['img' => 'resto1.jpg', 'label' => 'Banquets au jardin','alt' => 'Grande tablée dressée dans le jardin pour un événement'],
+                ['img' => 'bar3.jpg',   'label' => 'Le bar en soirée',  'alt' => 'Le bar en soirée'],
+                ['img' => 'bar2.jpg',   'label' => 'Côté salon',        'alt' => 'Le bar vu depuis le salon'],
+            ] as $tile)
+            <div class="relative rounded-2xl overflow-hidden group cursor-zoom-in aspect-square"
+                 data-gallery="saveurs" role="button" tabindex="0"
+                 @click="show($event.currentTarget)" @keydown.enter="show($event.currentTarget)">
+                <img src="{{ asset('images/' . $tile['img']) }}" alt="{{ $tile['alt'] }}"
+                     class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+                <div class="absolute inset-0 flex items-end justify-between p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                     style="background: linear-gradient(to top, rgba(11,18,21,0.72), transparent 55%);">
+                    <span class="text-white text-sm font-semibold">{{ $tile['label'] }}</span>
+                    <span class="w-8 h-8 rounded-full flex items-center justify-center shrink-0" style="background-color: rgba(255,255,255,0.2); backdrop-filter: blur(4px);">
+                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V6a2 2 0 012-2h2M4 16v2a2 2 0 002 2h2m8-16h2a2 2 0 012 2v2m-4 12h2a2 2 0 002-2v-2"/></svg>
+                    </span>
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+
+{{-- ===== LIGHTBOX ===== --}}
+<div x-show="opened" x-transition.opacity.duration.200ms style="display: none;"
+     class="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-8"
+     role="dialog" aria-modal="true" aria-label="Visionneuse de photos">
+    <div class="absolute inset-0" style="background-color: rgba(11,18,21,0.93); backdrop-filter: blur(8px);" @click="close()"></div>
+
+    <div class="relative z-10 max-w-5xl w-full" @click.outside="close()">
+        <img :src="current.src" :alt="current.alt"
+             class="w-full max-h-[78vh] object-contain rounded-2xl shadow-2xl select-none">
+        <p class="text-center text-sm mt-4 font-medium" style="color: rgba(255,255,255,0.85);" x-text="current.alt"></p>
+    </div>
+
+    {{-- Compteur --}}
+    <div class="absolute top-5 left-5 z-20 px-3 py-1.5 rounded-full text-xs font-bold text-white" style="background-color: rgba(255,255,255,0.15);">
+        <span x-text="(index + 1) + ' / ' + items.length"></span>
+    </div>
+
+    {{-- Fermer --}}
+    <button @click="close()" aria-label="Fermer"
+            class="absolute top-5 right-5 z-20 w-10 h-10 rounded-full flex items-center justify-center text-white cursor-pointer transition-colors hover:bg-white/20"
+            style="background-color: rgba(255,255,255,0.15);">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
+
+    {{-- Navigation --}}
+    <button @click="prev()" aria-label="Photo précédente"
+            class="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full flex items-center justify-center text-white cursor-pointer transition-colors hover:bg-white/20"
+            style="background-color: rgba(255,255,255,0.15);">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+    </button>
+    <button @click="next()" aria-label="Photo suivante"
+            class="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full flex items-center justify-center text-white cursor-pointer transition-colors hover:bg-white/20"
+            style="background-color: rgba(255,255,255,0.15);">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+    </button>
+</div>
+
+</div>
 
 {{-- ===== TÉMOIGNAGES (défilement continu) ===== --}}
 <section class="py-20 overflow-hidden" style="background-color: var(--color-navy);">
@@ -278,6 +429,35 @@
 
 @push('scripts')
 <script>
+
+// Galerie lightbox des sections Décor et Bar & Restaurant
+function homeGallery() {
+    return {
+        opened: false,
+        items: [],
+        index: 0,
+        get current() {
+            return this.items[this.index] ?? { src: '', alt: '' };
+        },
+        show(tile) {
+            const group = tile.dataset.gallery;
+            const tiles = Array.from(document.querySelectorAll(`[data-gallery="${group}"]`));
+            this.items = tiles.map(t => {
+                const img = t.querySelector('img');
+                return { src: img.src, alt: img.alt };
+            });
+            this.index = tiles.indexOf(tile);
+            this.opened = true;
+            document.body.style.overflow = 'hidden';
+        },
+        close() {
+            this.opened = false;
+            document.body.style.overflow = '';
+        },
+        next() { this.index = (this.index + 1) % this.items.length; },
+        prev() { this.index = (this.index - 1 + this.items.length) % this.items.length; },
+    };
+}
 // Date minimum check_in → check_out
 const checkIn  = document.getElementById('check_in');
 const checkOut = document.getElementById('check_out');

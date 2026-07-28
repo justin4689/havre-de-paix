@@ -23,7 +23,7 @@
            style="background-color: var(--color-navy);">
         {{-- Logo --}}
         <div class="flex items-center gap-3 px-6 h-16 border-b" style="border-color: rgba(255,255,255,0.1);">
-            <img src="{{ asset('images/logo.png') }}" alt="Résidence Hôtel Cascades" class="w-10 h-10 rounded-full bg-white object-contain p-1">
+            <img src="{{ asset('images/logo-dashboard.png') }}" alt="Résidence Hôtel Cascades" class="w-10 h-10 rounded-lg object-cover">
             <div>
                 <div class="text-white font-semibold text-sm">Hôtel Cascades</div>
                 <div class="text-xs" style="color: rgba(255,255,255,0.5);">Back-office</div>

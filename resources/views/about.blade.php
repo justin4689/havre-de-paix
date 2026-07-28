@@ -11,10 +11,10 @@
      1. HERO
 ═══════════════════════════════════════════ --}}
 <section class="relative h-[60vh] min-h-[420px] flex items-center overflow-hidden">
-    <img src="{{ asset('images/about-hero.jpg') }}"
-         alt="Bungalows sur pilotis au cœur de Cocody"
+    <img src="{{ asset('images/hero3.webp') }}"
+         alt="La façade de la Résidence Hôtel Cascades — Cocody, Abidjan"
          class="absolute inset-0 w-full h-full object-cover">
-    <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(11,18,21,0.92) 0%, rgba(11,18,21,0.4) 55%, rgba(11,18,21,0.1) 100%);"></div>
+    <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(11,18,21,0.88) 0%, rgba(11,18,21,0.6) 50%, rgba(11,18,21,0.5) 100%);"></div>
 
     <div class="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-16">
         <span class="inline-flex items-center gap-2 text-xs font-semibold tracking-widest uppercase text-white/70 mb-4">
@@ -135,9 +135,9 @@
             </div>
             <div class="relative">
                 <div class="aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl">
-                    <img src="{{ asset('images/rooms/bungalow-lagune-1.jpg') }}"
+                    <img src="{{ asset('images/hero2.webp') }}"
                          alt="Bungalows Résidence Hôtel Cascades"
-                         class="w-full h-full object-cover">
+                         class="w-full h-full object">
                 </div>
                 {{-- Encart flottant --}}
                 <div class="absolute -bottom-6 -left-6 bg-white rounded-2xl p-5 shadow-xl border" style="border-color: var(--color-border);">
@@ -251,7 +251,7 @@
         </div>
 
         <div class="grid grid-cols-2 md:grid-cols-3 gap-3" x-data="{ lightbox: null, imgs: [
-            '{{ asset('images/hero-bg.jpg') }}',
+            '{{ asset('images/hero1.webp') }}',
             '{{ asset('images/rooms/bungalow-lagune-1.jpg') }}',
             '{{ asset('images/rooms/chambre-vue-mer-1.jpg') }}',
             '{{ asset('images/rooms/suite-prestige-1.jpg') }}',

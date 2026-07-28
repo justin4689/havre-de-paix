@@ -127,7 +127,7 @@
                 {{-- Branding --}}
                 <div class="lg:col-span-2">
                     <div class="flex items-center gap-3 mb-4">
-                        <img src="{{ asset('images/logo.png') }}" alt="Résidence Hôtel Cascades" class="w-16 h-16 rounded-full bg-white object-contain p-2">
+                        <img src="{{ asset('images/logo-dashboard.png') }}" alt="Résidence Hôtel Cascades" class="w-16 h-16 rounded-lg object-cover">
                         <div>
                             <div class="font-bold text-white text-lg">Résidence Hôtel Cascades</div>
                             <div class="text-xs" style="color: rgba(255,255,255,0.6);">Abidjan · Cocody</div>
