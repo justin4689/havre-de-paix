@@ -25,6 +25,8 @@ class RoomRequest extends FormRequest
             'view'              => 'required|in:sea,lagoon,garden,pool',
             'amenities'         => 'nullable|array',
             'amenities.*'       => 'string|max:100',
+            'existing_images'   => 'nullable|array',
+            'existing_images.*' => 'string|max:255',
             'new_images'        => 'nullable|array',
             'new_images.*'      => 'image|max:2048',
             'price_per_night'   => 'required|integer|min:1000',

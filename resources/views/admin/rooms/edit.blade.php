@@ -101,17 +101,48 @@
 
             @include('admin.rooms._amenities-field', ['amenities' => (array) old('amenities', $room->amenities ?? [])])
 
-            {{-- Photos existantes --}}
-            @if ($room->images && count($room->images))
-            <div>
+            {{-- Photos existantes : suppression et choix de la principale --}}
+            <div x-data="roomPhotos(@js(old('existing_images', $room->images ?? [])))">
                 <p class="form-label mb-2">Photos actuelles</p>
-                <div class="flex flex-wrap gap-2">
-                    @foreach ($room->images as $img)
-                    <img src="{{ asset($img) }}" alt="" class="w-20 h-20 object-cover rounded-lg border" style="border-color: var(--color-border);">
-                    @endforeach
+
+                {{-- Valeurs soumises, dans l'ordre affiché (la 1re = photo principale) --}}
+                <template x-for="photo in photos" :key="'field-' + photo">
+                    <input type="hidden" name="existing_images[]" :value="photo">
+                </template>
+
+                <div class="flex flex-wrap gap-4" x-show="photos.length">
+                    <template x-for="(photo, i) in photos" :key="photo">
+                        <div class="w-28">
+                            <div class="relative group">
+                                <img :src="'{{ url('/') }}/' + photo" alt=""
+                                     class="w-28 h-28 object-cover rounded-lg border"
+                                     :class="i === 0 ? 'ring-2' : ''"
+                                     style="border-color: var(--color-border); --tw-ring-color: var(--color-primary);">
+                                <span x-show="i === 0"
+                                      class="absolute bottom-1.5 left-1.5 px-1.5 py-0.5 rounded text-[10px] font-bold"
+                                      style="background-color: var(--color-primary); color: white;">Principale</span>
+                                <button type="button" @click="remove(i)" aria-label="Supprimer cette photo"
+                                        class="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-white border shadow flex items-center justify-center cursor-pointer transition-colors hover:bg-red-50 hover:text-red-600"
+                                        style="border-color: var(--color-border); color: var(--color-slate);">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                                </button>
+                            </div>
+                            <button type="button" x-show="i > 0" @click="makeMain(i)"
+                                    class="mt-1.5 w-full text-[11px] font-medium underline cursor-pointer text-center transition-colors hover:opacity-70"
+                                    style="color: var(--color-blue);">
+                                Mettre en principale
+                            </button>
+                        </div>
+                    </template>
                 </div>
+                <p class="text-xs" x-show="!photos.length" style="color: var(--color-slate); display: none;">
+                    Plus aucune photo — ajoutez-en ci-dessous, la première deviendra la photo principale.
+                </p>
+                <p class="text-xs mt-2" style="color: var(--color-slate);">
+                    La <strong>première</strong> photo est la vignette principale (listing, accueil, récap de réservation).
+                    Les modifications ne sont appliquées qu'à l'enregistrement.
+                </p>
             </div>
-            @endif
 
             @include('admin.rooms._images-field', ['label' => 'Ajouter des photos'])
 
@@ -139,5 +170,21 @@
 <script>
 // Pas d'upload de fichiers dans la description (photos gérées par le champ dédié)
 document.addEventListener('trix-file-accept', e => e.preventDefault());
+</script>
+@endpush
+
+@push('scripts')
+<script>
+function roomPhotos(initial) {
+    return {
+        photos: Array.isArray(initial) ? initial : [],
+        remove(index) {
+            this.photos.splice(index, 1);
+        },
+        makeMain(index) {
+            this.photos.unshift(this.photos.splice(index, 1)[0]);
+        },
+    };
+}
 </script>
 @endpush

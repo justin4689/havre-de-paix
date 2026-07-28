@@ -22,8 +22,9 @@
            :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'"
            style="background-color: var(--color-navy);">
         {{-- Logo --}}
-        <div class="flex items-center gap-3 px-6 h-16 border-b" style="border-color: rgba(255,255,255,0.1);">
-            <img src="{{ asset('images/logo-dashboard.png') }}" alt="Résidence Hôtel Cascades" class="w-10 h-10 rounded-lg object-cover">
+        <div class="flex flex-col items-center gap-3 px-6 border-b" style="border-color: rgba(255,255,255,0.1);">
+            
+            <img src="{{ asset('images/logo-dashboard.png') }}" alt="Résidence Hôtel Cascades" class="w-30 h-30 object-cover">
             <div>
                 <div class="text-white font-semibold text-sm">Hôtel Cascades</div>
                 <div class="text-xs" style="color: rgba(255,255,255,0.5);">Back-office</div>

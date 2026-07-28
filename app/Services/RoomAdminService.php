@@ -41,13 +41,36 @@ class RoomAdminService
     {
         $validated['description_long'] = $this->sanitizeHtml($validated['description_long'] ?? null);
 
-        if ($newImages !== []) {
+        // Galerie gérée depuis le formulaire : ordre et suppressions des photos
+        // existantes (limitées à celles réellement rattachées à la chambre),
+        // puis ajout des nouveaux uploads à la suite.
+        if (array_key_exists('existing_images', $validated)) {
+            $current = $room->images ?? [];
+            $kept    = array_values(array_intersect($validated['existing_images'] ?? [], $current));
+
+            $this->deleteUploadedFiles(array_diff($current, $kept));
+
+            $validated['images'] = array_merge($kept, $this->storeImages($newImages));
+        } elseif ($newImages !== []) {
             $validated['images'] = array_merge($room->images ?? [], $this->storeImages($newImages));
         }
 
-        unset($validated['new_images']);
+        unset($validated['new_images'], $validated['existing_images']);
 
         return $this->rooms->update($room, $validated);
+    }
+
+    /**
+     * Supprime du disque les photos retirées, uniquement celles issues
+     * d'uploads (storage/…) — jamais les images du catalogue versionné.
+     */
+    private function deleteUploadedFiles(array $paths): void
+    {
+        foreach ($paths as $path) {
+            if (str_starts_with($path, 'storage/')) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete(substr($path, strlen('storage/')));
+            }
+        }
     }
 
     public function deactivate(Room $room): Room
