@@ -11,6 +11,10 @@ services:
     ports:
       # Surchargez avec APP_PORT dans le .env en cas de conflit de port
       - "${APP_PORT:-8000}:8000"
+    environment:
+      # Plusieurs workers : les navigateurs ouvrent des connexions parallèles
+      # qui bloqueraient le serveur PHP intégré mono-processus.
+      PHP_CLI_SERVER_WORKERS: "8"
     volumes:
       - .:/var/www/html
     depends_on:

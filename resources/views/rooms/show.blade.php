@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', $room->name . ' — Résidence Hôtel Cascades')
-@section('description', $room->description_short . ' Vue ' . $room->view_label . '. Réservez en ligne.')
+@section('description', $room->description_short . ' ' . $room->view_label . '. Réservez en ligne.')
 
 @push('head')
 <script type="application/ld+json">
@@ -89,7 +89,7 @@
                         {{ $room->capacity_adults }} voyageur{{ $room->capacity_adults > 1 ? 's' : '' }}
                         &middot; {{ $room->bed_type_label }}
                         @if ($room->size_m2) &middot; {{ $room->size_m2 }} m² @endif
-                        &middot; Vue {{ mb_strtolower($room->view_label) }}
+                        &middot; {{ $room->view_label }}
                         &middot; Étage {{ $room->floor }}
                     </p>
                     <p class="section-subtitle">{{ $room->description_short }}</p>

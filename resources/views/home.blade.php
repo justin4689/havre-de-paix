@@ -415,7 +415,7 @@
 {{-- ===== CTA FINAL ===== --}}
 <section class="py-20 px-4 sm:px-6 lg:px-8 text-center" style="background-color: white;">
     <div class="max-w-2xl mx-auto">
-        <h2 class="section-title mb-4">Prêt pour votre escapade ?</h2>
+        <h2 class="section-title mb-4">Prêt pour votre escapade&nbsp;?</h2>
         <p class="section-subtitle mb-8">Réservez votre chambre en ligne en moins de 5 minutes. Confirmation instantanée. Paiement à l'arrivée.</p>
         <a href="{{ route('rooms.index') }}" class="btn-primary text-base px-10 py-4">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
