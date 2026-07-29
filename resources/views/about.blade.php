@@ -125,7 +125,7 @@
                         Chaque détail de notre résidence-hôtel a été pensé pour s'intégrer harmonieusement au cadre naturel exceptionnel qui nous entoure. Des bungalows sur pilotis aux suites panoramiques, nous avons conçu des espaces qui invitent à la contemplation et au repos.
                     </p>
                     <p>
-                        Au cœur de <strong style="color: var(--color-navy);">Cocody</strong>, notre adresse est à quelques minutes du Plateau et des grands axes — idéale pour un séjour d'affaires comme pour une parenthèse de détente.
+                        Au cœur de <strong style="color: var(--color-navy);">Cocody</strong>, à la Riviera M'Badon, notre adresse est à 30 minutes du Plateau — idéale pour un séjour d'affaires comme pour une parenthèse de détente.
                     </p>
                 </div>
                 <div class="mt-8 flex gap-4">
@@ -365,7 +365,7 @@
             {{-- Carte Google Maps --}}
             <div class="rounded-2xl overflow-hidden shadow-lg h-80 lg:h-full min-h-72 border" style="border-color: var(--color-border);">
                 <iframe
-                    src="https://maps.google.com/maps?q=Cocody+Abidjan+Cote+d'Ivoire&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                    src="https://maps.google.com/maps?q=5.335485805872274,-3.943025171164152&t=&z=15&ie=UTF8&iwloc=&output=embed"
                     width="100%" height="100%"
                     style="border:0; min-height: 320px;"
                     allowfullscreen="" loading="lazy"
@@ -385,10 +385,10 @@
                     </div>
                     <ol class="space-y-3">
                         @foreach ([
-                            'Rejoindre le quartier de Cocody (boulevard Latrille ou boulevard Mitterrand)',
-                            'Suivre la direction du quartier résidentiel',
-                            'La Résidence Hôtel Cascades est indiquée par son portail au logo cascade',
-                            'Parking privé disponible à l\'intérieur de la résidence',
+                            'Rejoindre le quartier de Cocody',
+                            'Emprunter le boulevard Mitterrand (par la Riviera) ou le boulevard de France / avenue du Golf, direction Riviera 3',
+                            'Poursuivre vers M\'Badon — la Résidence Hôtel Cascades est indiquée par son enseigne',
+                            'Parking disponible à l\'extérieur de la résidence',
                         ] as $i => $step)
                         <li class="flex gap-3 text-sm" style="color: var(--color-slate);">
                             <span class="w-6 h-6 rounded-full text-white text-xs font-bold flex items-center justify-center shrink-0 mt-0.5" style="background-color: var(--color-orange);">{{ $i + 1 }}</span>
@@ -400,17 +400,17 @@
 
                 <div class="grid grid-cols-2 gap-4">
                     <div class="bg-white rounded-xl p-4 border shadow-sm text-center" style="border-color: var(--color-border);">
-                        <div class="text-2xl font-bold mb-1" style="color: var(--color-orange); font-family: var(--font-serif);">~30 min</div>
+                        <div class="text-2xl font-bold mb-1" style="color: var(--color-orange); font-family: var(--font-serif);">~1h</div>
                         <p class="text-xs" style="color: var(--color-slate);">De l'aéroport FHB</p>
                     </div>
                     <div class="bg-white rounded-xl p-4 border shadow-sm text-center" style="border-color: var(--color-border);">
-                        <div class="text-2xl font-bold mb-1" style="color: var(--color-orange); font-family: var(--font-serif);">~10 min</div>
+                        <div class="text-2xl font-bold mb-1" style="color: var(--color-orange); font-family: var(--font-serif);">~30 min</div>
                         <p class="text-xs" style="color: var(--color-slate);">Du Plateau</p>
                     </div>
                     <div class="bg-white rounded-xl p-4 border shadow-sm text-sm col-span-2" style="border-color: var(--color-border);">
                         <p class="font-semibold mb-1" style="color: var(--color-navy);">Coordonnées GPS</p>
-                        <p class="font-mono text-xs" style="color: var(--color-slate);">5.3599° N, -3.9810° W</p>
-                        <p class="text-xs mt-2" style="color: var(--color-slate);">Cocody, Abidjan — Côte d'Ivoire</p>
+                        <p class="font-mono text-xs" style="color: var(--color-slate);">5.3355° N, -3.9430° W</p>
+                        <p class="text-xs mt-2" style="color: var(--color-slate);">Cocody Riviera M'Badon, Abidjan — Côte d'Ivoire</p>
                     </div>
                 </div>
 
@@ -465,7 +465,7 @@
                 [
                     'icon'  => 'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064',
                     'title' => 'Accès & sécurité',
-                    'items' => ['Pièce d\'identité obligatoire', 'Accès clé magnétique', 'Coffre-fort en chambre', 'Parking sécurisé inclus'],
+                    'items' => ['Pièce d\'identité obligatoire', 'Accès clé magnétique', 'Coffre-fort en chambre', 'Parking à l\'extérieur'],
                 ],
             ] as $pol)
             <div class="bg-white rounded-2xl p-6 border shadow-sm" style="border-color: var(--color-border);">
@@ -525,7 +525,7 @@
                 ],
                 [
                     'q' => 'Comment se rendre à la Résidence Hôtel Cascades depuis Abidjan ?',
-                    'a' => 'L\'hôtel se situe à Cocody, à Abidjan, à environ 30 minutes de l\'aéroport Félix-Houphouët-Boigny selon la circulation. Nous proposons également un service de transfert depuis l\'aéroport sur demande.',
+                    'a' => 'L\'hôtel se situe à Cocody Riviera, vers M\'Badon, à Abidjan — à environ 1h de l\'aéroport Félix-Houphouët-Boigny et 30 minutes du Plateau selon la circulation. Nous proposons également un service de transfert depuis l\'aéroport sur demande.',
                 ],
             ] as $i => $faq)
             <div class="bg-white rounded-xl border shadow-sm overflow-hidden" style="border-color: var(--color-border);">
