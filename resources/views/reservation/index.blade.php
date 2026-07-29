@@ -73,7 +73,7 @@ $adjustment = $totalPrice - $basePrice;
                         <label for="guest_phone" class="form-label">Téléphone <span class="text-red-500">*</span></label>
                         <input type="tel" name="guest_phone" id="guest_phone"
                                value="{{ old('guest_phone') }}"
-                               placeholder="+225 00 00 00 00 00"
+                               placeholder="+225 05 06 50 55 92 00"
                                class="form-input" autocomplete="tel" required>
                         @error('guest_phone')<p class="text-xs text-red-600 mt-1">{{ $message }}</p>@enderror
                     </div>

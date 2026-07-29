@@ -40,8 +40,8 @@
                             <p>
                                 <strong>Résidence Hôtel Cascades</strong> — Résidence-Hôtel<br>
                                 Cocody, Abidjan, Côte d'Ivoire<br>
-                                Email : <a href="mailto:contact@residencehotelcascades.com" class="underline" style="color: var(--color-blue);">contact@residencehotelcascades.com</a><br>
-                                Téléphone : +225 XX XX XX XX XX <span class="badge-orange ml-1">À compléter</span><br>
+                                Email : <a href="mailto:info@residencehotelcascades.com" class="underline" style="color: var(--color-blue);">info@residencehotelcascades.com</a><br>
+                                Téléphone : +225 05 06 50 55 92 · +225 21 50 03 52 36<br>
                                 RCCM : <span class="badge-orange">À compléter</span><br>
                                 Directeur de la publication : <span class="badge-orange">À compléter</span>
                             </p>
@@ -198,7 +198,7 @@
                                 Conformément à la <strong>loi ivoirienne n° 2013-450 du 19 juin 2013</strong> relative à la protection des
                                 données à caractère personnel (autorité de contrôle : ARTCI), vous disposez d'un droit d'accès, de
                                 rectification, d'opposition et de suppression de vos données. Pour l'exercer, écrivez-nous à
-                                <a href="mailto:contact@residencehotelcascades.com" class="underline" style="color: var(--color-blue);">contact@residencehotelcascades.com</a>.
+                                <a href="mailto:info@residencehotelcascades.com" class="underline" style="color: var(--color-blue);">info@residencehotelcascades.com</a>.
                             </p>
                         </div>
 

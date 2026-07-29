@@ -63,7 +63,7 @@ class ReservationService
         ]);
 
         $this->sendSafely(fn () => Mail::to($reservation->guest_email)->send(new \App\Mail\ReservationConfirmation($reservation)));
-        $this->sendSafely(fn () => Mail::to(config('mail.hotel_email', 'hotel@residencehotelcascades.com'))->send(new \App\Mail\ReservationAlert($reservation)));
+        $this->sendSafely(fn () => Mail::to(config('mail.hotel_email', 'info@residencehotelcascades.com'))->send(new \App\Mail\ReservationAlert($reservation)));
 
         return $reservation;
     }
@@ -94,7 +94,7 @@ class ReservationService
         ]);
 
         $this->sendSafely(fn () => Mail::to($reservation->guest_email)->send(new \App\Mail\ReservationCancelled($reservation)));
-        $this->sendSafely(fn () => Mail::to(config('mail.hotel_email', 'hotel@residencehotelcascades.com'))->send(new \App\Mail\ReservationCancelledAlert($reservation)));
+        $this->sendSafely(fn () => Mail::to(config('mail.hotel_email', 'info@residencehotelcascades.com'))->send(new \App\Mail\ReservationCancelledAlert($reservation)));
 
         return $reservation;
     }
