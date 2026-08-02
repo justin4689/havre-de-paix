@@ -124,7 +124,7 @@
                         <div class="relative aspect-[4/3] overflow-hidden">
                             <img src="{{ asset($room->first_image) }}"
                                  alt="{{ $room->name }}"
-                                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                 class="w-full h-full object-cover"
                                  loading="lazy" width="400" height="300">
                             <div class="absolute top-3 left-3 flex gap-2">
                                 <span class="badge">{{ $room->category_label }}</span>
@@ -132,7 +132,6 @@
                                 <span class="badge-orange">Dernières dispo.</span>
                                 @endif
                             </div>
-                            <div class="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black/50 to-transparent"></div>
                         </div>
 
                         <div class="p-4">

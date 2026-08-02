@@ -315,12 +315,11 @@
                 <div class="relative h-52 overflow-hidden">
                     <img src="{{ asset($room->first_image) }}"
                          alt="{{ $room->name }}"
-                         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                         class="w-full h-full object-cover"
                          loading="lazy">
                     <div class="absolute top-3 left-3 flex gap-2 flex-wrap">
                         <span class="badge text-xs">{{ $room->category_label }}</span>
                     </div>
-                    <div class="absolute bottom-0 inset-x-0 h-16" style="background: linear-gradient(to top, rgba(11,18,21,0.6), transparent);"></div>
                 </div>
                 <div class="p-5">
                     <h3 class="font-bold text-base mb-2 group-hover:text-orange-500 transition-colors" style="font-family: var(--font-serif); color: var(--color-navy);">{{ $room->name }}</h3>

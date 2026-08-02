@@ -219,6 +219,50 @@
     </div>
 </section>
 
+{{-- ===== L'HÔTEL EN VIDÉO ===== --}}
+<section class="py-20 px-4 sm:px-6 lg:px-8 overflow-hidden" style="background-color: var(--color-ink);">
+    <div class="max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+
+            <div class="text-center lg:text-left">
+                <p class="text-sm font-semibold uppercase tracking-widest mb-3" style="color: var(--color-primary);">Immersion</p>
+                <h2 class="text-4xl font-bold text-white tracking-tight mb-4">Visitez avant de réserver</h2>
+                <p class="leading-relaxed mb-8 max-w-md mx-auto lg:mx-0" style="color: rgba(255,255,255,0.65);">
+                    Deux minutes suffisent pour ressentir l'atmosphère des Cascades :
+                    les jardins, les chambres, le restaurant — comme si vous y étiez.
+                    Activez le son d'un simple clic.
+                </p>
+                <a href="{{ route('rooms.index') }}" class="btn-primary">
+                    Réserver mon séjour
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+
+            <div class="flex justify-center gap-5 sm:gap-8">
+                @foreach (['video-1.mp4' => 'Visite de la résidence', 'video-2.mp4' => 'L\'expérience Cascades'] as $file => $label)
+                <div x-data="{ muted: true }" class="relative w-[44vw] max-w-[320px] shrink-0 {{ $loop->last ? 'mt-12' : '' }}">
+                    <div class="rounded-[1.75rem] overflow-hidden shadow-2xl border-4" style="border-color: rgba(255,255,255,0.12); aspect-ratio: 9/16; background-color: #000;">
+                        <video src="{{ asset('videos/' . $file) }}"
+                               class="w-full h-full object-cover js-hotel-video"
+                               x-ref="player" loop muted playsinline preload="metadata"
+                               aria-label="{{ $label }}"></video>
+                    </div>
+                    {{-- Bouton son --}}
+                    <button @click="muted = ! muted; $refs.player.muted = muted; $refs.player.play()"
+                            class="absolute bottom-3 right-3 w-10 h-10 rounded-full flex items-center justify-center text-white cursor-pointer transition-colors hover:bg-white/30"
+                            style="background-color: rgba(255,255,255,0.18); backdrop-filter: blur(4px);"
+                            :aria-label="muted ? 'Activer le son' : 'Couper le son'">
+                        <svg x-show="muted" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z M17 14l4-4m0 4l-4-4"/></svg>
+                        <svg x-show="!muted" x-cloak class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072M18.364 5.636a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>
+                    </button>
+                    <p class="text-center text-xs mt-3 font-medium" style="color: rgba(255,255,255,0.55);">{{ $label }}</p>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+</section>
+
 {{-- ===== LE LIEU & SAVEURS (galerie avec lightbox) ===== --}}
 <div x-data="homeGallery()"
      @keydown.escape.window="close()"
@@ -507,6 +551,21 @@ if (checkIn && checkOut) {
             checkOut.value = min.toISOString().split('T')[0];
         }
     });
+}
+
+// Vidéos de présentation : lecture uniquement quand elles sont à l'écran
+const hotelVideos = document.querySelectorAll('.js-hotel-video');
+if (hotelVideos.length && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.play().catch(() => {});
+            } else {
+                entry.target.pause();
+            }
+        });
+    }, { threshold: 0.35 });
+    hotelVideos.forEach((video) => observer.observe(video));
 }
 </script>
 @endpush
