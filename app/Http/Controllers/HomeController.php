@@ -12,6 +12,6 @@ class HomeController extends Controller
 
     public function index()
     {
-        return view('home', ['rooms' => $this->catalog->featured(3)]);
+        return view('home', ['roomsByCategory' => $this->catalog->representativeByCategory()]);
     }
 }

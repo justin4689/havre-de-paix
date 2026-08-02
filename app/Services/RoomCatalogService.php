@@ -57,6 +57,23 @@ class RoomCatalogService
         return $this->rooms->featured($limit);
     }
 
+    /**
+     * Une chambre représentative par catégorie (la moins chère de chacune),
+     * ordonnée selon Room::CATEGORIES — pour les onglets de l'accueil.
+     */
+    public function representativeByCategory(): Collection
+    {
+        $byCategory = $this->rooms->allActive()
+            ->sortBy('price_per_night')
+            ->groupBy('category')
+            ->map(fn (Collection $group) => $group->first());
+
+        return collect(Room::CATEGORIES)
+            ->keys()
+            ->mapWithKeys(fn (string $key) => [$key => $byCategory->get($key)])
+            ->filter();
+    }
+
     public function findBySlug(string $slug): Room
     {
         return $this->rooms->findBySlugOrFail($slug);

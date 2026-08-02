@@ -132,50 +132,86 @@
             </a>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            @forelse ($rooms as $room)
-            <article class="card group">
-                {{-- Image --}}
-                <div class="relative aspect-[4/3] overflow-hidden">
-                    <img src="{{ asset($room->first_image) }}"
-                         alt="{{ $room->name }}"
-                         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                         loading="lazy"
-                         width="400" height="300">
-                    <div class="absolute top-3 left-3">
-                        <span class="badge">{{ $room->category_label }}</span>
-                    </div>
-                    <div class="absolute top-3 right-3 px-2 py-1 rounded-lg text-xs font-semibold text-white" style="background-color: var(--color-navy);">
-                        {{ $room->capacity_adults }} pers.
-                    </div>
-                </div>
+        @if ($roomsByCategory->isNotEmpty())
+        <div x-data="{ tab: '{{ $roomsByCategory->keys()->first() }}' }">
 
-                {{-- Infos --}}
-                <div class="p-5">
-                    <h3 class="font-semibold text-base mb-1.5" style="color: var(--color-navy); font-family: var(--font-serif);">{{ $room->name }}</h3>
-                    <p class="text-sm mb-4 line-clamp-2" style="color: var(--color-slate);">{{ $room->description_short }}</p>
-
-                    {{-- Équipements --}}
-                    <div class="flex gap-3 mb-4 flex-wrap">
-                        @foreach (array_slice($room->amenities ?? [], 0, 3) as $amenity)
-                        <span class="text-xs flex items-center gap-1.5" style="color: var(--color-slate);">
-                            <x-amenity-icon :name="$amenity" class="w-3.5 h-3.5 shrink-0" style="color: var(--color-orange);" />
-                            {{ $amenity }}
-                        </span>
-                        @endforeach
-                    </div>
-
-                    <a href="{{ route('rooms.show', $room->slug) }}" class="btn-primary w-full text-sm py-2.5">
-                        Voir & Réserver
-                    </a>
-                </div>
-            </article>
-            @empty
-            <div class="col-span-3 text-center py-12" style="color: var(--color-slate);">
-                <p>Les chambres seront bientôt disponibles.</p>
+            {{-- Onglets par catégorie --}}
+            <div class="flex flex-wrap gap-2 mb-8" role="tablist" aria-label="Catégories de chambres">
+                @foreach ($roomsByCategory as $categoryKey => $room)
+                <button @click="tab = '{{ $categoryKey }}'" role="tab"
+                        :aria-selected="tab === '{{ $categoryKey }}' ? 'true' : 'false'"
+                        :class="tab === '{{ $categoryKey }}' ? 'text-white shadow-md' : 'bg-white hover:border-slate-300'"
+                        :style="tab === '{{ $categoryKey }}' ? 'background-color: var(--color-orange); border-color: var(--color-orange);' : 'color: var(--color-navy); border-color: var(--color-border);'"
+                        class="px-5 py-2.5 rounded-full text-sm font-semibold border transition-all cursor-pointer">
+                    {{ \App\Models\Room::CATEGORIES[$categoryKey] }}
+                </button>
+                @endforeach
             </div>
-            @endforelse
+
+            {{-- Panneau de la catégorie active --}}
+            @foreach ($roomsByCategory as $categoryKey => $room)
+            <div x-show="tab === '{{ $categoryKey }}'" x-transition.opacity.duration.300ms role="tabpanel"
+                 {{ $loop->first ? '' : 'x-cloak' }}>
+                <div class="bg-white rounded-3xl border shadow-sm overflow-hidden grid grid-cols-1 lg:grid-cols-2" style="border-color: var(--color-border);">
+                    <div class="relative overflow-hidden min-h-[280px] lg:min-h-[440px]">
+                        <img src="{{ asset($room->first_image) }}" alt="{{ $room->name }}"
+                             class="absolute inset-0 w-full h-full object-cover" loading="lazy">
+                        <div class="absolute top-4 left-4">
+                            <span class="badge">{{ $room->category_label }}</span>
+                        </div>
+                    </div>
+                    <div class="p-8 lg:p-12 flex flex-col justify-center">
+                        <h3 class="text-2xl font-bold mb-3" style="color: var(--color-navy); font-family: var(--font-serif);">{{ $room->name }}</h3>
+                        <p class="leading-relaxed mb-6" style="color: var(--color-slate);">{{ $room->description_short }}</p>
+
+                        {{-- Caractéristiques --}}
+                        <div class="grid grid-cols-2 gap-x-6 gap-y-3 mb-6 text-sm" style="color: var(--color-navy);">
+                            <span class="flex items-center gap-2">
+                                <svg class="w-4 h-4 shrink-0" style="color: var(--color-orange);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                                {{ $room->capacity_adults }} hôte{{ $room->capacity_adults > 1 ? 's' : '' }}
+                            </span>
+                            <span class="flex items-center gap-2">
+                                <svg class="w-4 h-4 shrink-0" style="color: var(--color-orange);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                                {{ $room->bed_type_label }}
+                            </span>
+                            @if ($room->size_m2)
+                            <span class="flex items-center gap-2">
+                                <svg class="w-4 h-4 shrink-0" style="color: var(--color-orange);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V6a2 2 0 012-2h2M4 16v2a2 2 0 002 2h2m8-16h2a2 2 0 012 2v2m-4 12h2a2 2 0 002-2v-2"/></svg>
+                                {{ $room->size_m2 }} m²
+                            </span>
+                            @endif
+                            <span class="flex items-center gap-2">
+                                <svg class="w-4 h-4 shrink-0" style="color: var(--color-orange);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                                Étage {{ $room->floor }}
+                            </span>
+                        </div>
+
+                        {{-- Équipements --}}
+                        <div class="flex gap-x-4 gap-y-2 mb-8 flex-wrap">
+                            @foreach (array_slice($room->amenities ?? [], 0, 4) as $amenity)
+                            <span class="text-xs flex items-center gap-1.5" style="color: var(--color-slate);">
+                                <x-amenity-icon :name="$amenity" class="w-3.5 h-3.5 shrink-0" style="color: var(--color-orange);" />
+                                {{ $amenity }}
+                            </span>
+                            @endforeach
+                        </div>
+
+                        <div class="flex flex-wrap gap-3">
+                            <a href="{{ route('rooms.show', $room->slug) }}" class="btn-primary">Voir & Réserver</a>
+                            <a href="{{ route('rooms.index', ['category' => [$categoryKey]]) }}" class="btn-outline">
+                                Toute la catégorie {{ \App\Models\Room::CATEGORIES[$categoryKey] }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endforeach
         </div>
+        @else
+        <div class="text-center py-12" style="color: var(--color-slate);">
+            <p>Les chambres seront bientôt disponibles.</p>
+        </div>
+        @endif
 
         <div class="text-center mt-8 sm:hidden">
             <a href="{{ route('rooms.index') }}" class="btn-outline">Voir toutes les chambres</a>
@@ -338,7 +374,7 @@
      role="dialog" aria-modal="true" aria-label="Visionneuse de photos">
     <div class="absolute inset-0" style="background-color: rgba(11,18,21,0.93); backdrop-filter: blur(8px);" @click="close()"></div>
 
-    <div class="relative z-10 max-w-5xl w-full" @click.outside="close()">
+    <div class="relative z-10 max-w-5xl w-full">
         <img :src="current.src" :alt="current.alt"
              class="w-full max-h-[78vh] object-contain rounded-2xl shadow-2xl select-none">
         <p class="text-center text-sm mt-4 font-medium" style="color: rgba(255,255,255,0.85);" x-text="current.alt"></p>
