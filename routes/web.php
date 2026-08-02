@@ -33,6 +33,7 @@ Route::get('/a-propos', function () {
     $rooms = \App\Models\Room::where('status', 'active')->orderBy('price_per_night')->get();
     return view('about', compact('rooms'));
 })->name('about');
+Route::view('/notre-table', 'table')->name('table');
 Route::view('/mentions-legales', 'legal')->name('legal');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');

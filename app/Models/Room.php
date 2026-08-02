@@ -10,7 +10,7 @@ class Room extends Model
     protected $fillable = [
         'slug', 'name', 'description_short', 'description_long',
         'capacity_adults', 'capacity_children', 'size_m2',
-        'bed_type', 'floor', 'view', 'amenities', 'images',
+        'bed_type', 'floor', 'category', 'amenities', 'images',
         'price_per_night', 'min_nights', 'status',
     ];
 
@@ -49,14 +49,16 @@ class Room extends Model
         return $images[0] ?? 'images/placeholder.svg';
     }
 
-    public function getViewLabelAttribute(): string
+    public const CATEGORIES = [
+        'mini-suite' => 'Mini Suite',
+        'standard'   => 'Standard',
+        'executive'  => 'Executive',
+        'open-space' => 'Open Space',
+    ];
+
+    public function getCategoryLabelAttribute(): string
     {
-        return match ($this->view) {
-            'sea'    => 'Vue mer',
-            'lagoon' => 'Vue lagune',
-            'pool'   => 'Vue piscine',
-            default  => 'Vue jardin',
-        };
+        return self::CATEGORIES[$this->category] ?? 'Standard';
     }
 
     public function getBedTypeLabelAttribute(): string

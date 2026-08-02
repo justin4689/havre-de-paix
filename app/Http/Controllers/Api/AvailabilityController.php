@@ -27,7 +27,7 @@ class AvailabilityController extends Controller
                 'slug'        => $room->slug,
                 'name'        => $room->name,
                 'capacity'    => $room->capacity_adults,
-                'view'        => $room->view_label,
+                'category'    => $room->category_label,
                 'first_image' => asset($room->first_image),
                 'price_night' => $room->price_per_night,
                 'price_total' => $this->pricing->priceForStay($room, $checkIn, $checkOut),

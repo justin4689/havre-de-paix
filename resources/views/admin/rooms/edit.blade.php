@@ -74,10 +74,10 @@
                     </select>
                 </div>
                 <div>
-                    <label class="form-label">Vue</label>
-                    <select name="view" class="form-input">
-                        @foreach (['lagoon' => 'Lagune', 'sea' => 'Mer', 'pool' => 'Piscine', 'garden' => 'Jardin'] as $val => $label)
-                        <option value="{{ $val }}" {{ old('view', $room->view) === $val ? 'selected' : '' }}>{{ $label }}</option>
+                    <label class="form-label">Catégorie</label>
+                    <select name="category" class="form-input">
+                        @foreach (\App\Models\Room::CATEGORIES as $val => $label)
+                        <option value="{{ $val }}" {{ old('category', $room->category) === $val ? 'selected' : '' }}>{{ $label }}</option>
                         @endforeach
                     </select>
                 </div>

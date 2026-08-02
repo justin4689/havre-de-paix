@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', $room->name . ' — Résidence Hôtel Cascades')
-@section('description', $room->description_short . ' ' . $room->view_label . '. Réservez en ligne.')
+@section('description', $room->description_short . ' Catégorie ' . $room->category_label . '. Réservez en ligne.')
 
 @push('head')
 <script type="application/ld+json">
@@ -84,12 +84,18 @@
 
                 {{-- Titre + caractéristiques --}}
                 <div class="mb-6">
-                    <h1 class="section-title">{{ $room->name }}</h1>
+                    <div class="flex items-baseline justify-between gap-4 flex-wrap">
+                        <h1 class="section-title">{{ $room->name }}</h1>
+                        <p class="shrink-0">
+                            <span class="price-tag text-2xl">{{ number_format($room->price_per_night, 0, ',', ' ') }}</span>
+                            <span class="text-sm ml-1" style="color: var(--color-slate);">FCFA / nuit</span>
+                        </p>
+                    </div>
                     <p class="mt-2 text-sm font-medium" style="color: var(--color-navy);">
-                        {{ $room->capacity_adults }} voyageur{{ $room->capacity_adults > 1 ? 's' : '' }}
+                        {{ $room->capacity_adults }} hôte{{ $room->capacity_adults > 1 ? 's' : '' }}
                         &middot; {{ $room->bed_type_label }}
                         @if ($room->size_m2) &middot; {{ $room->size_m2 }} m² @endif
-                        &middot; {{ $room->view_label }}
+                        &middot; {{ $room->category_label }}
                         &middot; Étage {{ $room->floor }}
                     </p>
                     <p class="section-subtitle">{{ $room->description_short }}</p>
@@ -133,12 +139,9 @@
                 <div class="sticky top-24 bg-white rounded-2xl shadow-lg border p-6" style="border-color: var(--color-border);"
                      x-data="bookingWidget({{ $room->id }}, {{ $room->price_per_night }})">
 
-                    <div class="flex items-baseline gap-1.5 mb-5">
-                        <span class="price-tag text-3xl">{{ number_format($room->price_per_night, 0, ',', ' ') }}</span>
-                        <span class="text-sm" style="color: var(--color-slate);">FCFA / nuit</span>
-                    </div>
+                    <p class="font-semibold text-base mb-5" style="color: var(--color-navy);">Réservez votre séjour</p>
 
-                    {{-- Bloc dates + voyageurs soudé --}}
+                    {{-- Bloc dates + hôtes soudé --}}
                     <div class="rounded-xl border mb-4 overflow-hidden" style="border-color: #94A3B8;">
                         <div class="grid grid-cols-2">
                             <div class="p-3">
@@ -161,10 +164,10 @@
                             </div>
                         </div>
                         <div class="p-3 border-t" style="border-color: #94A3B8;">
-                            <label for="room-guests" class="block text-[10px] font-bold uppercase tracking-wide" style="color: var(--color-navy);">Voyageurs</label>
+                            <label for="room-guests" class="block text-[10px] font-bold uppercase tracking-wide" style="color: var(--color-navy);">Hôtes</label>
                             <select x-model="guests" id="room-guests" class="w-full bg-transparent text-sm outline-none border-0 p-0 cursor-pointer">
                                 @for ($i = 1; $i <= $room->capacity_adults; $i++)
-                                <option value="{{ $i }}">{{ $i }} {{ $i > 1 ? 'voyageurs' : 'voyageur' }}</option>
+                                <option value="{{ $i }}">{{ $i }} hôte{{ $i > 1 ? 's' : '' }}</option>
                                 @endfor
                             </select>
                         </div>
@@ -207,8 +210,7 @@
                     <div>
                         <h3 class="font-semibold mb-1" style="color: var(--color-navy); font-family: var(--font-serif);">{{ $s->name }}</h3>
                         <p class="text-xs mb-2 line-clamp-2" style="color: var(--color-slate);">{{ $s->description_short }}</p>
-                        <span class="price-tag text-lg">{{ number_format($s->price_per_night, 0, ',', ' ') }}</span>
-                        <span class="text-xs" style="color: var(--color-slate);"> FCFA/nuit</span>
+                        <span class="text-sm font-medium" style="color: var(--color-blue);">Voir la chambre →</span>
                     </div>
                 </a>
                 @endforeach

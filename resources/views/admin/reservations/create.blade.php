@@ -66,7 +66,7 @@
                     </div>
                 </div>
                 <div>
-                    <label class="form-label">Nb de voyageurs <span class="text-red-500">*</span></label>
+                    <label class="form-label">Nb d'hôtes <span class="text-red-500">*</span></label>
                     <input type="number" name="guests" value="{{ old('guests', 1) }}" min="1" max="10" class="form-input" required>
                 </div>
                 <div>

@@ -147,7 +147,7 @@ $adjustment = $totalPrice - $basePrice;
                             </a>
                         </div>
                         <p class="text-sm mb-4" style="color: var(--color-slate);">
-                            {{ $guests }} voyageur{{ $guests > 1 ? 's' : '' }} &middot; {{ $room->view_label }}
+                            {{ $guests }} hôte{{ $guests > 1 ? 's' : '' }} &middot; {{ $room->category_label }}
                         </p>
 
                         <div class="grid grid-cols-2 border-t border-b py-3 mb-4 text-sm" style="border-color: var(--color-border);">

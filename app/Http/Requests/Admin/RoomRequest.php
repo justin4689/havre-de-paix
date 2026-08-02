@@ -22,7 +22,7 @@ class RoomRequest extends FormRequest
             'size_m2'           => 'nullable|integer',
             'bed_type'          => 'required|in:single,double,twin,king',
             'floor'             => 'required|integer|min:0|max:10',
-            'view'              => 'required|in:sea,lagoon,garden,pool',
+            'category'          => 'required|in:mini-suite,standard,executive,open-space',
             'amenities'         => 'nullable|array',
             'amenities.*'       => 'string|max:100',
             'existing_images'   => 'nullable|array',

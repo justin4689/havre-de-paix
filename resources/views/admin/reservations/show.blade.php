@@ -42,7 +42,7 @@
                     </p>
                 </div>
                 <div>
-                    <p class="text-xs font-medium uppercase tracking-wide mb-1" style="color: var(--color-slate);">Voyageurs</p>
+                    <p class="text-xs font-medium uppercase tracking-wide mb-1" style="color: var(--color-slate);">Hôtes</p>
                     <p class="font-medium" style="color: var(--color-navy);">{{ $reservation->guests }} personne(s)</p>
                 </div>
                 <div>
@@ -133,7 +133,7 @@
             @endif
             <div class="p-4">
                 <p class="font-semibold text-sm" style="color: var(--color-navy);">{{ $reservation->room->name }}</p>
-                <p class="text-xs mt-0.5" style="color: var(--color-slate);">{{ $reservation->room->capacity_adults }} adultes · {{ $reservation->room->size_m2 }} m² · {{ $reservation->room->view_label }}</p>
+                <p class="text-xs mt-0.5" style="color: var(--color-slate);">{{ $reservation->room->capacity_adults }} adultes · {{ $reservation->room->size_m2 }} m² · {{ $reservation->room->category_label }}</p>
                 <p class="text-sm font-bold mt-2" style="color: var(--color-orange);">{{ number_format($reservation->room->price_per_night, 0, ',', ' ') }} FCFA / nuit</p>
             </div>
         </div>

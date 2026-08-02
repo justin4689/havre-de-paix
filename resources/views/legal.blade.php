@@ -118,7 +118,7 @@
                         <div>
                             <h3 class="font-bold text-base mb-2" style="color: var(--color-navy);">2.6 Modification</h3>
                             <p>
-                                Toute demande de modification (dates, chambre, nombre de voyageurs) doit être adressée à la réception par
+                                Toute demande de modification (dates, chambre, nombre d'hôtes) doit être adressée à la réception par
                                 email ou téléphone et reste soumise à disponibilité. La modification peut entraîner un ajustement du prix
                                 selon les tarifs en vigueur aux nouvelles dates.
                             </p>

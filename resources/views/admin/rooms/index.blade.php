@@ -40,9 +40,9 @@ $statusClasses = ['active' => 'bg-green-100 text-green-700', 'inactive' => 'bg-r
         <div class="p-4">
             <h3 class="font-bold mb-0.5" style="color: var(--color-navy);">{{ $room->name }}</h3>
             <p class="text-xs mb-3" style="color: var(--color-slate);">
-                {{ $room->capacity_adults }} voyageur{{ $room->capacity_adults > 1 ? 's' : '' }}
+                {{ $room->capacity_adults }} hôte{{ $room->capacity_adults > 1 ? 's' : '' }}
                 @if ($room->size_m2) &middot; {{ $room->size_m2 }} m² @endif
-                &middot; {{ $room->view_label }}
+                &middot; {{ $room->category_label }}
                 @if ($room->min_nights > 1) &middot; {{ $room->min_nights }} nuits min. @endif
             </p>
             <p class="text-base font-bold mb-4 tabular-nums" style="color: var(--color-navy);">

@@ -25,7 +25,7 @@ class EloquentRoomRepository implements RoomRepositoryInterface
     {
         return Room::where('status', 'active')
             ->when($filters['capacity'] ?? null, fn ($q, $capacity) => $q->where('capacity_adults', '>=', $capacity))
-            ->when($filters['view'] ?? null, fn ($q, $view) => $q->whereIn('view', (array) $view))
+            ->when($filters['category'] ?? null, fn ($q, $category) => $q->whereIn('category', (array) $category))
             ->when($filters['price_max'] ?? null, fn ($q, $priceMax) => $q->where('price_per_night', '<=', $priceMax))
             ->tap(fn ($q) => match ($sort) {
                 'price_desc' => $q->orderByDesc('price_per_night'),
@@ -59,7 +59,7 @@ class EloquentRoomRepository implements RoomRepositoryInterface
     {
         return Room::where('status', 'active')
             ->where('id', '!=', $room->id)
-            ->where('view', $room->view)
+            ->where('category', $room->category)
             ->take($limit)
             ->get();
     }

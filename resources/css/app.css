@@ -35,6 +35,9 @@
     --radius-xl: 24px;
 }
 
+/* Masque les éléments Alpine avant l'initialisation (x-cloak) */
+[x-cloak] { display: none !important; }
+
 /* Utilitaires personnalisés */
 @layer components {
     .btn-primary {

@@ -318,18 +318,12 @@
                          class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                          loading="lazy">
                     <div class="absolute top-3 left-3 flex gap-2 flex-wrap">
-                        <span class="badge text-xs">{{ $room->view_label }}</span>
+                        <span class="badge text-xs">{{ $room->category_label }}</span>
                     </div>
                     <div class="absolute bottom-0 inset-x-0 h-16" style="background: linear-gradient(to top, rgba(11,18,21,0.6), transparent);"></div>
                 </div>
                 <div class="p-5">
-                    <div class="flex items-start justify-between gap-3 mb-2">
-                        <h3 class="font-bold text-base group-hover:text-orange-500 transition-colors" style="font-family: var(--font-serif); color: var(--color-navy);">{{ $room->name }}</h3>
-                        <div class="text-right shrink-0">
-                            <span class="price-tag text-lg">{{ number_format($room->price_per_night, 0, ',', ' ') }}</span>
-                            <span class="text-xs block" style="color: var(--color-slate);">FCFA/nuit</span>
-                        </div>
-                    </div>
+                    <h3 class="font-bold text-base mb-2 group-hover:text-orange-500 transition-colors" style="font-family: var(--font-serif); color: var(--color-navy);">{{ $room->name }}</h3>
                     <p class="text-xs leading-relaxed mb-4 line-clamp-2" style="color: var(--color-slate);">{{ $room->description_short }}</p>
                     <div class="flex items-center gap-3 text-xs" style="color: var(--color-slate);">
                         <span class="flex items-center gap-1">

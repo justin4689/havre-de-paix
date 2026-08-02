@@ -15,18 +15,17 @@ class RoomController extends Controller
     public function index(Request $request)
     {
         $data = $this->catalog->catalog(
-            $request->only(['capacity', 'view', 'price_max', 'sort', 'check_in', 'check_out']),
+            $request->only(['capacity', 'category', 'price_max', 'sort', 'check_in', 'check_out']),
             max(1, (int) $request->get('page', 1)),
             $request->url(),
             Arr::except($request->query(), 'page'),
         );
 
         return view('rooms.index', [
-            'rooms'       => $data['rooms'],
-            'viewCounts'  => $data['viewCounts'],
-            'priceBounds' => $data['priceBounds'],
-            'checkIn'     => $request->get('check_in'),
-            'checkOut'    => $request->get('check_out'),
+            'rooms'          => $data['rooms'],
+            'categoryCounts' => $data['categoryCounts'],
+            'checkIn'        => $request->get('check_in'),
+            'checkOut'       => $request->get('check_out'),
         ]);
     }
 

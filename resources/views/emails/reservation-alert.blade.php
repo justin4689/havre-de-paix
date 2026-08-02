@@ -34,7 +34,7 @@
     <div class="kv"><span class="k">Arrivée</span><span class="v">{{ $reservation->check_in->format('d/m/Y') }}</span></div>
     <div class="kv"><span class="k">Départ</span><span class="v">{{ $reservation->check_out->format('d/m/Y') }}</span></div>
     <div class="kv"><span class="k">Nuits</span><span class="v">{{ $reservation->nights }}</span></div>
-    <div class="kv"><span class="k">Voyageurs</span><span class="v">{{ $reservation->guests }}</span></div>
+    <div class="kv"><span class="k">Hôtes</span><span class="v">{{ $reservation->guests }}</span></div>
     <div class="kv"><span class="k">Montant total</span><span class="v" style="color:#42B6DA;">{{ number_format($reservation->total_price, 0, ',', ' ') }} FCFA</span></div>
     @if ($reservation->special_requests)
     <div class="kv"><span class="k">Demandes spéciales</span><span class="v">{{ $reservation->special_requests }}</span></div>

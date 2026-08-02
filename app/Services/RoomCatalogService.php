@@ -18,9 +18,9 @@ class RoomCatalogService
 
     /**
      * Catalogue public : chambres filtrées (et disponibles si dates fournies),
-     * paginées, avec compteurs par vue et bornes de prix pour le panneau de filtres.
+     * paginées, avec compteurs par catégorie et bornes de prix pour le panneau de filtres.
      *
-     * @param array $filters capacity, view, price_max, sort, check_in, check_out
+     * @param array $filters capacity, category, price_max, sort, check_in, check_out
      */
     public function catalog(array $filters, int $page, string $path, array $query): array
     {
@@ -46,9 +46,9 @@ class RoomCatalogService
         );
 
         return [
-            'rooms'       => $paginated,
-            'viewCounts'  => $this->viewCounts(),
-            'priceBounds' => $this->priceBounds(),
+            'rooms'          => $paginated,
+            'categoryCounts' => $this->categoryCounts(),
+            'priceBounds'    => $this->priceBounds(),
         ];
     }
 
@@ -72,9 +72,9 @@ class RoomCatalogService
         return $this->rooms->similarTo($room, $limit);
     }
 
-    private function viewCounts(): Collection
+    private function categoryCounts(): Collection
     {
-        return $this->rooms->allActive()->countBy('view');
+        return $this->rooms->allActive()->countBy('category');
     }
 
     private function priceBounds(): array

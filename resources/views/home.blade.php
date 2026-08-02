@@ -64,10 +64,10 @@
                 <div class="sm:hidden h-px mx-5" style="background-color: var(--color-border);"></div>
 
                 <div class="flex-1 min-w-0 px-5 py-2.5 rounded-2xl sm:rounded-full transition-colors hover:bg-slate-50">
-                    <label for="guests" class="block text-xs font-bold uppercase tracking-wide mb-0.5">Voyageurs</label>
+                    <label for="guests" class="block text-xs font-bold uppercase tracking-wide mb-0.5">Hôtes</label>
                     <select id="guests" name="capacity" class="w-full bg-transparent text-sm font-medium outline-none border-0 p-0 cursor-pointer">
                         @for ($i = 1; $i <= 8; $i++)
-                        <option value="{{ $i }}" {{ request('capacity') == $i ? 'selected' : '' }}>{{ $i }} {{ $i > 1 ? 'voyageurs' : 'voyageur' }}</option>
+                        <option value="{{ $i }}" {{ request('capacity') == $i ? 'selected' : '' }}>{{ $i }} hôte{{ $i > 1 ? 's' : '' }}</option>
                         @endfor
                     </select>
                 </div>
@@ -124,7 +124,7 @@
             <div>
                 <p class="text-sm font-semibold uppercase tracking-widest mb-2" style="color: var(--color-orange);">Notre catalogue</p>
                 <h2 class="section-title">Nos Chambres & Suites</h2>
-                <p class="section-subtitle max-w-md">Du confort standard à la suite présidentielle, trouvez l'hébergement qui vous correspond.</p>
+                <p class="section-subtitle max-w-md">De la Chambre Standard à la Mini Suite, trouvez l'hébergement qui vous correspond.</p>
             </div>
             <a href="{{ route('rooms.index') }}" class="btn-outline hidden sm:inline-flex">
                 Voir toutes les chambres
@@ -143,7 +143,7 @@
                          loading="lazy"
                          width="400" height="300">
                     <div class="absolute top-3 left-3">
-                        <span class="badge">{{ $room->view_label }}</span>
+                        <span class="badge">{{ $room->category_label }}</span>
                     </div>
                     <div class="absolute top-3 right-3 px-2 py-1 rounded-lg text-xs font-semibold text-white" style="background-color: var(--color-navy);">
                         {{ $room->capacity_adults }} pers.
@@ -165,15 +165,9 @@
                         @endforeach
                     </div>
 
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <span class="price-tag">{{ number_format($room->price_per_night, 0, ',', ' ') }}</span>
-                            <span class="text-xs ml-1" style="color: var(--color-slate);">FCFA / nuit</span>
-                        </div>
-                        <a href="{{ route('rooms.show', $room->slug) }}" class="btn-primary text-sm py-2 px-4">
-                            Voir & Réserver
-                        </a>
-                    </div>
+                    <a href="{{ route('rooms.show', $room->slug) }}" class="btn-primary w-full text-sm py-2.5">
+                        Voir & Réserver
+                    </a>
                 </div>
             </article>
             @empty
@@ -327,6 +321,13 @@
                 </div>
             </div>
             @endforeach
+        </div>
+
+        <div class="text-center mt-10">
+            <a href="{{ route('table') }}" class="btn-primary">
+                Découvrir Notre Table
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </a>
         </div>
     </div>
 </section>

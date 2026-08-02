@@ -17,7 +17,7 @@
             <p class="text-sm font-semibold uppercase tracking-widest mb-3" style="color: var(--color-orange);">Hébergement</p>
             <h1 class="text-4xl sm:text-5xl font-bold text-white mb-4" style="font-family: var(--font-serif);">Nos Chambres & Suites</h1>
             <p class="max-w-xl mx-auto" style="color: rgba(255,255,255,0.85);">
-                Du confort standard à la suite présidentielle — chaque hébergement offre un cadre tropical unique au cœur de Cocody.
+                De la Chambre Standard à la Mini Suite — chaque hébergement offre un cadre calme et verdoyant au cœur de Cocody.
             </p>
         </div>
     </div>
@@ -56,11 +56,11 @@
                                 <input type="date" name="check_out" value="{{ $checkOut }}" min="{{ date('Y-m-d', strtotime('+1 day')) }}" class="form-input text-sm">
                             </div>
                             <div>
-                                <label class="form-label text-xs">Voyageurs</label>
+                                <label class="form-label text-xs">Hôtes</label>
                                 <select name="capacity" class="form-input text-sm">
                                     <option value="">Tous</option>
                                     @for ($i = 1; $i <= 6; $i++)
-                                    <option value="{{ $i }}" {{ request('capacity') == $i ? 'selected' : '' }}>{{ $i }} voyageur{{ $i > 1 ? 's' : '' }}</option>
+                                    <option value="{{ $i }}" {{ request('capacity') == $i ? 'selected' : '' }}>{{ $i }} hôte{{ $i > 1 ? 's' : '' }}</option>
                                     @endfor
                                 </select>
                             </div>
@@ -75,7 +75,7 @@
                     <div class="bg-white rounded-2xl shadow-sm border p-5" style="border-color: var(--color-border);">
                         <div class="flex items-center justify-between mb-3">
                             <h2 class="text-xs font-bold uppercase tracking-wide" style="color: var(--color-navy);">Filtrer par</h2>
-                            @if (request()->hasAny(['view', 'price_max', 'capacity']))
+                            @if (request()->hasAny(['category', 'price_max', 'capacity']))
                             <a href="{{ route('rooms.index', array_filter(['check_in' => $checkIn, 'check_out' => $checkOut, 'sort' => request('sort')])) }}"
                                class="text-xs font-medium underline transition-colors" style="color: var(--color-blue);">
                                 Tout effacer
@@ -83,39 +83,21 @@
                             @endif
                         </div>
 
-                        {{-- Vue --}}
-                        <p class="text-sm font-semibold mb-1" style="color: var(--color-navy);">Vue</p>
-                        @foreach (['sea' => 'Mer', 'lagoon' => 'Lagune', 'pool' => 'Piscine', 'garden' => 'Jardin'] as $value => $label)
+                        {{-- Catégorie --}}
+                        <p class="text-sm font-semibold mb-1" style="color: var(--color-navy);">Catégorie</p>
+                        @foreach (\App\Models\Room::CATEGORIES as $value => $label)
                         <label class="flex items-center justify-between py-1.5 cursor-pointer rounded-lg -mx-2 px-2 transition-colors hover:bg-slate-50">
                             <span class="flex items-center gap-2.5 text-sm" style="color: var(--color-navy);">
-                                <input type="checkbox" name="view[]" value="{{ $value }}"
+                                <input type="checkbox" name="category[]" value="{{ $value }}"
                                        onchange="this.form.submit()"
-                                       {{ in_array($value, (array) request('view', [])) ? 'checked' : '' }}
+                                       {{ in_array($value, (array) request('category', [])) ? 'checked' : '' }}
                                        class="w-4 h-4 rounded cursor-pointer" style="accent-color: var(--color-orange);">
                                 {{ $label }}
                             </span>
-                            <span class="text-xs" style="color: var(--color-slate);">{{ $viewCounts[$value] ?? 0 }}</span>
+                            <span class="text-xs" style="color: var(--color-slate);">{{ $categoryCounts[$value] ?? 0 }}</span>
                         </label>
                         @endforeach
 
-                        {{-- Prix (curseur) --}}
-                        <div class="flex items-center justify-between mb-2 mt-4 pt-4 border-t" style="border-color: var(--color-border);">
-                            <p class="text-sm font-semibold" style="color: var(--color-navy);">Prix par nuit</p>
-                            <span id="price-max-label" class="text-xs font-medium" style="color: var(--color-orange);">
-                                {{ request('price_max') ? 'Jusqu\'à ' . number_format((int) request('price_max'), 0, ',', ' ') . ' FCFA' : 'Tous les prix' }}
-                            </span>
-                        </div>
-                        <input type="range" name="price_max"
-                               min="{{ $priceBounds['min'] }}" max="{{ $priceBounds['max'] }}" step="5000"
-                               value="{{ request('price_max', $priceBounds['max']) }}"
-                               oninput="document.getElementById('price-max-label').textContent = this.value == this.max ? 'Tous les prix' : 'Jusqu\'à ' + Number(this.value).toLocaleString('fr-FR') + ' FCFA'"
-                               onchange="if (this.value == this.max) this.disabled = true; this.form.submit();"
-                               class="w-full cursor-pointer" style="accent-color: var(--color-orange);"
-                               aria-label="Prix maximum par nuit">
-                        <div class="flex justify-between text-xs mt-1" style="color: var(--color-slate);">
-                            <span>{{ number_format($priceBounds['min'], 0, ',', ' ') }}</span>
-                            <span>{{ number_format($priceBounds['max'], 0, ',', ' ') }} FCFA</span>
-                        </div>
                     </div>
                 </form>
             </aside>
@@ -123,8 +105,7 @@
             {{-- ===== RÉSULTATS (colonne droite) ===== --}}
             <div class="lg:col-span-3">
 
-                {{-- Compteur + tri --}}
-                @php $sortUrl = fn ($s) => route('rooms.index', array_merge(request()->query(), ['sort' => $s])); @endphp
+                {{-- Compteur --}}
                 <div class="mb-6 flex flex-wrap items-center justify-between gap-3">
                     <div class="text-sm" style="color: var(--color-slate);">
                         @if ($checkIn && $checkOut)
@@ -134,14 +115,6 @@
                         <strong style="color: var(--color-navy);">{{ $rooms->total() }}</strong> hébergement{{ $rooms->total() > 1 ? 's' : '' }}
                         @endif
                     </div>
-                    <label class="flex items-center gap-2 text-sm" style="color: var(--color-slate);">
-                        Trier :
-                        <select onchange="window.location=this.value" class="form-input text-sm w-auto py-2 cursor-pointer" aria-label="Trier les chambres">
-                            <option value="{{ $sortUrl('price_asc') }}" {{ request('sort', 'price_asc') === 'price_asc' ? 'selected' : '' }}>Prix croissant</option>
-                            <option value="{{ $sortUrl('price_desc') }}" {{ request('sort') === 'price_desc' ? 'selected' : '' }}>Prix décroissant</option>
-                            <option value="{{ $sortUrl('capacity') }}" {{ request('sort') === 'capacity' ? 'selected' : '' }}>Capacité</option>
-                        </select>
-                    </label>
                 </div>
 
                 {{-- Grille chambres --}}
@@ -154,7 +127,7 @@
                                  class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                                  loading="lazy" width="400" height="300">
                             <div class="absolute top-3 left-3 flex gap-2">
-                                <span class="badge">{{ $room->view_label }}</span>
+                                <span class="badge">{{ $room->category_label }}</span>
                                 @if ($rooms->total() <= 2 && $checkIn)
                                 <span class="badge-orange">Dernières dispo.</span>
                                 @endif
@@ -198,17 +171,7 @@
                                 </div>
                             </div>
 
-                            <div class="pt-3 border-t space-y-3" style="border-color: var(--color-border);">
-                                <div>
-                                    @if ($checkIn && $checkOut)
-                                    @php $nights = max(1, (int) \Carbon\Carbon::parse($checkIn)->diffInDays(\Carbon\Carbon::parse($checkOut))); @endphp
-                                    <span class="price-tag text-xl">{{ number_format($room->price_per_night * $nights, 0, ',', ' ') }}</span>
-                                    <span class="text-xs ml-1" style="color: var(--color-slate);">FCFA · {{ $nights }} nuit{{ $nights > 1 ? 's' : '' }}</span>
-                                    @else
-                                    <span class="price-tag text-xl">{{ number_format($room->price_per_night, 0, ',', ' ') }}</span>
-                                    <span class="text-xs ml-1" style="color: var(--color-slate);">FCFA / nuit</span>
-                                    @endif
-                                </div>
+                            <div class="pt-3 border-t" style="border-color: var(--color-border);">
                                 <a href="{{ route('rooms.show', $room->slug) }}{{ $checkIn ? '?check_in='.$checkIn.'&check_out='.$checkOut : '' }}"
                                    class="btn-primary w-full text-sm py-2.5">
                                     Voir & Réserver

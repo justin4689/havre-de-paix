@@ -67,7 +67,7 @@
         <span class="value">{{ $reservation->nights }} nuit(s)</span>
       </div>
       <div class="detail-row">
-        <span class="label">Voyageurs</span>
+        <span class="label">Hôtes</span>
         <span class="value">{{ $reservation->guests }} personne(s)</span>
       </div>
     </div>

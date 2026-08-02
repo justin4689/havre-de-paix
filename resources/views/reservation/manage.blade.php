@@ -66,7 +66,7 @@ $badgeStyles = [
                         <span class="font-medium" style="color: var(--color-navy);">{{ $reservation->nights }} nuit{{ $reservation->nights > 1 ? 's' : '' }}</span>
                     </div>
                     <div class="flex justify-between">
-                        <span style="color: var(--color-slate);">Voyageurs</span>
+                        <span style="color: var(--color-slate);">Hôtes</span>
                         <span class="font-medium" style="color: var(--color-navy);">{{ $reservation->guests }}</span>
                     </div>
                     @if ($reservation->special_requests)

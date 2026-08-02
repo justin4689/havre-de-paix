@@ -64,6 +64,7 @@
                         @foreach ([
                             ['route' => 'home', 'label' => 'Accueil'],
                             ['route' => 'rooms.index', 'label' => 'Nos Chambres'],
+                            ['route' => 'table', 'label' => 'Notre Table'],
                             ['route' => 'about', 'label' => 'À Propos'],
                             ['route' => 'contact', 'label' => 'Contact'],
                             ['route' => 'reservation.lookup', 'label' => 'Ma réservation'],
@@ -101,6 +102,7 @@
                 @foreach ([
                     ['route' => 'home', 'label' => 'Accueil'],
                     ['route' => 'rooms.index', 'label' => 'Nos Chambres'],
+                    ['route' => 'table', 'label' => 'Notre Table'],
                     ['route' => 'about', 'label' => 'À Propos'],
                     ['route' => 'contact', 'label' => 'Contact'],
                     ['route' => 'reservation.lookup', 'label' => 'Ma réservation'],
@@ -149,6 +151,7 @@
                     <ul class="space-y-2.5 text-sm">
                         @foreach ([
                             ['route' => 'rooms.index', 'label' => 'Nos Chambres'],
+                            ['route' => 'table', 'label' => 'Notre Table'],
                             ['route' => 'reservation.lookup', 'label' => 'Ma réservation'],
                             ['route' => 'about', 'label' => 'À Propos'],
                             ['route' => 'contact', 'label' => 'Contact'],

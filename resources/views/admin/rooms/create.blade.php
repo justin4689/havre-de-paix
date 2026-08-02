@@ -75,12 +75,11 @@
                     </select>
                 </div>
                 <div>
-                    <label class="form-label">Vue</label>
-                    <select name="view" class="form-input">
-                        <option value="lagoon" {{ old('view') === 'lagoon' ? 'selected' : '' }}>Lagune</option>
-                        <option value="sea" {{ old('view') === 'sea' ? 'selected' : '' }}>Mer</option>
-                        <option value="pool" {{ old('view') === 'pool' ? 'selected' : '' }}>Piscine</option>
-                        <option value="garden" {{ old('view') === 'garden' ? 'selected' : '' }}>Jardin</option>
+                    <label class="form-label">Catégorie</label>
+                    <select name="category" class="form-input">
+                        @foreach (\App\Models\Room::CATEGORIES as $val => $label)
+                        <option value="{{ $val }}" {{ old('category', 'standard') === $val ? 'selected' : '' }}>{{ $label }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div>
