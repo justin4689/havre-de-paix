@@ -220,7 +220,11 @@
 </section>
 
 {{-- ===== L'HÔTEL EN VIDÉO ===== --}}
-<section class="py-20 px-4 sm:px-6 lg:px-8 overflow-hidden" style="background-color: var(--color-ink);">
+<section class="py-20 px-4 sm:px-6 lg:px-8 overflow-hidden" style="background-color: var(--color-ink);"
+         x-data="{ videoOpen: null,
+                   openVideo(src) { this.videoOpen = src; document.querySelectorAll('.js-hotel-video').forEach(v => v.pause()); },
+                   closeVideo()  { this.videoOpen = null; document.querySelectorAll('.js-hotel-video').forEach(v => v.play().catch(() => {})); } }"
+         @keydown.escape.window="closeVideo()">
     <div class="max-w-7xl mx-auto">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
@@ -240,27 +244,42 @@
 
             <div class="flex justify-center gap-5 sm:gap-8">
                 @foreach (['video-1.mp4' => 'Visite de la résidence', 'video-2.mp4' => 'L\'expérience Cascades'] as $file => $label)
-                <div x-data="{ muted: true }" class="relative w-[44vw] max-w-[320px] shrink-0 {{ $loop->last ? 'mt-12' : '' }}">
-                    <div class="rounded-[1.75rem] overflow-hidden shadow-2xl border-4" style="border-color: rgba(255,255,255,0.12); aspect-ratio: 9/16; background-color: #000;">
+                <div class="relative w-[44vw] max-w-[320px] shrink-0 {{ $loop->last ? 'mt-12' : '' }}">
+                    <div class="rounded-[1.75rem] overflow-hidden shadow-2xl border-4 cursor-pointer group relative"
+                         style="border-color: rgba(255,255,255,0.12); aspect-ratio: 9/16; background-color: #000;"
+                         @click="openVideo('{{ asset('videos/' . $file) }}')"
+                         role="button" tabindex="0" aria-label="Regarder : {{ $label }}"
+                         @keydown.enter="openVideo('{{ asset('videos/' . $file) }}')">
                         <video src="{{ asset('videos/' . $file) }}"
                                class="w-full h-full object-cover js-hotel-video"
-                               x-ref="player" loop muted playsinline preload="metadata"
+                               loop muted playsinline preload="metadata"
                                aria-label="{{ $label }}"></video>
+                        {{-- Indice lecture --}}
+                        <div class="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/25 transition-colors">
+                            <span class="w-14 h-14 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                                  style="background-color: rgba(255,255,255,0.22); backdrop-filter: blur(4px);">
+                                <svg class="w-7 h-7 text-white ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            </span>
+                        </div>
                     </div>
-                    {{-- Bouton son --}}
-                    <button @click="muted = ! muted; $refs.player.muted = muted; $refs.player.play()"
-                            class="absolute bottom-3 right-3 w-10 h-10 rounded-full flex items-center justify-center text-white cursor-pointer transition-colors hover:bg-white/30"
-                            style="background-color: rgba(255,255,255,0.18); backdrop-filter: blur(4px);"
-                            :aria-label="muted ? 'Activer le son' : 'Couper le son'">
-                        <svg x-show="muted" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z M17 14l4-4m0 4l-4-4"/></svg>
-                        <svg x-show="!muted" x-cloak class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072M18.364 5.636a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>
-                    </button>
                     <p class="text-center text-xs mt-3 font-medium" style="color: rgba(255,255,255,0.55);">{{ $label }}</p>
                 </div>
                 @endforeach
             </div>
         </div>
     </div>
+
+    {{-- Visionneuse vidéo plein écran --}}
+    <template x-if="videoOpen">
+        <div class="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4" @click.self="closeVideo()"
+             role="dialog" aria-modal="true" aria-label="Lecture de la vidéo">
+            <button @click="closeVideo()" class="absolute top-4 right-4 z-20 text-white/80 hover:text-white cursor-pointer" aria-label="Fermer">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+            <video :src="videoOpen" class="max-h-[88vh] max-w-full rounded-2xl shadow-2xl" style="aspect-ratio: 9/16;"
+                   controls autoplay playsinline></video>
+        </div>
+    </template>
 </section>
 
 {{-- ===== LE LIEU & SAVEURS (galerie avec lightbox) ===== --}}
