@@ -14,6 +14,7 @@
     <x-hero-slideshow :images="[
         ['src' => 'images/hero3.webp',             'alt' => 'La façade de la Résidence Hôtel Cascades — Cocody, Abidjan'],
         ['src' => 'images/hero-facade-jour-2.jpg', 'alt' => 'L\'architecture de la résidence en journée'],
+        ['src' => 'images/lounge-nuit.jpg',        'alt' => 'Le lounge et ses lumières chaleureuses en soirée'],
         ['src' => 'images/hero-enseigne-jour.jpg', 'alt' => 'L\'enseigne de la Résidence Hôtel Cascades'],
     ]" />
     <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(11,18,21,0.88) 0%, rgba(11,18,21,0.55) 45%, rgba(11,18,21,0.78) 100%);"></div>
@@ -252,34 +253,58 @@
             <h2 class="section-title">Galerie de la Résidence Hôtel Cascades</h2>
         </div>
 
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-3" x-data="{ lightbox: null, imgs: [
-            { s: '{{ asset('images/hero2.webp') }}',  a: 'La façade illuminée de nuit' },
-            { s: '{{ asset('images/decor4.jpg') }}',  a: 'Le lobby et son plafond lumineux' },
-            { s: '{{ asset('images/decor1.jpg') }}',  a: 'L\'entrée et son mur végétal' },
-            { s: '{{ asset('images/resto2.jpg') }}',  a: 'La salle du restaurant' },
-            { s: '{{ asset('images/bar1.jpg') }}',    a: 'Le comptoir du bar' },
-            { s: '{{ asset('images/decor6.jpg') }}',  a: 'L\'escalier design' },
-            { s: '{{ asset('images/decor7.jpg') }}',  a: 'La réception' },
-            { s: '{{ asset('images/resto1.jpg') }}',  a: 'Le jardin en configuration banquet' },
-            { s: '{{ asset('images/hero4.png') }}',   a: 'L\'enseigne côté rue' },
-            { s: '{{ asset('images/piscine-nuit.jpg') }}',    a: 'La piscine illuminée à la tombée de la nuit' },
-            { s: '{{ asset('images/terrasse-nuit.jpg') }}',   a: 'La terrasse au crépuscule' },
-            { s: '{{ asset('images/reception-marbre.jpg') }}', a: 'La réception et son comptoir en marbre' }
-        ] }">
-            <template x-for="(img, i) in imgs" :key="i">
-                <button @click="lightbox = i"
-                        class="relative overflow-hidden rounded-xl group cursor-zoom-in"
-                        :class="i === 0 ? 'col-span-2 row-span-2 h-full' : ''"
-                        :style="i === 0 ? '' : 'aspect-ratio: 1/1'">
-                    <img :src="img.s" :alt="img.a"
-                         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
-                    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
-                        <svg class="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/>
-                        </svg>
-                    </div>
-                </button>
-            </template>
+        @php
+        // Deux ensembles qui alternent en fondu : la résidence de jour, puis de nuit.
+        $gallerySets = [
+            [
+                ['img' => 'salon-tv.jpg',         'alt' => 'Le grand salon, son marbre et ses plafonds lumineux'],
+                ['img' => 'couloir-marbre.jpg',   'alt' => 'Le couloir d\'accueil en marbre'],
+                ['img' => 'couloir-salon.jpg',    'alt' => 'Le couloir menant au salon'],
+                ['img' => 'patio-rouge.jpg',      'alt' => 'Le patio rouge et son claustra en bois'],
+                ['img' => 'decor2.jpg',           'alt' => 'Le couloir d\'accueil vers la réception'],
+                ['img' => 'decor5.jpg',           'alt' => 'L\'escalier d\'entrée bordé de verdure'],
+                ['img' => 'decor8.jpg',           'alt' => 'Le salon lounge et ses plantes'],
+                ['img' => 'reception-marbre.jpg', 'alt' => 'La réception et son comptoir en marbre'],
+                ['img' => 'resto1.jpg',           'alt' => 'Le jardin en configuration banquet'],
+            ],
+            [
+                ['img' => 'facade-nuit-2.jpg',      'alt' => 'Les balcons de la résidence éclairés la nuit'],
+                ['img' => 'escalier-mosaique.jpg',  'alt' => 'L\'escalier et sa mosaïque illuminée le soir'],
+                ['img' => 'piscine-plongee.jpg',    'alt' => 'La piscine vue d\'en haut, illuminée à la nuit tombée'],
+                ['img' => 'escalier-plongee.jpg',   'alt' => 'L\'escalier vu d\'en haut le soir'],
+                ['img' => 'facade-lointaine.jpg',   'alt' => 'La résidence dans la nuit d\'Abidjan'],
+                ['img' => 'terrasse-nuit.jpg',      'alt' => 'La terrasse au crépuscule'],
+                ['img' => 'hero-enseigne-nuit.jpg', 'alt' => 'L\'enseigne lumineuse à la tombée de la nuit'],
+                ['img' => 'piscine-rouge.jpg',      'alt' => 'Le bassin et son mur rouge éclairé le soir'],
+                ['img' => 'bar3.jpg',               'alt' => 'Le bar en soirée'],
+            ],
+        ];
+        $galleryFlat = array_merge(...$gallerySets);
+        @endphp
+
+        <div x-data="{ gallerySet: 0, lightbox: null, imgs: {{ json_encode(array_map(fn ($p) => ['s' => asset('images/' . $p['img']), 'a' => $p['alt']], $galleryFlat)) }} }"
+             x-init="setInterval(() => gallerySet = (gallerySet + 1) % 2, 8000)">
+            <div class="relative">
+                @foreach ($gallerySets as $setIndex => $tiles)
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-3 {{ $setIndex > 0 ? 'absolute inset-0' : '' }}"
+                     style="opacity: {{ $setIndex === 0 ? '1' : '0' }}; transition: opacity 1.4s ease; {{ $setIndex > 0 ? 'pointer-events: none;' : '' }}"
+                     :style="gallerySet === {{ $setIndex }} ? 'opacity:1; transition: opacity 1.4s ease;' : 'opacity:0; transition: opacity 1.4s ease; pointer-events:none;'">
+                    @foreach ($tiles as $i => $tile)
+                    <button @click="lightbox = {{ $setIndex * 9 + $i }}"
+                            class="relative overflow-hidden rounded-xl group cursor-zoom-in {{ $i === 0 ? 'col-span-2 row-span-2 h-full' : '' }}"
+                            @if ($i !== 0) style="aspect-ratio: 1/1" @endif>
+                        <img src="{{ asset('images/' . $tile['img']) }}" alt="{{ $tile['alt'] }}"
+                             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
+                            <svg class="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/>
+                            </svg>
+                        </div>
+                    </button>
+                    @endforeach
+                </div>
+                @endforeach
+            </div>
 
             {{-- Lightbox --}}
             <div x-show="lightbox !== null" x-transition.opacity

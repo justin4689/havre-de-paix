@@ -11,8 +11,9 @@
     {{-- Header --}}
     <div class="relative flex items-center justify-center text-center h-[60vh] min-h-[420px] px-4 sm:px-6 lg:px-8 overflow-hidden">
         <x-hero-slideshow :images="[
-            ['src' => 'images/hero4.png',               'alt' => 'Chambre de la Résidence Hôtel Cascades'],
+            ['src' => 'images/hero-nos-chambre.jpeg',   'alt' => 'Une chambre de la Résidence Hôtel Cascades — lit double et décoration wax'],
             ['src' => 'images/hero-facade-piscine.jpg', 'alt' => 'Les balcons de la résidence au-dessus de la piscine'],
+            ['src' => 'images/hero4.png',               'alt' => 'L\'enseigne de la Résidence Hôtel Cascades'],
         ]" />
         <div class="absolute inset-0 hero-overlay"></div>
         <div class="relative z-10 pt-16">
