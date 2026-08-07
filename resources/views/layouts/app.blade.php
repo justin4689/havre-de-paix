@@ -81,10 +81,15 @@
                     {{-- CTA --}}
                     <div class="hidden lg:flex items-center gap-3">
                         {{-- Langue --}}
-                        <div class="flex items-center gap-1 text-xs font-semibold mr-1" :style="scrolled || open ? 'color: var(--color-slate)' : 'color: rgba(255,255,255,0.85)'">
-                            <a href="{{ route('lang.switch', 'fr') }}" class="px-1.5 py-1 rounded transition-opacity {{ app()->getLocale() === 'fr' ? 'underline underline-offset-4' : 'opacity-60 hover:opacity-100' }}" style="color: inherit;">FR</a>
-                            <span class="opacity-40">|</span>
-                            <a href="{{ route('lang.switch', 'en') }}" class="px-1.5 py-1 rounded transition-opacity {{ app()->getLocale() === 'en' ? 'underline underline-offset-4' : 'opacity-60 hover:opacity-100' }}" style="color: inherit;">EN</a>
+                        <div class="flex items-center gap-2 mr-1">
+                            <a href="{{ route('lang.switch', 'fr') }}" title="Français" aria-label="Français"
+                               class="transition-all {{ app()->getLocale() === 'fr' ? 'ring-2 ring-offset-1 ring-[var(--color-primary)] rounded-[4px]' : 'opacity-50 hover:opacity-100' }}">
+                                <x-flag code="fr" class="w-6 h-4" />
+                            </a>
+                            <a href="{{ route('lang.switch', 'en') }}" title="English" aria-label="English"
+                               class="transition-all {{ app()->getLocale() === 'en' ? 'ring-2 ring-offset-1 ring-[var(--color-primary)] rounded-[4px]' : 'opacity-50 hover:opacity-100' }}">
+                                <x-flag code="gb" class="w-6 h-4" />
+                            </a>
                         </div>
                         @auth
                         <a href="{{ route('admin.dashboard') }}" class="text-sm font-medium" style="color: var(--color-orange);">Back-office</a>
@@ -118,10 +123,13 @@
                 <div class="pt-2">
                     <a href="{{ route('rooms.index') }}" class="btn-primary w-full text-center">{{ __('Réserver maintenant') }}</a>
                 </div>
-                <div class="flex items-center justify-center gap-3 pt-3 text-sm font-semibold" style="color: var(--color-slate);">
-                    <a href="{{ route('lang.switch', 'fr') }}" class="{{ app()->getLocale() === 'fr' ? 'underline underline-offset-4' : 'opacity-60' }}" style="color: inherit;">Français</a>
-                    <span class="opacity-40">|</span>
-                    <a href="{{ route('lang.switch', 'en') }}" class="{{ app()->getLocale() === 'en' ? 'underline underline-offset-4' : 'opacity-60' }}" style="color: inherit;">English</a>
+                <div class="flex items-center justify-center gap-6 pt-3 text-sm font-semibold" style="color: var(--color-slate);">
+                    <a href="{{ route('lang.switch', 'fr') }}" class="flex items-center gap-2 {{ app()->getLocale() === 'fr' ? '' : 'opacity-50' }}" style="color: inherit;">
+                        <x-flag code="fr" class="w-6 h-4" /> Français
+                    </a>
+                    <a href="{{ route('lang.switch', 'en') }}" class="flex items-center gap-2 {{ app()->getLocale() === 'en' ? '' : 'opacity-50' }}" style="color: inherit;">
+                        <x-flag code="gb" class="w-6 h-4" /> English
+                    </a>
                 </div>
             </div>
         </div>
