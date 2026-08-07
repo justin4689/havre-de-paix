@@ -70,6 +70,53 @@ docker compose -f docker-compose.prod.yml exec app php artisan migrate --force
 
 ---
 
+## Emails transactionnels (Hostinger Mail API)
+
+Les emails (confirmation/annulation de réservation, alertes hôtel, formulaire de
+contact) partent via la [Hostinger Mail API](https://api.mail.hostinger.com/) —
+pas de SMTP. L'expéditeur est la boîte `info@residencehotelcascades.com`.
+
+**Architecture** — chaque couche est remplaçable indépendamment :
+
+```
+Action métier (réservation, contact)
+        ↓
+EmailService                  app/Services/EmailService.php   (façade métier, échec loggé jamais bloquant)
+        ↓
+Mailable ShouldQueue          app/Mail/*.php                  (3 tentatives, backoff 10 s puis 60 s)
+        ↓  (worker `queue`)
+HostingerMailTransport        app/Mail/Transport/…            (transport Symfony custom, retry sur 5xx)
+        ↓
+POST /api/v1/mailboxes/{id}/send
+```
+
+**Mise en place**
+
+1. Créer le token : hPanel → Emails → residencehotelcascades.com → **Agentic mail → API**
+   → « Create API token », scope *Selected mailboxes* limité à `info@` (copié une seule fois).
+2. Récupérer l'identifiant de la boîte :
+   ```bash
+   curl -s https://api.mail.hostinger.com/api/v1/me -H "Authorization: Bearer $TOKEN"
+   ```
+3. Renseigner le `.env` :
+   ```env
+   MAIL_MAILER=hostinger
+   HOSTINGER_MAIL_TOKEN=…
+   HOSTINGER_MAIL_MAILBOX_ID=…
+   ```
+4. Tester :
+   ```bash
+   docker compose exec app php artisan tinker --execute='Mail::raw("Test", fn ($m) => $m->to("vous@exemple.com")->subject("Test API"));'
+   docker compose exec app php artisan queue:work --once   # si le worker ne tourne pas déjà
+   ```
+
+Les templates étendent `resources/views/emails/layouts/main.blade.php` (en-tête
+logo, palette de la marque, pied de page coordonnées). En dev, `MAIL_MAILER=log`
+écrit les emails dans `storage/logs/laravel.log`. Les envois échoués trois fois
+atterrissent dans `failed_jobs` (`php artisan queue:retry all` pour rejouer).
+
+---
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:

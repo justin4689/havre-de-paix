@@ -37,6 +37,14 @@ return [
 
     'mailers' => [
 
+        // Hostinger Mail API — l'expéditeur est la boîte associée au token.
+        'hostinger' => [
+            'transport'  => 'hostinger',
+            'token'      => env('HOSTINGER_MAIL_TOKEN'),
+            'mailbox_id' => env('HOSTINGER_MAIL_MAILBOX_ID'),
+            'timeout'    => (int) env('HOSTINGER_MAIL_TIMEOUT', 10),
+        ],
+
         'smtp' => [
             'transport' => 'smtp',
             'scheme' => env('MAIL_SCHEME'),

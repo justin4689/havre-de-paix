@@ -6,7 +6,6 @@ use App\Models\Reservation;
 use App\Models\Room;
 use App\Repositories\Contracts\ReservationRepositoryInterface;
 use App\Repositories\Contracts\RoomRepositoryInterface;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
@@ -17,6 +16,7 @@ class ReservationService
         private readonly RoomRepositoryInterface $rooms,
         private readonly AvailabilityService $availability,
         private readonly PricingService $pricing,
+        private readonly EmailService $emails,
     ) {}
 
     /**
@@ -62,8 +62,7 @@ class ReservationService
             'status'           => 'confirmed',
         ]);
 
-        $this->sendSafely(fn () => Mail::to($reservation->guest_email)->send(new \App\Mail\ReservationConfirmation($reservation)));
-        $this->sendSafely(fn () => Mail::to(config('mail.hotel_email', 'info@residencehotelcascades.com'))->send(new \App\Mail\ReservationAlert($reservation)));
+        $this->emails->sendReservationCreated($reservation);
 
         return $reservation;
     }
@@ -93,8 +92,7 @@ class ReservationService
             'cancelled_at' => now(),
         ]);
 
-        $this->sendSafely(fn () => Mail::to($reservation->guest_email)->send(new \App\Mail\ReservationCancelled($reservation)));
-        $this->sendSafely(fn () => Mail::to(config('mail.hotel_email', 'info@residencehotelcascades.com'))->send(new \App\Mail\ReservationCancelledAlert($reservation)));
+        $this->emails->sendReservationCancelled($reservation);
 
         return $reservation;
     }
@@ -132,13 +130,4 @@ class ReservationService
         return 'RHC-' . $year . '-' . str_pad((string) ($this->reservations->countCreatedInYear($year) + 1), 4, '0', STR_PAD_LEFT);
     }
 
-    /** La réservation ne doit jamais échouer à cause d'un email. */
-    private function sendSafely(callable $send): void
-    {
-        try {
-            $send();
-        } catch (\Exception $e) {
-            logger()->error('Mail error: ' . $e->getMessage());
-        }
-    }
 }
