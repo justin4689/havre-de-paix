@@ -4,8 +4,11 @@
 @section('content')
 <div>
     <div class="relative flex items-center justify-center text-center h-[60vh] min-h-[420px] px-4 overflow-hidden">
-        <img src="{{ asset('images/hero1.webp') }}" alt="L'entrée de la Résidence Hôtel Cascades de nuit"
-             class="absolute inset-0 w-full h-full object-cover" loading="eager">
+        <x-hero-slideshow :images="[
+            ['src' => 'images/hero1.webp',              'alt' => 'L\'entrée de la Résidence Hôtel Cascades de nuit'],
+            ['src' => 'images/hero-enseigne-nuit.jpg',  'alt' => 'L\'enseigne lumineuse de la résidence la nuit'],
+            ['src' => 'images/hero-enseigne-jour.jpg',  'alt' => 'L\'enseigne de la résidence en journée'],
+        ]" />
         <div class="absolute inset-0 hero-overlay"></div>
         <div class="relative z-10 pt-16">
             <h1 class="text-4xl sm:text-5xl font-bold text-white mb-3" style="font-family: var(--font-serif);">Contact</h1>

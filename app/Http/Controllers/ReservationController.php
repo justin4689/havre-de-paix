@@ -83,14 +83,13 @@ class ReservationController extends Controller
 
     public function lookup(LookupReservationRequest $request)
     {
-        $reservation = $this->reservationService->lookup(
-            $request->validated('ref'),
-            $request->validated('email'),
+        $reservation = $this->reservationService->findByRef(
+            strtoupper(trim($request->validated('ref'))),
         );
 
         if (! $reservation) {
             return back()
-                ->withErrors(['ref' => 'Aucune réservation trouvée avec cette référence et cet email. Vérifiez l\'email de confirmation reçu.'])
+                ->withErrors(['ref' => 'Aucune réservation trouvée avec cette référence. Vérifiez l\'email de confirmation reçu.'])
                 ->withInput();
         }
 

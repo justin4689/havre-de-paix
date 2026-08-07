@@ -10,8 +10,10 @@
 
     {{-- Header --}}
     <div class="relative flex items-center justify-center text-center h-[60vh] min-h-[420px] px-4 sm:px-6 lg:px-8 overflow-hidden">
-        <img src="{{ asset('images/hero4.png') }}" alt="Chambre de la Résidence Hôtel Cascades"
-             class="absolute inset-0 w-full h-full object-cover" loading="eager">
+        <x-hero-slideshow :images="[
+            ['src' => 'images/hero4.png',               'alt' => 'Chambre de la Résidence Hôtel Cascades'],
+            ['src' => 'images/hero-facade-piscine.jpg', 'alt' => 'Les balcons de la résidence au-dessus de la piscine'],
+        ]" />
         <div class="absolute inset-0 hero-overlay"></div>
         <div class="relative z-10 pt-16">
             <p class="text-sm font-semibold uppercase tracking-widest mb-3" style="color: var(--color-orange);">Hébergement</p>

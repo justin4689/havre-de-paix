@@ -11,9 +11,11 @@
      1. HERO
 ═══════════════════════════════════════════ --}}
 <section class="relative min-h-[70vh] flex items-center overflow-hidden">
-    <img src="{{ asset('images/hero3.webp') }}"
-         alt="La façade de la Résidence Hôtel Cascades — Cocody, Abidjan"
-         class="absolute inset-0 w-full h-full object-cover">
+    <x-hero-slideshow :images="[
+        ['src' => 'images/hero3.webp',             'alt' => 'La façade de la Résidence Hôtel Cascades — Cocody, Abidjan'],
+        ['src' => 'images/hero-facade-jour-2.jpg', 'alt' => 'L\'architecture de la résidence en journée'],
+        ['src' => 'images/hero-enseigne-jour.jpg', 'alt' => 'L\'enseigne de la Résidence Hôtel Cascades'],
+    ]" />
     <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(11,18,21,0.88) 0%, rgba(11,18,21,0.55) 45%, rgba(11,18,21,0.78) 100%);"></div>
 
     <div class="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-32 pb-16">
@@ -259,7 +261,10 @@
             { s: '{{ asset('images/decor6.jpg') }}',  a: 'L\'escalier design' },
             { s: '{{ asset('images/decor7.jpg') }}',  a: 'La réception' },
             { s: '{{ asset('images/resto1.jpg') }}',  a: 'Le jardin en configuration banquet' },
-            { s: '{{ asset('images/hero4.png') }}',   a: 'L\'enseigne côté rue' }
+            { s: '{{ asset('images/hero4.png') }}',   a: 'L\'enseigne côté rue' },
+            { s: '{{ asset('images/piscine-nuit.jpg') }}',    a: 'La piscine illuminée à la tombée de la nuit' },
+            { s: '{{ asset('images/terrasse-nuit.jpg') }}',   a: 'La terrasse au crépuscule' },
+            { s: '{{ asset('images/reception-marbre.jpg') }}', a: 'La réception et son comptoir en marbre' }
         ] }">
             <template x-for="(img, i) in imgs" :key="i">
                 <button @click="lightbox = i"
@@ -545,7 +550,7 @@
      11. CTA FINAL
 ═══════════════════════════════════════════ --}}
 <section class="relative py-24 overflow-hidden">
-    <img src="{{ asset('images/hero2.webp') }}"
+    <img src="{{ asset('images/hero-facade-nuit.jpg') }}"
          alt="La Résidence Hôtel Cascades illuminée de nuit"
          class="absolute inset-0 w-full h-full object-cover">
     <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(11,18,21,0.92) 0%, rgba(11,18,21,0.75) 100%);"></div>

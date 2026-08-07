@@ -8,12 +8,13 @@
 
 {{-- ===== HERO ===== --}}
 <section class="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
-    {{-- Background image --}}
+    {{-- Background : diaporama façade nuit / jour / lobby --}}
     <div class="absolute inset-0 z-0">
-        <img src="{{ asset('images/hero2.webp') }}"
-             alt="La Résidence Hôtel Cascades illuminée de nuit — Cocody, Abidjan"
-             class="w-full h-full object-cover"
-             loading="eager">
+        <x-hero-slideshow :images="[
+            ['src' => 'images/hero2.webp',           'alt' => 'La Résidence Hôtel Cascades illuminée de nuit — Cocody, Abidjan'],
+            ['src' => 'images/hero-facade-jour.jpg', 'alt' => 'La façade de la Résidence Hôtel Cascades en journée'],
+            ['src' => 'images/hero-lobby.jpg',       'alt' => 'Le lobby et sa mezzanine aux plafonds lumineux'],
+        ]" />
         <div class="absolute inset-0 hero-overlay"></div>
     </div>
 
@@ -294,32 +295,55 @@
         <div class="text-center mb-12">
             <p class="text-sm font-semibold uppercase tracking-widest mb-2" style="color: var(--color-orange);">Le lieu</p>
             <h2 class="section-title">Le décor de votre séjour</h2>
-            <p class="section-subtitle max-w-md mx-auto">Lobby, salons, jardins et terrasses — un havre de calme en plein Abidjan. Cliquez sur une photo pour l'agrandir.</p>
+            <p class="section-subtitle max-w-md mx-auto">De jour comme de nuit — la résidence, sa piscine et ses lumières. Cliquez sur une photo pour l'agrandir.</p>
         </div>
 
-        <div class="grid grid-cols-2 md:grid-cols-4 md:grid-rows-3 gap-3 md:h-[760px]">
-            @foreach ([
-                ['img' => 'decor4.jpg', 'label' => 'Le lobby',            'alt' => 'Le lobby de la Résidence Hôtel Cascades et son plafond lumineux', 'class' => 'col-span-2 md:row-span-2 aspect-[4/3] md:aspect-auto'],
-                ['img' => 'decor1.jpg', 'label' => 'L\'entrée végétale',  'alt' => 'L\'entrée et son mur végétal orné de sculptures',                'class' => 'aspect-square md:aspect-auto'],
-                ['img' => 'decor7.jpg', 'label' => 'La réception',        'alt' => 'La réception en marbre et bois',                                  'class' => 'aspect-square md:aspect-auto'],
-                ['img' => 'decor6.jpg', 'label' => 'L\'escalier',         'alt' => 'L\'escalier design et ses motifs géométriques',                  'class' => 'aspect-square md:aspect-auto'],
-                ['img' => 'decor3.jpg', 'label' => 'Le hall',             'alt' => 'Le hall et ses assises traditionnelles en bois',                  'class' => 'aspect-square md:aspect-auto'],
-                ['img' => 'decor5.jpg', 'label' => 'L\'entrée',           'alt' => 'L\'escalier d\'entrée bordé de verdure',                         'class' => 'aspect-square md:aspect-auto'],
-                ['img' => 'decor8.jpg', 'label' => 'Le salon',            'alt' => 'Le salon lounge et ses plantes',                                  'class' => 'aspect-square md:aspect-auto'],
-                ['img' => 'decor2.jpg', 'label' => 'Le couloir d\'accueil', 'alt' => 'Le couloir d\'accueil vers la réception',                      'class' => 'col-span-2 aspect-[16/9] md:aspect-auto'],
-            ] as $tile)
-            <div class="relative rounded-2xl overflow-hidden group cursor-zoom-in {{ $tile['class'] }}"
-                 data-gallery="decor" role="button" tabindex="0"
-                 @click="show($event.currentTarget)" @keydown.enter="show($event.currentTarget)">
-                <img src="{{ asset('images/' . $tile['img']) }}" alt="{{ $tile['alt'] }}"
-                     class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
-                <div class="absolute inset-0 flex items-end justify-between p-4 opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity duration-300"
-                     style="background: linear-gradient(to top, rgba(11,18,21,0.72), transparent 55%);">
-                    <span class="text-white text-sm font-semibold">{{ $tile['label'] }}</span>
-                    <span class="w-8 h-8 rounded-full flex items-center justify-center shrink-0" style="background-color: rgba(255,255,255,0.2); backdrop-filter: blur(4px);">
-                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V6a2 2 0 012-2h2M4 16v2a2 2 0 002 2h2m8-16h2a2 2 0 012 2v2m-4 12h2a2 2 0 002-2v-2"/></svg>
-                    </span>
+        @php
+        // Deux ensembles complets qui alternent en fondu : la résidence de jour, puis de nuit.
+        $decorSets = [
+            [
+                ['img' => 'hero-facade-jour-2.jpg',  'label' => 'La façade en journée',    'alt' => 'L\'architecture de la résidence sous le soleil de Cocody',     'class' => 'col-span-2 md:row-span-2 aspect-[4/3] md:aspect-auto'],
+                ['img' => 'facade-piscine-jour.jpg', 'label' => 'L\'entrée',               'alt' => 'L\'entrée de la résidence et son enseigne en pleine journée',  'class' => 'aspect-square md:aspect-auto'],
+                ['img' => 'escalier-jour.jpg',       'label' => 'L\'escalier de verre',    'alt' => 'L\'escalier de verre baigné de lumière naturelle',             'class' => 'aspect-square md:aspect-auto'],
+                ['img' => 'enseigne-crotons.jpg',    'label' => 'L\'enseigne',             'alt' => 'L\'enseigne de la résidence entourée de crotons',              'class' => 'aspect-square md:aspect-auto'],
+                ['img' => 'salon-clair.jpg',         'label' => 'Le salon du lobby',       'alt' => 'Le salon lumineux du lobby',                                   'class' => 'aspect-square md:aspect-auto'],
+                ['img' => 'decor1.jpg',              'label' => 'L\'entrée végétale',      'alt' => 'L\'entrée et son mur végétal orné de sculptures',              'class' => 'aspect-square md:aspect-auto'],
+                ['img' => 'salon-baies.jpg',         'label' => 'Les baies vitrées',       'alt' => 'Le salon lounge et ses baies vitrées',                         'class' => 'aspect-square md:aspect-auto'],
+                ['img' => 'hero-facade-piscine.jpg', 'label' => 'Les balcons sur la piscine', 'alt' => 'Les balcons de la résidence au-dessus de la piscine',       'class' => 'col-span-2 aspect-[16/9] md:aspect-auto'],
+            ],
+            [
+                ['img' => 'hero-facade-nuit.jpg',   'label' => 'La résidence de nuit',    'alt' => 'La façade de la Résidence Hôtel Cascades illuminée la nuit',  'class' => 'col-span-2 md:row-span-2 aspect-[4/3] md:aspect-auto'],
+                ['img' => 'piscine-nuit.jpg',       'label' => 'La piscine de nuit',      'alt' => 'La piscine illuminée à la tombée de la nuit',                 'class' => 'aspect-square md:aspect-auto'],
+                ['img' => 'piscine-rouge.jpg',      'label' => 'Le bassin au mur rouge',  'alt' => 'Le bassin et son mur rouge éclairé le soir',                  'class' => 'aspect-square md:aspect-auto'],
+                ['img' => 'salon-plantes.jpg',      'label' => 'Le salon en soirée',      'alt' => 'Le salon, ses plantes et ses lumières en soirée',             'class' => 'aspect-square md:aspect-auto'],
+                ['img' => 'entree-sculpture.jpg',   'label' => 'L\'entrée sculptée',      'alt' => 'L\'entrée et sa sculpture sur pierre le soir',                'class' => 'aspect-square md:aspect-auto'],
+                ['img' => 'couloir-vegetal.jpg',    'label' => 'Le couloir végétal',      'alt' => 'Le couloir et son mur végétal en soirée',                     'class' => 'aspect-square md:aspect-auto'],
+                ['img' => 'comptoir-marbre.jpg',    'label' => 'La réception',            'alt' => 'Le comptoir de la réception en marbre',                       'class' => 'aspect-square md:aspect-auto'],
+                ['img' => 'bar-banquette.jpg',      'label' => 'La banquette du bar',     'alt' => 'La banquette du bar sous les lumières du soir',               'class' => 'col-span-2 aspect-[16/9] md:aspect-auto'],
+            ],
+        ];
+        @endphp
+
+        <div x-data="{ decorSet: 0 }" x-init="setInterval(() => decorSet = (decorSet + 1) % 2, 8000)" class="relative">
+            @foreach ($decorSets as $setIndex => $tiles)
+            <div class="grid grid-cols-2 md:grid-cols-4 md:grid-rows-3 gap-3 md:h-[760px] {{ $setIndex > 0 ? 'absolute inset-0' : '' }}"
+                 style="opacity: {{ $setIndex === 0 ? '1' : '0' }}; transition: opacity 1.4s ease; {{ $setIndex > 0 ? 'pointer-events: none;' : '' }}"
+                 :style="decorSet === {{ $setIndex }} ? 'opacity:1; transition: opacity 1.4s ease;' : 'opacity:0; transition: opacity 1.4s ease; pointer-events:none;'">
+                @foreach ($tiles as $tile)
+                <div class="relative rounded-2xl overflow-hidden group cursor-zoom-in {{ $tile['class'] }}"
+                     data-gallery="decor" role="button" tabindex="0"
+                     @click="show($event.currentTarget)" @keydown.enter="show($event.currentTarget)">
+                    <img src="{{ asset('images/' . $tile['img']) }}" alt="{{ $tile['alt'] }}"
+                         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+                    <div class="absolute inset-0 flex items-end justify-between p-4 opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity duration-300"
+                         style="background: linear-gradient(to top, rgba(11,18,21,0.72), transparent 55%);">
+                        <span class="text-white text-sm font-semibold">{{ $tile['label'] }}</span>
+                        <span class="w-8 h-8 rounded-full flex items-center justify-center shrink-0" style="background-color: rgba(255,255,255,0.2); backdrop-filter: blur(4px);">
+                            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V6a2 2 0 012-2h2M4 16v2a2 2 0 002 2h2m8-16h2a2 2 0 012 2v2m-4 12h2a2 2 0 002-2v-2"/></svg>
+                        </span>
+                    </div>
                 </div>
+                @endforeach
             </div>
             @endforeach
         </div>

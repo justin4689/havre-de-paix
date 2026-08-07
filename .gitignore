@@ -26,3 +26,7 @@ Homestead.json
 Homestead.yaml
 Thumbs.db
 *.HEIC
+
+# Photos brutes (originaux non retenus — les copies renommées sont versionnées)
+public/images/1000*.jpg
+public/images/snaptik-*.jpg

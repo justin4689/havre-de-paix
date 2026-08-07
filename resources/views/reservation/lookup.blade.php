@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Retrouver ma réservation — Résidence Hôtel Cascades')
-@section('description', 'Consultez ou annulez votre réservation à la Résidence Hôtel Cascades avec votre référence (RHC-AAAA-XXXX) et votre email.')
+@section('description', 'Consultez ou annulez votre réservation à la Résidence Hôtel Cascades avec votre référence (RHC-AAAA-XXXX).')
 
 @section('content')
 <div class="pt-24 pb-20 min-h-screen px-4 sm:px-6" style="background-color: var(--color-snow);">
@@ -13,7 +13,7 @@
             </div>
             <h1 class="text-3xl font-bold tracking-tight mb-2" style="color: var(--color-navy);">Retrouver ma réservation</h1>
             <p class="text-sm" style="color: var(--color-slate);">
-                Saisissez la référence reçue dans votre email de confirmation et l'adresse email utilisée lors de la réservation.
+                Saisissez la référence reçue dans votre email de confirmation.
             </p>
         </div>
 
@@ -21,7 +21,7 @@
               class="bg-white rounded-2xl shadow-sm border p-6" style="border-color: var(--color-border);">
             @csrf
 
-            <div class="mb-4">
+            <div class="mb-6">
                 <label for="ref" class="form-label">Référence de réservation <span class="text-red-500">*</span></label>
                 <input type="text" name="ref" id="ref"
                        value="{{ old('ref') }}"
@@ -29,16 +29,6 @@
                        class="form-input uppercase"
                        autocomplete="off" required>
                 @error('ref')<p class="text-xs text-red-600 mt-1.5">{{ $message }}</p>@enderror
-            </div>
-
-            <div class="mb-6">
-                <label for="email" class="form-label">Email de la réservation <span class="text-red-500">*</span></label>
-                <input type="email" name="email" id="email"
-                       value="{{ old('email') }}"
-                       placeholder="votre@email.com"
-                       class="form-input"
-                       autocomplete="email" required>
-                @error('email')<p class="text-xs text-red-600 mt-1.5">{{ $message }}</p>@enderror
             </div>
 
             <button type="submit" class="btn-primary w-full py-3.5">

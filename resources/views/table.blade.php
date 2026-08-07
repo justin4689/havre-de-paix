@@ -9,14 +9,19 @@
         { s: '{{ asset('images/resto3.jpg') }}', a: 'Les tables dressées' },
         { s: '{{ asset('images/bar1.jpg') }}',   a: 'Le comptoir du bar' },
         { s: '{{ asset('images/bar2.jpg') }}',   a: 'L\'espace lounge du bar' },
-        { s: '{{ asset('images/bar3.jpg') }}',   a: 'Le bar en soirée' }
+        { s: '{{ asset('images/bar3.jpg') }}',   a: 'Le bar en soirée' },
+        { s: '{{ asset('images/salon-lounge.jpg') }}',  a: 'Le salon lounge et ses fauteuils' },
+        { s: '{{ asset('images/bar-banquette.jpg') }}', a: 'La banquette du bar en soirée' },
+        { s: '{{ asset('images/coin-salon.jpg') }}',    a: 'Le coin salon attenant au bar' }
      ] }"
      @keydown.escape.window="lightbox = null">
 
     {{-- ===== HERO ===== --}}
     <div class="relative flex items-center justify-center text-center h-[60vh] min-h-[420px] px-4 overflow-hidden">
-        <img src="{{ asset('images/resto2.jpg') }}" alt="La salle du restaurant de la Résidence Hôtel Cascades"
-             class="absolute inset-0 w-full h-full object-cover" loading="eager">
+        <x-hero-slideshow :images="[
+            ['src' => 'images/resto2.jpg',            'alt' => 'La salle du restaurant de la Résidence Hôtel Cascades'],
+            ['src' => 'images/hero-salle-table.jpg',  'alt' => 'La grande salle et ses tables dressées'],
+        ]" />
         <div class="absolute inset-0 hero-overlay"></div>
         <div class="relative z-10 pt-16">
             <p class="text-sm font-semibold uppercase tracking-widest mb-3" style="color: var(--color-primary);">Saveurs</p>

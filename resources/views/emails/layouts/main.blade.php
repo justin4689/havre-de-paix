@@ -23,7 +23,7 @@
   body { font-family: 'Segoe UI', Arial, sans-serif; background: #F8FAFC; color: #0B1215; }
   .wrapper { max-width: 580px; margin: 32px auto; background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,.08); }
   .header { padding: 28px 36px; text-align: center; }
-  .logo-img { width: 56px; height: 56px; border-radius: 12px; margin-bottom: 12px; }
+  .logo-img { width: 80px; height: 80px; border-radius: 14px; margin-bottom: 12px; }
   .header h1 { color: #fff; font-size: 20px; font-weight: 600; letter-spacing: .02em; }
   .header p { color: rgba(255,255,255,.65); font-size: 13px; margin-top: 5px; }
   .body { padding: 28px 36px; }
@@ -63,7 +63,7 @@
 <div class="wrapper">
     <div class="header" style="background: @yield('accent', '#0B1215');">
         @hasSection('logo')
-        <img src="{{ asset('images/logo-dashboard.png') }}" alt="Résidence Hôtel Cascades" width="56" height="56" class="logo-img">
+        <img src="{{ asset('images/logo-dashboard.png') }}" alt="Résidence Hôtel Cascades" width="80" height="80" class="logo-img">
         @endif
         <h1>@yield('heading')</h1>
         <p>@yield('subheading')</p>

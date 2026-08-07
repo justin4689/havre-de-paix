@@ -14,16 +14,14 @@ class LookupReservationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'ref'   => 'required|string|max:20',
-            'email' => 'required|email|max:150',
+            'ref' => 'required|string|max:20',
         ];
     }
 
     public function attributes(): array
     {
         return [
-            'ref'   => 'référence',
-            'email' => 'email',
+            'ref' => 'référence',
         ];
     }
 }
