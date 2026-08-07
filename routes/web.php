@@ -11,6 +11,14 @@ use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\RoomController;
 use Illuminate\Support\Facades\Route;
 
+// Bascule de langue (fr / en), mémorisée en session
+Route::get('/langue/{locale}', function (string $locale) {
+    abort_unless(in_array($locale, \App\Http\Middleware\SetLocale::SUPPORTED, true), 404);
+    session(['locale' => $locale]);
+
+    return redirect()->back();
+})->name('lang.switch');
+
 // === PAGES PUBLIQUES ===
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/chambres', [RoomController::class, 'index'])->name('rooms.index');

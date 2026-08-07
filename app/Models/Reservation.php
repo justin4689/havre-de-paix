@@ -38,9 +38,9 @@ class Reservation extends Model
     public function getStatusLabelAttribute(): string
     {
         return match ($this->status) {
-            'confirmed'  => 'Confirmée',
-            'cancelled'  => 'Annulée',
-            'modified'   => 'Modifiée',
+            'confirmed'  => __('Confirmée'),
+            'cancelled'  => __('Annulée'),
+            'modified'   => __('Modifiée'),
             default      => $this->status,
         };
     }

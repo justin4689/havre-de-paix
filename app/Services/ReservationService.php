@@ -42,7 +42,7 @@ class ReservationService
 
         if (! $this->availability->isRoomAvailable($room, $data['check_in'], $data['check_out'])) {
             throw ValidationException::withMessages([
-                'check_in' => 'Cette chambre n\'est plus disponible pour ces dates.',
+                'check_in' => __('Cette chambre n\'est plus disponible pour ces dates.'),
             ]);
         }
 

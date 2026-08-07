@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="fr" class="scroll-smooth">
+<html lang="{{ app()->getLocale() }}" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title', 'Résidence Hôtel Cascades') — Résidence-Hôtel · Cocody, Abidjan</title>
-    <meta name="description" content="@yield('description', 'Résidence Hôtel Cascades, résidence-hôtel au cœur de Cocody à Cocody, Abidjan, Côte d\'Ivoire. Réservez en ligne, confirmation instantanée, paiement à l\'arrivée.')">
+    <meta name="description" content="@yield('description', __('Résidence Hôtel Cascades, résidence-hôtel au cœur de Cocody, Abidjan, Côte d\'Ivoire. Réservez en ligne, confirmation instantanée, paiement à l\'arrivée.'))">
 
     {{-- Open Graph --}}
     <meta property="og:title" content="@yield('title', 'Résidence Hôtel Cascades')">
@@ -62,12 +62,12 @@
                     {{-- Navigation desktop --}}
                     <nav class="hidden lg:flex items-center gap-8">
                         @foreach ([
-                            ['route' => 'home', 'label' => 'Accueil'],
-                            ['route' => 'rooms.index', 'label' => 'Nos Chambres'],
-                            ['route' => 'table', 'label' => 'Notre Table'],
-                            ['route' => 'about', 'label' => 'À Propos'],
-                            ['route' => 'contact', 'label' => 'Contact'],
-                            ['route' => 'reservation.lookup', 'label' => 'Ma réservation'],
+                            ['route' => 'home', 'label' => __('Accueil')],
+                            ['route' => 'rooms.index', 'label' => __('Nos Chambres')],
+                            ['route' => 'table', 'label' => __('Notre Table')],
+                            ['route' => 'about', 'label' => __('À Propos')],
+                            ['route' => 'contact', 'label' => __('Contact')],
+                            ['route' => 'reservation.lookup', 'label' => __('Ma réservation')],
                         ] as $item)
                         <a href="{{ route($item['route']) }}"
                            class="text-sm font-medium transition-colors duration-200"
@@ -80,12 +80,18 @@
 
                     {{-- CTA --}}
                     <div class="hidden lg:flex items-center gap-3">
+                        {{-- Langue --}}
+                        <div class="flex items-center gap-1 text-xs font-semibold mr-1" :style="scrolled || open ? 'color: var(--color-slate)' : 'color: rgba(255,255,255,0.85)'">
+                            <a href="{{ route('lang.switch', 'fr') }}" class="px-1.5 py-1 rounded transition-opacity {{ app()->getLocale() === 'fr' ? 'underline underline-offset-4' : 'opacity-60 hover:opacity-100' }}" style="color: inherit;">FR</a>
+                            <span class="opacity-40">|</span>
+                            <a href="{{ route('lang.switch', 'en') }}" class="px-1.5 py-1 rounded transition-opacity {{ app()->getLocale() === 'en' ? 'underline underline-offset-4' : 'opacity-60 hover:opacity-100' }}" style="color: inherit;">EN</a>
+                        </div>
                         @auth
                         <a href="{{ route('admin.dashboard') }}" class="text-sm font-medium" style="color: var(--color-orange);">Back-office</a>
                         @endauth
                         <a href="{{ route('rooms.index') }}" class="btn-primary text-sm">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                            Réserver
+                            {{ __('Réserver') }}
                         </a>
                     </div>
 
@@ -100,17 +106,22 @@
             {{-- Menu mobile --}}
             <div x-show="open" x-transition class="lg:hidden border-t px-4 py-4 space-y-1" style="border-color: var(--color-border);">
                 @foreach ([
-                    ['route' => 'home', 'label' => 'Accueil'],
-                    ['route' => 'rooms.index', 'label' => 'Nos Chambres'],
-                    ['route' => 'table', 'label' => 'Notre Table'],
-                    ['route' => 'about', 'label' => 'À Propos'],
-                    ['route' => 'contact', 'label' => 'Contact'],
-                    ['route' => 'reservation.lookup', 'label' => 'Ma réservation'],
+                    ['route' => 'home', 'label' => __('Accueil')],
+                    ['route' => 'rooms.index', 'label' => __('Nos Chambres')],
+                    ['route' => 'table', 'label' => __('Notre Table')],
+                    ['route' => 'about', 'label' => __('À Propos')],
+                    ['route' => 'contact', 'label' => __('Contact')],
+                    ['route' => 'reservation.lookup', 'label' => __('Ma réservation')],
                 ] as $item)
                 <a href="{{ route($item['route']) }}" class="block px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-orange-50 transition-colors" style="color: var(--color-navy);">{{ $item['label'] }}</a>
                 @endforeach
                 <div class="pt-2">
-                    <a href="{{ route('rooms.index') }}" class="btn-primary w-full text-center">Réserver maintenant</a>
+                    <a href="{{ route('rooms.index') }}" class="btn-primary w-full text-center">{{ __('Réserver maintenant') }}</a>
+                </div>
+                <div class="flex items-center justify-center gap-3 pt-3 text-sm font-semibold" style="color: var(--color-slate);">
+                    <a href="{{ route('lang.switch', 'fr') }}" class="{{ app()->getLocale() === 'fr' ? 'underline underline-offset-4' : 'opacity-60' }}" style="color: inherit;">Français</a>
+                    <span class="opacity-40">|</span>
+                    <a href="{{ route('lang.switch', 'en') }}" class="{{ app()->getLocale() === 'en' ? 'underline underline-offset-4' : 'opacity-60' }}" style="color: inherit;">English</a>
                 </div>
             </div>
         </div>
@@ -136,7 +147,7 @@
                         </div>
                     </div>
                     <p class="text-sm leading-relaxed max-w-xs" style="color: rgba(255,255,255,0.6);">
-                        Résidence-hôtel au cœur de Cocody, à Abidjan. Un havre de calme et de confort en pleine ville.
+                        {{ __('Résidence-hôtel au cœur de Cocody, à Abidjan. Un havre de calme et de confort en pleine ville.') }}
                     </p>
                     <div class="flex gap-3 mt-5">
                         <a href="https://wa.me/2250506505592" class="w-9 h-9 rounded-full flex items-center justify-center transition-colors" style="background-color: rgba(255,255,255,0.1);" aria-label="WhatsApp">
@@ -147,14 +158,14 @@
 
                 {{-- Navigation --}}
                 <div>
-                    <h3 class="font-semibold text-white text-sm mb-4 uppercase tracking-wider">Navigation</h3>
+                    <h3 class="font-semibold text-white text-sm mb-4 uppercase tracking-wider">{{ __('Navigation') }}</h3>
                     <ul class="space-y-2.5 text-sm">
                         @foreach ([
-                            ['route' => 'rooms.index', 'label' => 'Nos Chambres'],
-                            ['route' => 'table', 'label' => 'Notre Table'],
-                            ['route' => 'reservation.lookup', 'label' => 'Ma réservation'],
-                            ['route' => 'about', 'label' => 'À Propos'],
-                            ['route' => 'contact', 'label' => 'Contact'],
+                            ['route' => 'rooms.index', 'label' => __('Nos Chambres')],
+                            ['route' => 'table', 'label' => __('Notre Table')],
+                            ['route' => 'reservation.lookup', 'label' => __('Ma réservation')],
+                            ['route' => 'about', 'label' => __('À Propos')],
+                            ['route' => 'contact', 'label' => __('Contact')],
                         ] as $item)
                         <li><a href="{{ route($item['route']) }}" class="hover:text-white transition-colors" style="color: rgba(255,255,255,0.6);">{{ $item['label'] }}</a></li>
                         @endforeach
@@ -163,11 +174,11 @@
 
                 {{-- Contact --}}
                 <div>
-                    <h3 class="font-semibold text-white text-sm mb-4 uppercase tracking-wider">Contact</h3>
+                    <h3 class="font-semibold text-white text-sm mb-4 uppercase tracking-wider">{{ __('Contact') }}</h3>
                     <ul class="space-y-3 text-sm" style="color: rgba(255,255,255,0.6);">
                         <li class="flex items-start gap-2">
                             <svg class="w-4 h-4 mt-0.5 shrink-0" style="color: var(--color-orange);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                            Cocody, Abidjan, Côte d'Ivoire
+                            {{ __("Cocody, Abidjan, Côte d'Ivoire") }}
                         </li>
                         <li class="flex items-center gap-2">
                             <svg class="w-4 h-4 shrink-0" style="color: var(--color-orange);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
@@ -182,11 +193,11 @@
             </div>
 
             <div class="border-t mt-10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs" style="border-color: rgba(255,255,255,0.1); color: rgba(255,255,255,0.4);">
-                <p>© {{ date('Y') }} Résidence Hôtel Cascades — Abidjan. Tous droits réservés.</p>
+                <p>© {{ date('Y') }} Résidence Hôtel Cascades — Abidjan. {{ __('Tous droits réservés.') }}</p>
                 <div class="flex gap-4">
-                    <a href="{{ route('legal') }}#mentions-legales" class="hover:text-white transition-colors">Mentions légales</a>
-                    <a href="{{ route('legal') }}#cgv" class="hover:text-white transition-colors">CGV</a>
-                    <a href="{{ route('legal') }}#confidentialite" class="hover:text-white transition-colors">Confidentialité</a>
+                    <a href="{{ route('legal') }}#mentions-legales" class="hover:text-white transition-colors">{{ __('Mentions légales') }}</a>
+                    <a href="{{ route('legal') }}#cgv" class="hover:text-white transition-colors">{{ __('CGV') }}</a>
+                    <a href="{{ route('legal') }}#confidentialite" class="hover:text-white transition-colors">{{ __('Confidentialité') }}</a>
                 </div>
             </div>
         </div>

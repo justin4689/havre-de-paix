@@ -21,7 +21,7 @@ class ReservationController extends Controller
         // comme chez Airbnb/Booking.
         if (! $request->filled('room_id')) {
             return redirect()->route('rooms.index')
-                ->with('info', 'Choisissez d\'abord votre chambre pour réserver.');
+                ->with('info', __('Choisissez d\'abord votre chambre pour réserver.'));
         }
 
         $room     = $this->roomCatalog->findById((int) $request->room_id);
@@ -30,7 +30,7 @@ class ReservationController extends Controller
 
         if (! $checkIn || ! $checkOut || $checkOut <= $checkIn) {
             return redirect()->route('rooms.show', $room->slug)
-                ->with('info', 'Sélectionnez vos dates de séjour pour continuer.');
+                ->with('info', __('Sélectionnez vos dates de séjour pour continuer.'));
         }
 
         $context = $this->reservationService->checkoutContext(
@@ -89,7 +89,7 @@ class ReservationController extends Controller
 
         if (! $reservation) {
             return back()
-                ->withErrors(['ref' => 'Aucune réservation trouvée avec cette référence. Vérifiez l\'email de confirmation reçu.'])
+                ->withErrors(['ref' => __('Aucune réservation trouvée avec cette référence. Vérifiez l\'email de confirmation reçu.')])
                 ->withInput();
         }
 

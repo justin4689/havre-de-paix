@@ -20,6 +20,6 @@ class ContactController extends Controller
     {
         $this->contactService->send($request->validated());
 
-        return back()->with('success', 'Votre message a bien été envoyé. Nous vous répondrons dans les 24h.');
+        return back()->with('success', __('Votre message a bien été envoyé. Nous vous répondrons dans les 24h.'));
     }
 }

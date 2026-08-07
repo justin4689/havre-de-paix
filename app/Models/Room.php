@@ -64,10 +64,10 @@ class Room extends Model
     public function getBedTypeLabelAttribute(): string
     {
         return match ($this->bed_type) {
-            'king'   => 'King size',
-            'double' => 'Grand lit double',
-            'twin'   => 'Lits jumeaux',
-            default  => 'Lit simple',
+            'king'   => __('King size'),
+            'double' => __('Grand lit double'),
+            'twin'   => __('Lits jumeaux'),
+            default  => __('Lit simple'),
         };
     }
 

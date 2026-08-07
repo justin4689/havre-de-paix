@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Résidence Hôtel Cascades — Résidence-Hôtel au cœur de Cocody')
+@section('title', __('Résidence Hôtel Cascades — Résidence-Hôtel au cœur de Cocody'))
 @section('description', 'Découvrez la Résidence Hôtel Cascades : résidence-hôtel à Cocody, Abidjan, Côte d\'Ivoire. 5 chambres & suites au cœur de Cocody, Abidjan. Tout ce qu\'il faut savoir avant votre séjour.')
 
 @section('hero_nav', '1')
@@ -22,16 +22,16 @@
     <div class="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-32 pb-16">
         <span class="inline-flex items-center gap-2 text-xs font-semibold tracking-widest uppercase text-white/70 mb-4">
             <svg class="w-3 h-3" style="color: var(--color-orange);" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
-            Abidjan · Cocody · Côte d'Ivoire
+            {{ __("Abidjan · Cocody · Côte d'Ivoire") }}
         </span>
         <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-5 leading-tight tracking-tight">
             Résidence Hôtel Cascades
         </h1>
         <p class="text-lg text-white/80 mb-8 max-w-xl mx-auto">
-            Résidence-hôtel au cœur du quartier résidentiel de Cocody. Un havre de calme et de verdure en plein Abidjan.
+            {{ __('Résidence-hôtel au cœur du quartier résidentiel de Cocody. Un havre de calme et de verdure en plein Abidjan.') }}
         </p>
         <div class="flex flex-wrap justify-center gap-3 mb-8">
-            @foreach (['Au cœur de Cocody', '5 chambres & suites', 'Piscine & jardins', 'Paiement à l\'arrivée'] as $badge)
+            @foreach ([__('Au cœur de Cocody'), __('11 chambres & suites'), __('Piscine & jardins'), __('Paiement à l\'arrivée')] as $badge)
             <span class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-semibold text-white border border-white/30 backdrop-blur-sm" style="background: rgba(255,255,255,0.12);">
                 <svg class="w-3 h-3" style="color: var(--color-orange);" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
                 {{ $badge }}
@@ -41,10 +41,10 @@
         <div class="flex flex-wrap justify-center gap-3">
             <a href="{{ route('rooms.index') }}" class="btn-primary text-sm px-7 py-3.5">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                Réserver maintenant
+                {{ __('Réserver maintenant') }}
             </a>
             <a href="#galerie" class="btn-outline text-sm px-7 py-3.5 text-white border-white/50 hover:bg-white hover:text-navy">
-                Voir la galerie
+                {{ __('Voir la galerie') }}
             </a>
         </div>
     </div>
@@ -64,12 +64,12 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center lg:justify-center gap-1 overflow-x-auto hide-scrollbar py-1">
             @foreach ([
-                ['id' => 'presentation', 'label' => 'Présentation'],
-                ['id' => 'equipements',  'label' => 'Équipements'],
-                ['id' => 'galerie',      'label' => 'Galerie'],
-                ['id' => 'chambres',     'label' => 'Chambres'],
-                ['id' => 'situation',    'label' => 'Situation'],
-                ['id' => 'politique',    'label' => 'Politique'],
+                ['id' => 'presentation', 'label' => __('Présentation')],
+                ['id' => 'equipements',  'label' => __('Équipements')],
+                ['id' => 'galerie',      'label' => __('Galerie')],
+                ['id' => 'chambres',     'label' => __('Chambres')],
+                ['id' => 'situation',    'label' => __('Situation')],
+                ['id' => 'politique',    'label' => __('Politique')],
             ] as $anchor)
             <a href="#{{ $anchor['id'] }}"
                class="shrink-0 px-4 py-3 text-sm font-medium transition-colors border-b-2 whitespace-nowrap"
@@ -89,10 +89,10 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <div class="flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-sm">
             @foreach ([
-                ['icon' => 'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z', 'label' => 'Arrivée',    'value' => 'À partir de 14h00'],
-                ['icon' => 'M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1', 'label' => 'Départ',     'value' => 'Avant 12h00'],
-                ['icon' => 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z', 'label' => 'Paiement',   'value' => 'À l\'arrivée uniquement'],
-                ['icon' => 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z', 'label' => 'Annulation', 'value' => 'Gratuite 48h avant'],
+                ['icon' => 'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z', 'label' => __('Arrivée'),    'value' => __('À partir de 14h00')],
+                ['icon' => 'M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1', 'label' => __('Départ'),     'value' => __('Avant 12h00')],
+                ['icon' => 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z', 'label' => __('Paiement'),   'value' => __('À l\'arrivée uniquement')],
+                ['icon' => 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z', 'label' => __('Annulation'), 'value' => __('Gratuite 48h avant')],
             ] as $item)
             <div class="flex items-center gap-2.5">
                 <div class="w-9 h-9 rounded-full flex items-center justify-center shrink-0" style="background-color: var(--color-sand);">
@@ -118,22 +118,22 @@
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-20">
             <div>
-                <p class="text-xs font-bold uppercase tracking-widest mb-3" style="color: var(--color-orange);">Notre histoire</p>
-                <h2 class="section-title mb-6">Un refuge entre deux eaux</h2>
+                <p class="text-xs font-bold uppercase tracking-widest mb-3" style="color: var(--color-orange);">{{ __('Notre histoire') }}</p>
+                <h2 class="section-title mb-6">{{ __('Un refuge entre deux eaux') }}</h2>
                 <div class="space-y-4 text-base leading-relaxed" style="color: var(--color-slate);">
                     <p>
-                        Niché au cœur d'Abidjan au Kilomètre 18,75, le <strong style="color: var(--color-navy);">Résidence Hôtel Cascades</strong> est né d'une vision simple : offrir un espace de sérénité authentique au cœur du quartier résidentiel de Cocody.
+                        {!! __("Nichée au cœur d'Abidjan, la <strong>Résidence Hôtel Cascades</strong> est née d'une vision simple : offrir un espace de sérénité authentique au cœur du quartier résidentiel de Cocody.") !!}
                     </p>
                     <p>
-                        Chaque détail de notre résidence-hôtel a été pensé pour s'intégrer harmonieusement au cadre naturel exceptionnel qui nous entoure. Des bungalows sur pilotis aux suites panoramiques, nous avons conçu des espaces qui invitent à la contemplation et au repos.
+                        {{ __("Chaque détail de notre résidence-hôtel a été pensé pour s'intégrer harmonieusement au cadre naturel exceptionnel qui nous entoure. Nous avons conçu des espaces qui invitent à la contemplation et au repos.") }}
                     </p>
                     <p>
-                        Au cœur de <strong style="color: var(--color-navy);">Cocody</strong>, à la Riviera M'Badon, notre adresse est à 30 minutes du Plateau — idéale pour un séjour d'affaires comme pour une parenthèse de détente.
+                        {!! __("Au cœur de <strong>Cocody</strong>, à la Riviera M'Badon, notre adresse est à 30 minutes du Plateau — idéale pour un séjour d'affaires comme pour une parenthèse de détente.") !!}
                     </p>
                 </div>
                 <div class="mt-8 flex gap-4">
-                    <a href="{{ route('rooms.index') }}" class="btn-primary text-sm">Voir nos chambres</a>
-                    <a href="{{ route('contact') }}" class="btn-outline text-sm">Nous contacter</a>
+                    <a href="{{ route('rooms.index') }}" class="btn-primary text-sm">{{ __('Voir nos chambres') }}</a>
+                    <a href="{{ route('contact') }}" class="btn-outline text-sm">{{ __('Nous contacter') }}</a>
                 </div>
             </div>
             <div class="relative">
@@ -151,8 +151,8 @@
                             </svg>
                         </div>
                         <div>
-                            <p class="font-bold text-sm" style="color: var(--color-navy);">Cadre exceptionnel</p>
-                            <p class="text-xs" style="color: var(--color-slate);">Calme & verdure en pleine ville</p>
+                            <p class="font-bold text-sm" style="color: var(--color-navy);">{{ __('Cadre exceptionnel') }}</p>
+                            <p class="text-xs" style="color: var(--color-slate);">{{ __('Calme & verdure en pleine ville') }}</p>
                         </div>
                     </div>
                 </div>
@@ -162,10 +162,10 @@
         {{-- Chiffres clés --}}
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
             @foreach ([
-                ['value' => '5',      'label' => 'Types de chambres & suites', 'icon' => 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6'],
-                ['value' => 'Cocody', 'label' => 'Au cœur d\'Abidjan',       'icon' => 'M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z'],
-                ['value' => '24/7',   'label' => 'Réception & sécurité', 'icon' => 'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064'],
-                ['value' => '24/7',   'label' => 'Réservation & réception',    'icon' => 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z'],
+                ['value' => '5',      'label' => __('Types de chambres & suites'), 'icon' => 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6'],
+                ['value' => __('Cocody'), 'label' => __('Au cœur d\'Abidjan'),       'icon' => 'M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z'],
+                ['value' => '24/7',   'label' => __('Réception & sécurité'), 'icon' => 'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064'],
+                ['value' => '24/7',   'label' => __('Réservation & réception'),    'icon' => 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z'],
             ] as $stat)
             <div class="text-center p-6 rounded-2xl bg-white border shadow-sm" style="border-color: var(--color-border);">
                 <div class="w-10 h-10 rounded-full mx-auto mb-3 flex items-center justify-center" style="background-color: var(--color-sand);">
@@ -187,25 +187,25 @@
 <section id="equipements" class="scroll-mt-32 py-20 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-14">
-            <p class="text-xs font-bold uppercase tracking-widest mb-2" style="color: var(--color-orange);">Ce que nous offrons</p>
-            <h2 class="section-title">Équipements & services</h2>
-            <p class="section-subtitle max-w-2xl mx-auto">Tout le confort pour un séjour inoubliable au cœur de Cocody.</p>
+            <p class="text-xs font-bold uppercase tracking-widest mb-2" style="color: var(--color-orange);">{{ __('Ce que nous offrons') }}</p>
+            <h2 class="section-title">{{ __('Équipements & services') }}</h2>
+            <p class="section-subtitle max-w-2xl mx-auto">{{ __('Tout le confort pour un séjour inoubliable au cœur de Cocody.') }}</p>
         </div>
 
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mb-14">
             @foreach ([
-                ['icon' => 'M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0', 'label' => 'WiFi haut débit', 'desc' => 'Dans tout l\'établissement'],
-                ['icon' => 'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064', 'label' => 'Piscine extérieure', 'desc' => 'Ouverte à tous nos hôtes'],
-                ['icon' => 'M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z', 'label' => 'Climatisation', 'desc' => 'Inverter dans chaque chambre'],
-                ['icon' => 'M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z', 'label' => 'Jardins tropicaux', 'desc' => 'Un écrin de verdure'],
-                ['icon' => 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z', 'label' => 'Bar & boissons', 'desc' => 'Cocktails & rafraîchissements'],
-                ['icon' => 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z', 'label' => 'Terrasses privées', 'desc' => 'Chaque chambre'],
-                ['icon' => 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z', 'label' => 'Réception 24h/24', 'desc' => 'Accueil personnalisé'],
-                ['icon' => 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z', 'label' => 'Coffre-fort', 'desc' => 'Dans chaque chambre'],
-                ['icon' => 'M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z', 'label' => 'Minibar', 'desc' => 'Chambres supérieures'],
-                ['icon' => 'M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z', 'label' => 'Télévision satellite', 'desc' => 'Toutes les chambres'],
-                ['icon' => 'M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0zM15 11a3 3 0 11-6 0 3 3 0 016 0z', 'label' => 'Parking sécurisé', 'desc' => 'Sur l\'enceinte de l\'hôtel'],
-                ['icon' => 'M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129', 'label' => 'Langues parlées', 'desc' => 'Français & Anglais'],
+                ['icon' => 'M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0', 'label' => __('WiFi haut débit'), 'desc' => 'Dans tout l\'établissement'],
+                ['icon' => 'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064', 'label' => __('Piscine extérieure'), 'desc' => __('Ouverte à tous nos hôtes')],
+                ['icon' => 'M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z', 'label' => __('Climatisation'), 'desc' => __('Inverter dans chaque chambre')],
+                ['icon' => 'M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z', 'label' => __('Jardins tropicaux'), 'desc' => __('Un écrin de verdure')],
+                ['icon' => 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z', 'label' => __('Bar & boissons'), 'desc' => __('Cocktails & rafraîchissements')],
+                ['icon' => 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z', 'label' => __('Terrasses privées'), 'desc' => __('Chaque chambre')],
+                ['icon' => 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z', 'label' => __('Réception 24h/24'), 'desc' => __('Accueil personnalisé')],
+                ['icon' => 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z', 'label' => __('Coffre-fort'), 'desc' => __('Dans chaque chambre')],
+                ['icon' => 'M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z', 'label' => __('Minibar'), 'desc' => __('Chambres supérieures')],
+                ['icon' => 'M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z', 'label' => __('Télévision satellite'), 'desc' => __('Toutes les chambres')],
+                ['icon' => 'M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0zM15 11a3 3 0 11-6 0 3 3 0 016 0z', 'label' => __('Parking sécurisé'), 'desc' => 'Sur l\'enceinte de l\'hôtel'],
+                ['icon' => 'M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129', 'label' => __('Langues parlées'), 'desc' => __('Français & Anglais')],
             ] as $equip)
             <div class="flex items-start gap-3 p-4 rounded-xl border transition-shadow hover:shadow-md" style="border-color: var(--color-border);">
                 <div class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style="background-color: var(--color-sand);">
@@ -227,16 +227,16 @@
                 <img src="{{ asset('images/resto1.jpg') }}" alt="Le jardin de la résidence dressé pour un événement" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                 <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(11,18,21,0.8) 0%, transparent 60%);"></div>
                 <div class="absolute bottom-4 left-4">
-                    <p class="text-white font-bold text-lg" style="font-family: var(--font-serif);">Des jardins verdoyants</p>
-                    <p class="text-white/70 text-sm">Grandes tablées & événements en plein air</p>
+                    <p class="text-white font-bold text-lg" style="font-family: var(--font-serif);">{{ __('Des jardins verdoyants') }}</p>
+                    <p class="text-white/70 text-sm">{{ __('Grandes tablées & événements en plein air') }}</p>
                 </div>
             </div>
             <div class="relative rounded-2xl overflow-hidden h-56 group">
                 <img src="{{ asset('images/decor1.jpg') }}" alt="L'entrée végétale et ses sculptures" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                 <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(11,18,21,0.8) 0%, transparent 60%);"></div>
                 <div class="absolute bottom-4 left-4">
-                    <p class="text-white font-bold text-lg" style="font-family: var(--font-serif);">Un écrin de verdure</p>
-                    <p class="text-white/70 text-sm">Murs végétaux et sculptures dès l'entrée</p>
+                    <p class="text-white font-bold text-lg" style="font-family: var(--font-serif);">{{ __('Un écrin de verdure') }}</p>
+                    <p class="text-white/70 text-sm">{{ __("Murs végétaux et sculptures dès l'entrée") }}</p>
                 </div>
             </div>
         </div>
@@ -249,8 +249,8 @@
 <section id="galerie" class="scroll-mt-32 py-20" style="background-color: var(--color-snow);">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-14">
-            <p class="text-xs font-bold uppercase tracking-widest mb-2" style="color: var(--color-orange);">Photos</p>
-            <h2 class="section-title">Galerie de la Résidence Hôtel Cascades</h2>
+            <p class="text-xs font-bold uppercase tracking-widest mb-2" style="color: var(--color-orange);">{{ __('Photos') }}</p>
+            <h2 class="section-title">{{ __('Galerie de la Résidence Hôtel Cascades') }}</h2>
         </div>
 
         @php
@@ -333,10 +333,10 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-end justify-between mb-14 flex-wrap gap-4">
             <div>
-                <p class="text-xs font-bold uppercase tracking-widest mb-2" style="color: var(--color-orange);">Hébergements</p>
-                <h2 class="section-title">Nos chambres & suites</h2>
+                <p class="text-xs font-bold uppercase tracking-widest mb-2" style="color: var(--color-orange);">{{ __('Hébergements') }}</p>
+                <h2 class="section-title">{{ __('Nos chambres & suites') }}</h2>
             </div>
-            <a href="{{ route('rooms.index') }}" class="btn-outline text-sm">Voir toutes les chambres</a>
+            <a href="{{ route('rooms.index') }}" class="btn-outline text-sm">{{ __('Voir toutes les chambres') }}</a>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -357,7 +357,7 @@
                     <div class="flex items-center gap-3 text-xs" style="color: var(--color-slate);">
                         <span class="flex items-center gap-1">
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                            {{ $room->capacity_adults }} pers.
+                            {{ $room->capacity_adults }} {{ __('pers.') }}
                         </span>
                         <span>·</span>
                         @if($room->size_m2)
@@ -379,9 +379,9 @@
 <section id="situation" class="scroll-mt-32 py-20" style="background-color: var(--color-snow);">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-14">
-            <p class="text-xs font-bold uppercase tracking-widest mb-2" style="color: var(--color-orange);">Localisation</p>
-            <h2 class="section-title">Comment nous rejoindre</h2>
-            <p class="section-subtitle max-w-xl mx-auto">Cocody, Abidjan — un quartier résidentiel paisible, à quelques minutes de tout.</p>
+            <p class="text-xs font-bold uppercase tracking-widest mb-2" style="color: var(--color-orange);">{{ __('Localisation') }}</p>
+            <h2 class="section-title">{{ __('Comment nous rejoindre') }}</h2>
+            <p class="section-subtitle max-w-xl mx-auto">{{ __('Cocody, Abidjan — un quartier résidentiel paisible, à quelques minutes de tout.') }}</p>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
@@ -404,13 +404,13 @@
                         <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background-color: var(--color-sand);">
                             <svg class="w-5 h-5" style="color: var(--color-orange);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>
                         </div>
-                        <h3 class="font-bold" style="color: var(--color-navy); font-family: var(--font-serif);">Comment nous trouver</h3>
+                        <h3 class="font-bold" style="color: var(--color-navy); font-family: var(--font-serif);">{{ __('Comment nous trouver') }}</h3>
                     </div>
                     <ol class="space-y-3">
                         @foreach ([
-                            'Rejoindre le quartier de Cocody',
-                            'Emprunter le boulevard Mitterrand (par la Riviera) ou le boulevard de France / avenue du Golf, direction Riviera 3',
-                            'Poursuivre vers M\'Badon — la Résidence Hôtel Cascades est indiquée par son enseigne',
+                            __('Rejoindre le quartier de Cocody'),
+                            __('Emprunter le boulevard Mitterrand (par la Riviera) ou le boulevard de France / avenue du Golf, direction Riviera 3'),
+                            __('Poursuivre vers M\'Badon — la Résidence Hôtel Cascades est indiquée par son enseigne'),
                             'Parking disponible à l\'extérieur de la résidence',
                         ] as $i => $step)
                         <li class="flex gap-3 text-sm" style="color: var(--color-slate);">
@@ -424,16 +424,16 @@
                 <div class="grid grid-cols-2 gap-4">
                     <div class="bg-white rounded-xl p-4 border shadow-sm text-center" style="border-color: var(--color-border);">
                         <div class="text-2xl font-bold mb-1" style="color: var(--color-orange); font-family: var(--font-serif);">~1h</div>
-                        <p class="text-xs" style="color: var(--color-slate);">De l'aéroport FHB</p>
+                        <p class="text-xs" style="color: var(--color-slate);">{{ __("De l'aéroport FHB") }}</p>
                     </div>
                     <div class="bg-white rounded-xl p-4 border shadow-sm text-center" style="border-color: var(--color-border);">
                         <div class="text-2xl font-bold mb-1" style="color: var(--color-orange); font-family: var(--font-serif);">~30 min</div>
-                        <p class="text-xs" style="color: var(--color-slate);">Du Plateau</p>
+                        <p class="text-xs" style="color: var(--color-slate);">{{ __('Du Plateau') }}</p>
                     </div>
                     <div class="bg-white rounded-xl p-4 border shadow-sm text-sm col-span-2" style="border-color: var(--color-border);">
-                        <p class="font-semibold mb-1" style="color: var(--color-navy);">Coordonnées GPS</p>
+                        <p class="font-semibold mb-1" style="color: var(--color-navy);">{{ __('Coordonnées GPS') }}</p>
                         <p class="font-mono text-xs" style="color: var(--color-slate);">5.3355° N, -3.9430° W</p>
-                        <p class="text-xs mt-2" style="color: var(--color-slate);">Cocody Riviera M'Badon, Abidjan — Côte d'Ivoire</p>
+                        <p class="text-xs mt-2" style="color: var(--color-slate);">{{ __("Cocody Riviera M'Badon, Abidjan — Côte d'Ivoire") }}</p>
                     </div>
                 </div>
 
@@ -454,41 +454,41 @@
 <section id="politique" class="scroll-mt-32 py-20 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-14">
-            <p class="text-xs font-bold uppercase tracking-widest mb-2" style="color: var(--color-orange);">Règles & conditions</p>
-            <h2 class="section-title">Politique de l'établissement</h2>
+            <p class="text-xs font-bold uppercase tracking-widest mb-2" style="color: var(--color-orange);">{{ __('Règles & conditions') }}</p>
+            <h2 class="section-title">{{ __("Politique de l'établissement") }}</h2>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
             @foreach ([
                 [
                     'icon'  => 'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z',
-                    'title' => 'Arrivée & départ',
-                    'items' => ['Arrivée : à partir de 14h00', 'Départ : avant 12h00', 'Arrivée tardive possible (prévenir)', 'Départ express sur demande'],
+                    'title' => __('Arrivée & départ'),
+                    'items' => [__('Arrivée : à partir de 14h00'), __('Départ : avant 12h00'), __('Arrivée tardive possible (prévenir)'), __('Départ express sur demande')],
                 ],
                 [
                     'icon'  => 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
-                    'title' => 'Paiement',
-                    'items' => ['Règlement intégral à l\'arrivée', 'Espèces ou virement acceptés', 'Aucun prépaiement en ligne', 'Caution éventuelle à l\'arrivée'],
+                    'title' => __('Paiement'),
+                    'items' => [__('Règlement intégral à l\'arrivée'), __('Espèces ou virement acceptés'), __('Aucun prépaiement en ligne'), __('Caution éventuelle à l\'arrivée')],
                 ],
                 [
                     'icon'  => 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z',
-                    'title' => 'Annulation',
-                    'items' => ['Annulation gratuite 48h avant', 'Via lien dans l\'email de confirmation', 'Modification possible par email', 'Contact WhatsApp pour urgences'],
+                    'title' => __('Annulation'),
+                    'items' => [__('Annulation gratuite 48h avant'), __('Via lien dans l\'email de confirmation'), __('Modification possible par email'), __('Contact WhatsApp pour urgences')],
                 ],
                 [
                     'icon'  => 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z',
-                    'title' => 'Enfants & familles',
-                    'items' => ['Enfants bienvenus', 'Lit bébé disponible (sur demande)', 'Tarif enfant -12 ans : gratuit', 'Piscine supervisée pour enfants'],
+                    'title' => __('Enfants & familles'),
+                    'items' => [__('Enfants bienvenus'), __('Lit bébé disponible (sur demande)'), __('Tarif enfant -12 ans : gratuit'), __('Piscine supervisée pour enfants')],
                 ],
                 [
                     'icon'  => 'M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13',
-                    'title' => 'Règles de séjour',
-                    'items' => ['Animaux non admis', 'Non-fumeur dans les chambres', 'Silence après 22h00', 'Fêtes privées sur demande'],
+                    'title' => __('Règles de séjour'),
+                    'items' => [__('Animaux non admis'), __('Non-fumeur dans les chambres'), __('Silence après 22h00'), __('Fêtes privées sur demande')],
                 ],
                 [
                     'icon'  => 'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064',
-                    'title' => 'Accès & sécurité',
-                    'items' => ['Pièce d\'identité obligatoire', 'Accès clé magnétique', 'Coffre-fort en chambre', 'Parking à l\'extérieur'],
+                    'title' => __('Accès & sécurité'),
+                    'items' => [__('Pièce d\'identité obligatoire'), __('Accès clé magnétique'), __('Coffre-fort en chambre'), __('Parking à l\'extérieur')],
                 ],
             ] as $pol)
             <div class="bg-white rounded-2xl p-6 border shadow-sm" style="border-color: var(--color-border);">
@@ -520,35 +520,35 @@
 <section class="py-20" style="background-color: var(--color-snow);">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-14">
-            <p class="text-xs font-bold uppercase tracking-widest mb-2" style="color: var(--color-orange);">Questions fréquentes</p>
-            <h2 class="section-title">Tout ce qu'il faut savoir</h2>
+            <p class="text-xs font-bold uppercase tracking-widest mb-2" style="color: var(--color-orange);">{{ __('Questions fréquentes') }}</p>
+            <h2 class="section-title">{{ __("Tout ce qu'il faut savoir") }}</h2>
         </div>
 
         <div class="space-y-3" x-data="{ open: null }">
             @foreach ([
                 [
-                    'q' => 'Comment effectuer une réservation ?',
-                    'a' => 'Vous pouvez réserver directement en ligne via notre formulaire de réservation disponible sur chaque page chambre ou depuis le bouton "Réserver" en haut. La confirmation est instantanée par email. Vous pouvez aussi nous contacter par WhatsApp ou email.',
+                    'q' => __('Comment effectuer une réservation ?'),
+                    'a' => __('Vous pouvez réserver directement en ligne via notre formulaire de réservation disponible sur chaque page chambre ou depuis le bouton "Réserver" en haut. La confirmation est instantanée par email. Vous pouvez aussi nous contacter par WhatsApp ou email.'),
                 ],
                 [
-                    'q' => 'Le paiement se fait-il en ligne ?',
-                    'a' => 'Non. Nous n\'acceptons aucun paiement en ligne. Le règlement s\'effectue intégralement à votre arrivée, en espèces ou par virement bancaire. Cela signifie que votre réservation ne vous engage financièrement qu\'au moment de votre séjour.',
+                    'q' => __('Le paiement se fait-il en ligne ?'),
+                    'a' => __('Non. Nous n\'acceptons aucun paiement en ligne. Le règlement s\'effectue intégralement à votre arrivée, en espèces ou par virement bancaire. Cela signifie que votre réservation ne vous engage financièrement qu\'au moment de votre séjour.'),
                 ],
                 [
-                    'q' => 'Puis-je annuler ou modifier ma réservation ?',
-                    'a' => 'Oui. L\'annulation est gratuite jusqu\'à 48 heures avant votre date d\'arrivée. Vous trouverez un lien d\'annulation directement dans votre email de confirmation. Pour toute modification, contactez-nous par email ou WhatsApp.',
+                    'q' => __('Puis-je annuler ou modifier ma réservation ?'),
+                    'a' => __('Oui. L\'annulation est gratuite jusqu\'à 48 heures avant votre date d\'arrivée. Vous trouverez un lien d\'annulation directement dans votre email de confirmation. Pour toute modification, contactez-nous par email ou WhatsApp.'),
                 ],
                 [
-                    'q' => 'Y a-t-il un accès internet (WiFi) dans les chambres ?',
-                    'a' => 'Oui, le WiFi haut débit est disponible dans toutes les chambres et les espaces communs, sans frais supplémentaires.',
+                    'q' => __('Y a-t-il un accès internet (WiFi) dans les chambres ?'),
+                    'a' => __('Oui, le WiFi haut débit est disponible dans toutes les chambres et les espaces communs, sans frais supplémentaires.'),
                 ],
                 [
-                    'q' => 'L\'hôtel est-il adapté aux familles avec enfants ?',
-                    'a' => 'Absolument. Les enfants sont les bienvenus. Des lits bébé sont disponibles sur demande. Les enfants de moins de 12 ans séjournent gratuitement en partageant le lit des parents. La piscine est surveillée pendant les heures d\'ouverture.',
+                    'q' => __('L\'hôtel est-il adapté aux familles avec enfants ?'),
+                    'a' => __('Absolument. Les enfants sont les bienvenus. Des lits bébé sont disponibles sur demande. Les enfants de moins de 12 ans séjournent gratuitement en partageant le lit des parents. La piscine est surveillée pendant les heures d\'ouverture.'),
                 ],
                 [
-                    'q' => 'Comment se rendre à la Résidence Hôtel Cascades depuis Abidjan ?',
-                    'a' => 'L\'hôtel se situe à Cocody Riviera, vers M\'Badon, à Abidjan — à environ 1h de l\'aéroport Félix-Houphouët-Boigny et 30 minutes du Plateau selon la circulation. Nous proposons également un service de transfert depuis l\'aéroport sur demande.',
+                    'q' => __('Comment se rendre à la Résidence Hôtel Cascades depuis Abidjan ?'),
+                    'a' => __('L\'hôtel se situe à Cocody Riviera, vers M\'Badon, à Abidjan — à environ 1h de l\'aéroport Félix-Houphouët-Boigny et 30 minutes du Plateau selon la circulation. Nous proposons également un service de transfert depuis l\'aéroport sur demande.'),
                 ],
             ] as $i => $faq)
             <div class="bg-white rounded-xl border shadow-sm overflow-hidden" style="border-color: var(--color-border);">
@@ -580,7 +580,7 @@
          class="absolute inset-0 w-full h-full object-cover">
     <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(11,18,21,0.92) 0%, rgba(11,18,21,0.75) 100%);"></div>
     <div class="relative z-10 text-center text-white max-w-2xl mx-auto px-4 sm:px-6">
-        <p class="text-xs font-bold uppercase tracking-widest mb-4" style="color: var(--color-orange);">Prêt pour votre séjour ?</p>
+        <p class="text-xs font-bold uppercase tracking-widest mb-4" style="color: var(--color-orange);">{{ __('Prêt pour votre séjour ?') }}</p>
         <h2 class="text-4xl sm:text-5xl font-bold mb-6" style="font-family: var(--font-serif);">
             Réservez votre chambre
         </h2>
@@ -591,7 +591,7 @@
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
             <a href="{{ route('reservation.index') }}" class="btn-primary text-base px-10 py-4">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                Réserver maintenant
+                {{ __('Réserver maintenant') }}
             </a>
             <a href="{{ route('rooms.index') }}" class="btn-outline text-base px-10 py-4 text-white border-white/50 hover:bg-white hover:text-navy">
                 Voir les chambres

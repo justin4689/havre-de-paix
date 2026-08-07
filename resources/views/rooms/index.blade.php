@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Nos Chambres & Suites — Résidence Hôtel Cascades')
-@section('description', 'Découvrez nos chambres et suites avec vue mer, lagune ou jardin à Abidjan. Réservez en ligne avec confirmation instantanée.')
+@section('title', __('Nos Chambres & Suites — Résidence Hôtel Cascades'))
+@section('description', __('Découvrez nos chambres et suites tout confort à Cocody, Abidjan. Réservez en ligne avec confirmation instantanée.'))
 @section('hero_nav', '1')
 
 @section('content')
@@ -17,10 +17,10 @@
         ]" />
         <div class="absolute inset-0 hero-overlay"></div>
         <div class="relative z-10 pt-16">
-            <p class="text-sm font-semibold uppercase tracking-widest mb-3" style="color: var(--color-orange);">Hébergement</p>
-            <h1 class="text-4xl sm:text-5xl font-bold text-white mb-4" style="font-family: var(--font-serif);">Nos Chambres & Suites</h1>
+            <p class="text-sm font-semibold uppercase tracking-widest mb-3" style="color: var(--color-orange);">{{ __('Hébergement') }}</p>
+            <h1 class="text-4xl sm:text-5xl font-bold text-white mb-4" style="font-family: var(--font-serif);">{{ __('Nos Chambres & Suites') }}</h1>
             <p class="max-w-xl mx-auto" style="color: rgba(255,255,255,0.85);">
-                De la Chambre Standard à la Mini Suite — chaque hébergement offre un cadre calme et verdoyant au cœur de Cocody.
+                {{ __('De la Chambre Standard à la Mini Suite — chaque hébergement offre un cadre calme et verdoyant au cœur de Cocody.') }}
             </p>
         </div>
     </div>
@@ -46,30 +46,30 @@
                         <div class="px-5 py-3" style="background-color: var(--color-navy);">
                             <h2 class="text-sm font-bold text-white flex items-center gap-2">
                                 <svg class="w-4 h-4" style="color: var(--color-orange);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                                Votre séjour
+                                {{ __('Votre séjour') }}
                             </h2>
                         </div>
                         <div class="bg-white p-4 space-y-3">
                             <div>
-                                <label class="form-label text-xs">Arrivée</label>
+                                <label class="form-label text-xs">{{ __('Arrivée') }}</label>
                                 <input type="date" name="check_in" value="{{ $checkIn }}" min="{{ date('Y-m-d') }}" class="form-input text-sm">
                             </div>
                             <div>
-                                <label class="form-label text-xs">Départ</label>
+                                <label class="form-label text-xs">{{ __('Départ') }}</label>
                                 <input type="date" name="check_out" value="{{ $checkOut }}" min="{{ date('Y-m-d', strtotime('+1 day')) }}" class="form-input text-sm">
                             </div>
                             <div>
-                                <label class="form-label text-xs">Hôtes</label>
+                                <label class="form-label text-xs">{{ __('Hôtes') }}</label>
                                 <select name="capacity" class="form-input text-sm">
-                                    <option value="">Tous</option>
+                                    <option value="">{{ __('Tous') }}</option>
                                     @for ($i = 1; $i <= 6; $i++)
-                                    <option value="{{ $i }}" {{ request('capacity') == $i ? 'selected' : '' }}>{{ $i }} hôte{{ $i > 1 ? 's' : '' }}</option>
+                                    <option value="{{ $i }}" {{ request('capacity') == $i ? 'selected' : '' }}>{{ trans_choice(':n hôte|:n hôtes', $i, ['n' => $i]) }}</option>
                                     @endfor
                                 </select>
                             </div>
                             <button type="submit" class="btn-primary w-full text-sm py-2.5">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                                Rechercher
+                                {{ __('Rechercher') }}
                             </button>
                         </div>
                     </div>
@@ -77,17 +77,17 @@
                     {{-- Filtrer par --}}
                     <div class="bg-white rounded-2xl shadow-sm border p-5" style="border-color: var(--color-border);">
                         <div class="flex items-center justify-between mb-3">
-                            <h2 class="text-xs font-bold uppercase tracking-wide" style="color: var(--color-navy);">Filtrer par</h2>
+                            <h2 class="text-xs font-bold uppercase tracking-wide" style="color: var(--color-navy);">{{ __('Filtrer par') }}</h2>
                             @if (request()->hasAny(['category', 'price_max', 'capacity']))
                             <a href="{{ route('rooms.index', array_filter(['check_in' => $checkIn, 'check_out' => $checkOut, 'sort' => request('sort')])) }}"
                                class="text-xs font-medium underline transition-colors" style="color: var(--color-blue);">
-                                Tout effacer
+                                {{ __('Tout effacer') }}
                             </a>
                             @endif
                         </div>
 
                         {{-- Catégorie --}}
-                        <p class="text-sm font-semibold mb-1" style="color: var(--color-navy);">Catégorie</p>
+                        <p class="text-sm font-semibold mb-1" style="color: var(--color-navy);">{{ __('Catégorie') }}</p>
                         @foreach (\App\Models\Room::CATEGORIES as $value => $label)
                         <label class="flex items-center justify-between py-1.5 cursor-pointer rounded-lg -mx-2 px-2 transition-colors hover:bg-slate-50">
                             <span class="flex items-center gap-2.5 text-sm" style="color: var(--color-navy);">
@@ -112,10 +112,10 @@
                 <div class="mb-6 flex flex-wrap items-center justify-between gap-3">
                     <div class="text-sm" style="color: var(--color-slate);">
                         @if ($checkIn && $checkOut)
-                        <strong style="color: var(--color-navy);">{{ $rooms->total() }}</strong> chambre{{ $rooms->total() > 1 ? 's' : '' }} disponible{{ $rooms->total() > 1 ? 's' : '' }}
-                        du {{ \Carbon\Carbon::parse($checkIn)->translatedFormat('d M') }} au {{ \Carbon\Carbon::parse($checkOut)->translatedFormat('d M Y') }}
+                        <strong style="color: var(--color-navy);">{{ $rooms->total() }}</strong> {{ trans_choice('chambre disponible|chambres disponibles', $rooms->total()) }}
+                        {{ __('du') }} {{ \Carbon\Carbon::parse($checkIn)->translatedFormat('d M') }} {{ __('au') }} {{ \Carbon\Carbon::parse($checkOut)->translatedFormat('d M Y') }}
                         @else
-                        <strong style="color: var(--color-navy);">{{ $rooms->total() }}</strong> hébergement{{ $rooms->total() > 1 ? 's' : '' }}
+                        <strong style="color: var(--color-navy);">{{ $rooms->total() }}</strong> {{ trans_choice('hébergement|hébergements', $rooms->total()) }}
                         @endif
                     </div>
                 </div>
@@ -132,7 +132,7 @@
                             <div class="absolute top-3 left-3 flex gap-2">
                                 <span class="badge">{{ $room->category_label }}</span>
                                 @if ($rooms->total() <= 2 && $checkIn)
-                                <span class="badge-orange">Dernières dispo.</span>
+                                <span class="badge-orange">{{ __('Dernières dispo.') }}</span>
                                 @endif
                             </div>
                         </div>
@@ -141,7 +141,7 @@
                             <div class="flex items-start justify-between gap-2 mb-2">
                                 <h2 class="font-semibold text-base leading-tight" style="color: var(--color-navy);">{{ $room->name }}</h2>
                                 <span class="text-xs px-2 py-1 rounded-full shrink-0" style="background-color: var(--color-sky); color: #075985;">
-                                    {{ $room->capacity_adults }} pers.
+                                    {{ $room->capacity_adults }} {{ __('pers.') }}
                                 </span>
                             </div>
 
@@ -165,18 +165,18 @@
                             <div class="space-y-1 mb-3 text-xs font-semibold text-green-700">
                                 <div class="flex items-center gap-1.5">
                                     <svg class="w-3.5 h-3.5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                                    Annulation gratuite
+                                    {{ __('Annulation gratuite') }}
                                 </div>
                                 <div class="flex items-center gap-1.5">
                                     <svg class="w-3.5 h-3.5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                                    Aucun prépaiement
+                                    {{ __('Aucun prépaiement') }}
                                 </div>
                             </div>
 
                             <div class="pt-3 border-t" style="border-color: var(--color-border);">
                                 <a href="{{ route('rooms.show', $room->slug) }}{{ $checkIn ? '?check_in='.$checkIn.'&check_out='.$checkOut : '' }}"
                                    class="btn-primary w-full text-sm py-2.5">
-                                    Voir & Réserver
+                                    {{ __('Voir & Réserver') }}
                                 </a>
                             </div>
                         </div>
@@ -184,9 +184,9 @@
                     @empty
                     <div class="sm:col-span-2 text-center py-20">
                         <svg class="w-16 h-16 mx-auto mb-4" style="color: var(--color-border);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-                        <h3 class="text-xl font-semibold mb-2" style="color: var(--color-navy);">Aucune chambre disponible</h3>
-                        <p class="mb-6" style="color: var(--color-slate);">Essayez d'autres dates ou critères.</p>
-                        <a href="{{ route('rooms.index') }}" class="btn-primary">Voir toutes les chambres</a>
+                        <h3 class="text-xl font-semibold mb-2" style="color: var(--color-navy);">{{ __('Aucune chambre disponible') }}</h3>
+                        <p class="mb-6" style="color: var(--color-slate);">{{ __("Essayez d'autres dates ou critères.") }}</p>
+                        <a href="{{ route('rooms.index') }}" class="btn-primary">{{ __('Voir toutes les chambres') }}</a>
                     </div>
                     @endforelse
                 </div>
