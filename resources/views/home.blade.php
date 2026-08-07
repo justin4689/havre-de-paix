@@ -7,7 +7,7 @@
 @section('content')
 
 {{-- ===== HERO ===== --}}
-<section class="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden">
     {{-- Background : diaporama façade nuit / jour / lobby --}}
     <div class="absolute inset-0 z-0">
         <x-hero-slideshow :images="[

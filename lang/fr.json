@@ -1,10 +1,14 @@
 {
+    "&laquo; Previous": "&laquo; Précédent",
+    ":n hôte|:n hôtes": ":n hôte|:n hôtes",
+    "Go to page :page": "Aller à la page :page",
+    "Next &raquo;": "Suivant &raquo;",
+    "Pagination Navigation": "Navigation de pagination",
     "Showing": "Affichage de",
-    "to": "à",
+    "chambre disponible|chambres disponibles": "chambre disponible|chambres disponibles",
+    "hébergement|hébergements": "hébergement|hébergements",
+    "nuit|nuits": "nuit|nuits",
     "of": "sur",
     "results": "résultats",
-    "Go to page :page": "Aller à la page :page",
-    "Pagination Navigation": "Navigation de pagination",
-    "&laquo; Previous": "&laquo; Précédent",
-    "Next &raquo;": "Suivant &raquo;"
+    "to": "à"
 }
