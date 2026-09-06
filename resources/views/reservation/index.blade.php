@@ -134,12 +134,12 @@ $adjustment = $totalPrice - $basePrice;
             {{-- ===== COLONNE RÉCAP (sticky, verrouillée) ===== --}}
             <aside class="order-first lg:order-last lg:sticky lg:top-24 space-y-4">
                 <div class="bg-white rounded-2xl shadow-sm border overflow-hidden" style="border-color: var(--color-border);">
-                    <img src="{{ asset($room->first_image) }}" alt="{{ $room->name }}" class="w-full aspect-[16/9] object-cover">
+                    <img src="{{ asset($room->first_image) }}" alt="{{ __($room->name) }}" class="w-full aspect-[16/9] object-cover">
                     <div class="p-5">
                         <div class="flex items-start justify-between gap-3 mb-1">
                             <div>
                                 <p class="text-xs font-bold uppercase tracking-wide mb-1" style="color: var(--color-orange);">{{ __('Votre séjour') }}</p>
-                                <h3 class="font-bold text-lg leading-tight" style="color: var(--color-navy);">{{ $room->name }}</h3>
+                                <h3 class="font-bold text-lg leading-tight" style="color: var(--color-navy);">{{ __($room->name) }}</h3>
                             </div>
                             <a href="{{ route('rooms.show', $room->slug) }}?check_in={{ $checkIn }}&check_out={{ $checkOut }}"
                                class="text-xs font-medium underline shrink-0 mt-1 transition-colors" style="color: var(--color-blue);">
@@ -147,7 +147,7 @@ $adjustment = $totalPrice - $basePrice;
                             </a>
                         </div>
                         <p class="text-sm mb-4" style="color: var(--color-slate);">
-                            {{ trans_choice(':n hôte|:n hôtes', $guests, ['n' => $guests]) }} &middot; {{ $room->category_label }}
+                            {{ trans_choice(':n hôte|:n hôtes', $guests, ['n' => $guests]) }} &middot; {{ __($room->category_label) }}
                         </p>
 
                         <div class="grid grid-cols-2 border-t border-b py-3 mb-4 text-sm" style="border-color: var(--color-border);">

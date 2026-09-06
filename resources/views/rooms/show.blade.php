@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
-@section('title', $room->name . ' — Havre de Paix')
-@section('description', $room->description_short . ' ' . __('Catégorie') . ' ' . $room->category_label . __('. Réservez en ligne.'))
+@section('title', __($room->name) . ' — Havre de Paix')
+@section('description', $room->description_short . ' ' . __('Catégorie') . ' ' . __($room->category_label) . __('. Réservez en ligne.'))
 
 @push('head')
 <script type="application/ld+json">
 {
     "@@context": "https://schema.org",
     "@@type": "HotelRoom",
-    "name": "{{ $room->name }}",
+    "name": "{{ __($room->name) }}",
     "description": "{{ $room->description_short }}",
     "occupancy": { "@type": "QuantitativeValue", "maxValue": {{ $room->capacity_adults }} },
     "floorSize": { "@type": "QuantitativeValue", "value": {{ $room->size_m2 ?? 0 }}, "unitCode": "MTK" }
@@ -26,7 +26,7 @@
             <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
             <a href="{{ route('rooms.index') }}" class="hover:text-orange-500 transition-colors">{{ __('Chambres') }}</a>
             <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-            <span style="color: var(--color-orange);">{{ $room->name }}</span>
+            <span style="color: var(--color-orange);">{{ __($room->name) }}</span>
         </nav>
     </div>
 
@@ -53,7 +53,7 @@
                     {{-- Image principale --}}
                     <div class="relative aspect-[4/3] sm:aspect-[3/2] rounded-2xl overflow-hidden mb-3 shadow-lg cursor-zoom-in group" @click="lightbox = true">
                         <template x-for="(img, i) in images" :key="i">
-                            <img :src="img" :alt="'{{ $room->name }} - photo ' + (i+1)"
+                            <img :src="img" :alt="'{{ __($room->name) }} - photo ' + (i+1)"
                                  x-show="active === i"
                                  class="absolute inset-0 w-full h-full object-cover"
                                  loading="lazy">
@@ -101,7 +101,7 @@
                                 class="absolute left-4 top-1/2 -translate-y-1/2 z-20 text-white/80 hover:text-white cursor-pointer" aria-label="{{ __('Photo précédente') }}">
                             <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
                         </button>
-                        <img :src="images[active]" :alt="'{{ $room->name }} - photo ' + (active + 1)"
+                        <img :src="images[active]" :alt="'{{ __($room->name) }} - photo ' + (active + 1)"
                              class="max-w-5xl max-h-[85vh] w-full object-contain rounded-xl select-none">
                         <button @click="active = (active + 1) % images.length" x-show="images.length > 1"
                                 class="absolute right-4 top-1/2 -translate-y-1/2 z-20 text-white/80 hover:text-white cursor-pointer" aria-label="{{ __('Photo suivante') }}">
@@ -114,7 +114,7 @@
                 {{-- Titre + caractéristiques --}}
                 <div class="mb-6">
                     <div class="flex items-baseline justify-between gap-4 flex-wrap">
-                        <h1 class="section-title">{{ $room->name }}</h1>
+                        <h1 class="section-title">{{ __($room->name) }}</h1>
                         <p class="shrink-0">
                             <span class="text-sm mr-1" style="color: var(--color-slate);">{{ __('à partir de') }}</span>
                             <span class="price-tag text-2xl">{{ number_format($room->price_per_night, 0, ',', ' ') }}</span>
@@ -125,7 +125,7 @@
                         {{ trans_choice(':n hôte|:n hôtes', $room->capacity_adults, ['n' => $room->capacity_adults]) }}
                         &middot; {{ $room->bed_type_label }}
                         @if ($room->size_m2) &middot; {{ $room->size_m2 }} m² @endif
-                        &middot; {{ $room->category_label }}
+                        &middot; {{ __($room->category_label) }}
                         &middot; {{ __('Étage') }} {{ $room->floor }}
                     </p>
                     <p class="section-subtitle">{{ $room->description_short }}</p>
@@ -148,7 +148,7 @@
                         @foreach ($room->amenities ?? [] as $amenity)
                         <div class="flex items-center gap-2.5 text-sm" style="color: var(--color-slate);">
                             <x-amenity-icon :name="$amenity" class="w-5 h-5 shrink-0" style="color: var(--color-orange);" />
-                            {{ $amenity }}
+                            {{ __($amenity) }}
                         </div>
                         @endforeach
                     </div>
@@ -238,10 +238,10 @@
                 @foreach ($similar as $s)
                 <a href="{{ route('rooms.show', $s->slug) }}" class="card flex gap-4 p-4 no-underline group">
                     <div class="w-24 h-24 rounded-xl overflow-hidden shrink-0">
-                        <img src="{{ asset($s->first_image) }}" alt="{{ $s->name }}" class="w-full h-full object-cover" loading="lazy">
+                        <img src="{{ asset($s->first_image) }}" alt="{{ __($s->name) }}" class="w-full h-full object-cover" loading="lazy">
                     </div>
                     <div>
-                        <h3 class="font-semibold mb-1" style="color: var(--color-navy); font-family: var(--font-serif);">{{ $s->name }}</h3>
+                        <h3 class="font-semibold mb-1" style="color: var(--color-navy); font-family: var(--font-serif);">{{ __($s->name) }}</h3>
                         <p class="text-xs mb-2 line-clamp-2" style="color: var(--color-slate);">{{ $s->description_short }}</p>
                         <span class="text-sm font-medium" style="color: var(--color-blue);">{{ __('Voir la chambre') }} →</span>
                     </div>

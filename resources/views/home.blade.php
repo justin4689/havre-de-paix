@@ -183,19 +183,19 @@
             @foreach ($roomsByCategory as $categoryKey => $room)
             <a href="{{ route('rooms.show', $room->slug) }}"
                class="group relative block shrink-0 w-[280px] sm:w-[320px] h-[460px] img-arch no-underline">
-                <img src="{{ asset($room->first_image) }}" alt="{{ $room->name }}"
+                <img src="{{ asset($room->first_image) }}" alt="{{ __($room->name) }}"
                      class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy">
                 <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(11,18,21,0.82) 0%, rgba(11,18,21,0.12) 45%, rgba(11,18,21,0.18) 100%);"></div>
 
                 {{-- Chip catégorie (verre) --}}
                 <span class="absolute top-5 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.16em] text-white whitespace-nowrap"
                       style="background-color: rgba(255,255,255,0.16); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.25);">
-                    {{ $room->category_label }}
+                    {{ __($room->category_label) }}
                 </span>
 
                 {{-- Bas de carte --}}
                 <div class="absolute inset-x-0 bottom-0 p-6">
-                    <h3 class="text-white text-2xl mb-1" style="font-family: var(--font-serif); font-weight: 600;">{{ $room->name }}</h3>
+                    <h3 class="text-white text-2xl mb-1" style="font-family: var(--font-serif); font-weight: 600;">{{ __($room->name) }}</h3>
                     <p class="text-white/70 text-xs mb-3">
                         {{ trans_choice(':n hôte|:n hôtes', $room->capacity_adults, ['n' => $room->capacity_adults]) }}
                         @if ($room->size_m2) · {{ $room->size_m2 }} m² @endif
@@ -265,11 +265,11 @@
                 </a>
             </div>
 
-            <div class="flex justify-center gap-5 sm:gap-8">
+            <div class="flex justify-center">
                 @foreach (['visite.mp4' => __('Visite de la résidence')] as $file => $label)
-                <div class="relative w-[44vw] max-w-[320px] shrink-0 {{ $loop->last ? 'mt-12' : '' }}">
+                <div class="relative w-full max-w-xl">
                     <div class="rounded-[1.75rem] overflow-hidden shadow-2xl border-4 cursor-pointer group relative"
-                         style="border-color: rgba(255,255,255,0.12); aspect-ratio: 9/16; background-color: #000;"
+                         style="border-color: rgba(255,255,255,0.12); aspect-ratio: 16/9; background-color: #000;"
                          @click="openVideo('{{ asset('videos/' . $file) }}')"
                          role="button" tabindex="0" aria-label="{{ __('Regarder :') }} {{ $label }}"
                          @keydown.enter="openVideo('{{ asset('videos/' . $file) }}')">
@@ -299,7 +299,7 @@
             <button @click="closeVideo()" class="absolute top-4 right-4 z-20 text-white/80 hover:text-white cursor-pointer" aria-label="Fermer">
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
             </button>
-            <video :src="videoOpen" class="max-h-[88vh] max-w-full rounded-2xl shadow-2xl" style="aspect-ratio: 9/16;"
+            <video :src="videoOpen" class="max-h-[88vh] max-w-full w-full sm:max-w-4xl rounded-2xl shadow-2xl"
                    controls autoplay playsinline></video>
         </div>
     </template>

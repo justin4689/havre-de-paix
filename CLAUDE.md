@@ -144,7 +144,7 @@ npm run build
 
 ## i18n
 
-Les chaînes sources sont en français dans les vues (`__('…')`). `lang/en.json` traduit par clé exacte : **toute modification d'une chaîne française casse sa traduction** — mettre à jour la clé correspondante. Les nouvelles chaînes (Assinie) n'ont pas encore de traduction EN : à compléter.
+Les chaînes sources sont en français dans les vues (`__('…')`). `lang/en.json` traduit par clé exacte : **toute modification d'une chaîne française casse sa traduction** — mettre à jour la clé correspondante. Couverture vérifiée à 100 % (audit : extraire les `__()` des vues/app et comparer aux clés). Le contenu BDD affiché (noms de chambres, catégories, équipements) passe aussi par `__()` avec ses clés dans en.json — en ajouter lors de la création d'une chambre. Restent en français : les descriptions longues des chambres (BDD) et les emails transactionnels.
 
 ---
 

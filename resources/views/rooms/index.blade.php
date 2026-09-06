@@ -95,7 +95,7 @@
                                        onchange="this.form.submit()"
                                        {{ in_array($value, (array) request('category', [])) ? 'checked' : '' }}
                                        class="w-4 h-4 rounded cursor-pointer" style="accent-color: var(--color-orange);">
-                                {{ $label }}
+                                {{ __($label) }}
                             </span>
                             <span class="text-xs" style="color: var(--color-slate);">{{ $categoryCounts[$value] ?? 0 }}</span>
                         </label>
@@ -126,11 +126,11 @@
                     <article class="card group">
                         <div class="relative aspect-[4/3] overflow-hidden">
                             <img src="{{ asset($room->first_image) }}"
-                                 alt="{{ $room->name }}"
+                                 alt="{{ __($room->name) }}"
                                  class="w-full h-full object-cover"
                                  loading="lazy" width="400" height="300">
                             <div class="absolute top-3 left-3 flex gap-2">
-                                <span class="badge">{{ $room->category_label }}</span>
+                                <span class="badge">{{ __($room->category_label) }}</span>
                                 @if ($rooms->total() <= 2 && $checkIn)
                                 <span class="badge-orange">{{ __('Dernières dispo.') }}</span>
                                 @endif
@@ -139,7 +139,7 @@
 
                         <div class="p-4">
                             <div class="flex items-start justify-between gap-2 mb-2">
-                                <h2 class="font-semibold text-base leading-tight" style="color: var(--color-navy);">{{ $room->name }}</h2>
+                                <h2 class="font-semibold text-base leading-tight" style="color: var(--color-navy);">{{ __($room->name) }}</h2>
                                 <span class="text-xs px-2 py-1 rounded-full shrink-0" style="background-color: var(--color-sky); color: #075985;">
                                     {{ $room->capacity_adults }} {{ __('pers.') }}
                                 </span>
