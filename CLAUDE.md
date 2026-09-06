@@ -142,6 +142,26 @@ npm run build
 
 > Note : `node`/`npm` viennent de nvm (`~/.nvm/versions/node/v24.18.0/bin`) — pas dans le PATH par défaut des shells non interactifs.
 
+## Emails transactionnels
+
+`EmailService` est le point d'entrée unique — 5 Mailables **en file d'attente** (ShouldQueue) :
+
+| Déclencheur                | Destinataires                      |
+|----------------------------|------------------------------------|
+| Réservation publique       | client (confirmation + lien d'annulation) · hôtel (alerte) |
+| Annulation client          | client · hôtel                     |
+| Formulaire de contact      | hôtel (`HOTEL_EMAIL`)              |
+
+La réservation manuelle en réception n'envoie volontairement aucun email. Un échec d'envoi est logué mais ne bloque jamais l'action métier. Transports : `hostinger` (API, `app/Mail/Transport/HostingerMailTransport.php`) ou `smtp`.
+
+## Déploiement — points critiques
+
+1. `APP_URL` doit être le domaine réel (le **lien d'annulation** dans les emails en dépend), `APP_ENV=production`, `APP_DEBUG=false`.
+2. `MAIL_MAILER=hostinger` + `HOSTINGER_MAIL_TOKEN`/`HOSTINGER_MAIL_MAILBOX_ID` (ou `smtp`), `MAIL_FROM_ADDRESS`, `HOTEL_EMAIL`.
+3. **Worker de queue obligatoire** (les emails sont queués, `QUEUE_CONNECTION=database`) : `php artisan queue:work --tries=3` sous Supervisor/systemd — sans worker, aucun email ne part.
+4. `php artisan config:cache && php artisan route:cache && php artisan view:cache`, `npm run build`, `php artisan migrate --force`.
+5. Base MySQL en prod (SQLite en dev) : configurer `DB_*`.
+
 ## i18n
 
 Les chaînes sources sont en français dans les vues (`__('…')`). `lang/en.json` traduit par clé exacte : **toute modification d'une chaîne française casse sa traduction** — mettre à jour la clé correspondante. Couverture vérifiée à 100 % (audit : extraire les `__()` des vues/app et comparer aux clés). Le contenu BDD affiché (noms de chambres, catégories, équipements) passe aussi par `__()` avec ses clés dans en.json — en ajouter lors de la création d'une chambre. Restent en français : les descriptions longues des chambres (BDD) et les emails transactionnels.
