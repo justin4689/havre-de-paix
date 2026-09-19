@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use App\Models\Reservation;
 use App\Models\Room;
 use App\Models\User;
@@ -26,6 +27,18 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('reception2026'),
             'role' => 'receptionist',
         ]);
+
+        // Catégories commerciales (gérées ensuite depuis le back-office)
+        $categories = [
+            ['slug' => 'standard',           'name' => 'Chambre Standard',           'name_en' => 'Standard Room',          'tagline' => "L'essentiel, côté jardin",           'tagline_en' => 'The essentials, garden side',  'sort_order' => 1],
+            ['slug' => 'standard-superieur', 'name' => 'Chambre Standard Supérieur', 'name_en' => 'Superior Standard Room', 'tagline' => "Plus d'espace, plus de raffinement", 'tagline_en' => 'More space, more refinement',  'sort_order' => 2],
+            ['slug' => 'familiale',          'name' => 'Chambre Familiale',          'name_en' => 'Family Room',            'tagline' => 'La formule idéale en famille',       'tagline_en' => 'The perfect family option',    'sort_order' => 3],
+            ['slug' => 'suite',              'name' => 'Suite',                      'name_en' => 'Suite',                  'tagline' => 'Grand volume & baignoire',           'tagline_en' => 'Generous space & bathtub',     'sort_order' => 4],
+        ];
+
+        foreach ($categories as $category) {
+            Category::create($category);
+        }
 
         // Équipements communs à toutes les chambres (document Tarifs Assinie 2026 :
         // petit-déjeuner, wifi et climatisation inclus ; piscine commune sans surcoût).

@@ -88,16 +88,16 @@
 
                         {{-- Catégorie --}}
                         <p class="text-sm font-semibold mb-1" style="color: var(--color-navy);">{{ __('Catégorie') }}</p>
-                        @foreach (\App\Models\Room::CATEGORIES as $value => $label)
+                        @foreach ($categories as $category)
                         <label class="flex items-center justify-between py-1.5 cursor-pointer rounded-lg -mx-2 px-2 transition-colors hover:bg-slate-50">
                             <span class="flex items-center gap-2.5 text-sm" style="color: var(--color-navy);">
-                                <input type="checkbox" name="category[]" value="{{ $value }}"
+                                <input type="checkbox" name="category[]" value="{{ $category->slug }}"
                                        onchange="this.form.submit()"
-                                       {{ in_array($value, (array) request('category', [])) ? 'checked' : '' }}
+                                       {{ in_array($category->slug, (array) request('category', [])) ? 'checked' : '' }}
                                        class="w-4 h-4 rounded cursor-pointer" style="accent-color: var(--color-orange);">
-                                {{ __($label) }}
+                                {{ $category->label }}
                             </span>
-                            <span class="text-xs" style="color: var(--color-slate);">{{ $categoryCounts[$value] ?? 0 }}</span>
+                            <span class="text-xs" style="color: var(--color-slate);">{{ $categoryCounts[$category->slug] ?? 0 }}</span>
                         </label>
                         @endforeach
 

@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Room;
+use App\Repositories\Contracts\CategoryRepositoryInterface;
 use App\Repositories\Contracts\RoomRepositoryInterface;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
@@ -13,6 +14,7 @@ class RoomCatalogService
 
     public function __construct(
         private readonly RoomRepositoryInterface $rooms,
+        private readonly CategoryRepositoryInterface $categories,
         private readonly AvailabilityService $availability,
     ) {}
 
@@ -20,11 +22,11 @@ class RoomCatalogService
      * Catalogue public : chambres filtrées (et disponibles si dates fournies),
      * paginées, avec compteurs par catégorie et bornes de prix pour le panneau de filtres.
      *
-     * @param array $filters capacity, category, price_max, sort, check_in, check_out
+     * @param  array  $filters  capacity, category, price_max, sort, check_in, check_out
      */
     public function catalog(array $filters, int $page, string $path, array $query): array
     {
-        $checkIn  = $filters['check_in'] ?? null;
+        $checkIn = $filters['check_in'] ?? null;
         $checkOut = $filters['check_out'] ?? null;
 
         $rooms = $this->rooms->activeFiltered($filters, $filters['sort'] ?? 'price_asc');
@@ -46,9 +48,10 @@ class RoomCatalogService
         );
 
         return [
-            'rooms'          => $paginated,
+            'rooms' => $paginated,
+            'categories' => $this->categories->allOrdered(),
             'categoryCounts' => $this->categoryCounts(),
-            'priceBounds'    => $this->priceBounds(),
+            'priceBounds' => $this->priceBounds(),
         ];
     }
 
@@ -59,7 +62,7 @@ class RoomCatalogService
 
     /**
      * Une chambre représentative par catégorie (la moins chère de chacune),
-     * ordonnée selon Room::CATEGORIES — pour les onglets de l'accueil.
+     * ordonnée selon les catégories du back-office — pour les cartes de l'accueil.
      */
     public function representativeByCategory(): Collection
     {
@@ -68,9 +71,8 @@ class RoomCatalogService
             ->groupBy('category')
             ->map(fn (Collection $group) => $group->first());
 
-        return collect(Room::CATEGORIES)
-            ->keys()
-            ->mapWithKeys(fn (string $key) => [$key => $byCategory->get($key)])
+        return $this->categories->allOrdered()
+            ->mapWithKeys(fn ($category) => [$category->slug => $byCategory->get($category->slug)])
             ->filter();
     }
 

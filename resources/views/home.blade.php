@@ -127,15 +127,6 @@
         </div>
 
         @if ($roomsByCategory->isNotEmpty())
-        @php
-        $taglines = [
-            'standard'           => __("L'essentiel, côté jardin"),
-            'standard-superieur' => __("Plus d'espace, plus de raffinement"),
-            'familiale'          => __('La formule idéale en famille'),
-            'suite'              => __('Grand volume & baignoire'),
-        ];
-        @endphp
-
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             @foreach ($roomsByCategory as $categoryKey => $room)
             <a href="{{ route('rooms.index', ['category' => [$categoryKey]]) }}" class="card group no-underline flex flex-col">
@@ -170,7 +161,7 @@
 
                     <p class="mt-auto pt-4 mt-5 border-t text-xs font-medium flex items-center gap-2" style="border-color: var(--color-border); color: var(--color-slate);">
                         <svg class="w-3.5 h-3.5 shrink-0" style="color: var(--color-orange);" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-                        {{ $taglines[$categoryKey] ?? '' }}
+                        {{ $room->categoryRef?->tagline_label }}
                     </p>
                 </div>
             </a>

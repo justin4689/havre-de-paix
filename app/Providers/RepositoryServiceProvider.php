@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Repositories\Contracts\CategoryRepositoryInterface;
 use App\Repositories\Contracts\PricingRuleRepositoryInterface;
 use App\Repositories\Contracts\ReservationRepositoryInterface;
 use App\Repositories\Contracts\RoomRepositoryInterface;
+use App\Repositories\Eloquent\EloquentCategoryRepository;
 use App\Repositories\Eloquent\EloquentPricingRuleRepository;
 use App\Repositories\Eloquent\EloquentReservationRepository;
 use App\Repositories\Eloquent\EloquentRoomRepository;
@@ -17,5 +19,6 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(ReservationRepositoryInterface::class, EloquentReservationRepository::class);
         $this->app->bind(RoomRepositoryInterface::class, EloquentRoomRepository::class);
         $this->app->bind(PricingRuleRepositoryInterface::class, EloquentPricingRuleRepository::class);
+        $this->app->bind(CategoryRepositoryInterface::class, EloquentCategoryRepository::class);
     }
 }

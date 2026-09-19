@@ -73,7 +73,7 @@ Grille en vigueur (FCFA/nuit — BS / HS / WE-BS / WE-HS) :
 | Familiale 1 (ex-Suite Premium)       | 2–4      | 110 000 | 140 000 | 120 000 | 160 000 |
 | Familiale 2 (duplex, 2 ch.)          | 2–4      | 90 000  | 120 000 | 100 000 | 140 000 |
 
-Catégories (`Room::CATEGORIES`) : `standard` · `standard-superieur` · `familiale` · `suite`.
+Les catégories sont **dynamiques** : table `categories` (slug immuable, nom/tagline FR+EN, ordre), gérée dans **Admin → Catégories**. `rooms.category` stocke le slug ; suppression refusée tant que des chambres y sont rattachées. Seedées : `standard` · `standard-superieur` · `familiale` · `suite`.
 
 Inclus partout : petit-déjeuner, WiFi, climatisation, piscine commune.
 

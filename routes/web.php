@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PricingController;
 use App\Http\Controllers\Admin\ReservationController as AdminReservationController;
@@ -72,6 +73,11 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', AdminMiddleware::cla
     Route::get('/chambres/{room}/modifier', [AdminRoomController::class, 'edit'])->name('rooms.edit');
     Route::patch('/chambres/{room}', [AdminRoomController::class, 'update'])->name('rooms.update');
     Route::delete('/chambres/{room}', [AdminRoomController::class, 'destroy'])->name('rooms.destroy');
+
+    Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
+    Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
+    Route::patch('/categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
+    Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
 
     Route::get('/tarifs', [PricingController::class, 'index'])->name('pricing.index');
     Route::post('/tarifs', [PricingController::class, 'store'])->name('pricing.store');

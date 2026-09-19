@@ -22,16 +22,17 @@ class RoomController extends Controller
         );
 
         return view('rooms.index', [
-            'rooms'          => $data['rooms'],
+            'rooms' => $data['rooms'],
+            'categories' => $data['categories'],
             'categoryCounts' => $data['categoryCounts'],
-            'checkIn'        => $request->get('check_in'),
-            'checkOut'       => $request->get('check_out'),
+            'checkIn' => $request->get('check_in'),
+            'checkOut' => $request->get('check_out'),
         ]);
     }
 
     public function show(string $slug)
     {
-        $room    = $this->catalog->findBySlug($slug);
+        $room = $this->catalog->findBySlug($slug);
         $similar = $this->catalog->similarTo($room);
 
         return view('rooms.show', compact('room', 'similar'));

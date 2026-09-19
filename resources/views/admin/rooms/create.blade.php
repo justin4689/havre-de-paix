@@ -77,8 +77,8 @@
                 <div>
                     <label class="form-label">Catégorie</label>
                     <select name="category" class="form-input">
-                        @foreach (\App\Models\Room::CATEGORIES as $val => $label)
-                        <option value="{{ $val }}" {{ old('category', 'standard') === $val ? 'selected' : '' }}>{{ $label }}</option>
+                        @foreach (\App\Models\Category::ordered()->get() as $cat)
+                        <option value="{{ $cat->slug }}" {{ old('category', 'standard') === $cat->slug ? 'selected' : '' }}>{{ $cat->name }}</option>
                         @endforeach
                     </select>
                 </div>

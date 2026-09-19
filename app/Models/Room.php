@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Room extends Model
@@ -51,16 +52,16 @@ class Room extends Model
         return $images[0] ?? 'images/placeholder.svg';
     }
 
-    public const CATEGORIES = [
-        'standard' => 'Chambre Standard',
-        'standard-superieur' => 'Chambre Standard Supérieur',
-        'familiale' => 'Chambre Familiale',
-        'suite' => 'Suite',
-    ];
+    /** La catégorie commerciale, gérée dans le back-office (rattachement par slug). */
+    public function categoryRef(): BelongsTo
+    {
+        return $this->belongsTo(Category::class, 'category', 'slug');
+    }
 
     public function getCategoryLabelAttribute(): string
     {
-        return self::CATEGORIES[$this->category] ?? 'Standard';
+        return Category::labelMap()[$this->category]
+            ?? ucfirst(str_replace('-', ' ', (string) $this->category));
     }
 
     public function getBedTypeLabelAttribute(): string
