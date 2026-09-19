@@ -65,8 +65,7 @@
                         @foreach ([
                             ['route' => 'home', 'label' => __('Accueil')],
                             ['route' => 'rooms.index', 'label' => __('Nos Chambres')],
-                            ['route' => 'table', 'label' => __('Découvrir')],
-                            ['route' => 'about', 'label' => __('À Propos')],
+                            ['route' => 'table', 'label' => __('Restaurant')],
                             ['route' => 'contact', 'label' => __('Contact')],
                             ['route' => 'reservation.lookup', 'label' => __('Ma réservation')],
                         ] as $item)
@@ -114,8 +113,7 @@
                 @foreach ([
                     ['route' => 'home', 'label' => __('Accueil')],
                     ['route' => 'rooms.index', 'label' => __('Nos Chambres')],
-                    ['route' => 'table', 'label' => __('Découvrir')],
-                    ['route' => 'about', 'label' => __('À Propos')],
+                    ['route' => 'table', 'label' => __('Restaurant')],
                     ['route' => 'contact', 'label' => __('Contact')],
                     ['route' => 'reservation.lookup', 'label' => __('Ma réservation')],
                 ] as $item)
@@ -171,9 +169,8 @@
                     <ul class="space-y-2.5 text-sm">
                         @foreach ([
                             ['route' => 'rooms.index', 'label' => __('Nos Chambres')],
-                            ['route' => 'table', 'label' => __('Découvrir')],
+                            ['route' => 'table', 'label' => __('Restaurant')],
                             ['route' => 'reservation.lookup', 'label' => __('Ma réservation')],
-                            ['route' => 'about', 'label' => __('À Propos')],
                             ['route' => 'contact', 'label' => __('Contact')],
                         ] as $item)
                         <li><a href="{{ route($item['route']) }}" class="hover:text-white transition-colors" style="color: rgba(255,255,255,0.6);">{{ $item['label'] }}</a></li>

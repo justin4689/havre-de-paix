@@ -65,13 +65,15 @@ Les vues utilisent les **alias hérités** `--color-orange`, `--color-orange-dar
 
 Grille en vigueur (FCFA/nuit — BS / HS / WE-BS / WE-HS) :
 
-| Chambre           | Capacité | BS      | HS      | WE BS   | WE HS   |
-|-------------------|----------|---------|---------|---------|---------|
-| Standard (×2)     | 2 pers.  | 50 000  | 65 000  | 55 000  | 70 000  |
-| Premium (×2)      | 2 pers.  | 60 000  | 75 000  | 66 000  | 85 000  |
-| Suite             | 2–3      | 80 000  | 100 000 | 88 000  | 115 000 |
-| Suite Premium     | 2–4      | 110 000 | 140 000 | 120 000 | 160 000 |
-| Duplex (2 ch.)    | 4        | 90 000  | 120 000 | 100 000 | 140 000 |
+| Chambre (catégorie commerciale)      | Capacité | BS      | HS      | WE BS   | WE HS   |
+|--------------------------------------|----------|---------|---------|---------|---------|
+| Standard (×2)                        | 2 pers.  | 50 000  | 65 000  | 55 000  | 70 000  |
+| Standard Supérieur (×2, ex-Premium)  | 2 pers.  | 60 000  | 75 000  | 66 000  | 85 000  |
+| Suite                                | 2–3      | 80 000  | 100 000 | 88 000  | 115 000 |
+| Familiale 1 (ex-Suite Premium)       | 2–4      | 110 000 | 140 000 | 120 000 | 160 000 |
+| Familiale 2 (duplex, 2 ch.)          | 2–4      | 90 000  | 120 000 | 100 000 | 140 000 |
+
+Catégories (`Room::CATEGORIES`) : `standard` · `standard-superieur` · `familiale` · `suite`.
 
 Inclus partout : petit-déjeuner, WiFi, climatisation, piscine commune.
 
@@ -99,7 +101,7 @@ app/Http/Controllers/       → Contrôleurs fins : injection du service, appel,
 /reservation              → Tunnel (exige chambre + dates, prix calculé serveur)
 /ma-reservation           → Retrouver / annuler sa réservation (throttlé)
 /a-propos                 → Présentation, galerie, situation (Assinie), politique, FAQ
-/notre-table (« Découvrir ») → Le domaine : piscine, pavillon, ponton, expériences
+/notre-table (« Découvrir ») → Le domaine : piscine, pavillon, lagune, expériences
 /contact · /mentions-legales
 /admin/*                  → Back-office (dashboard, réservations, chambres, tarifs) — auth + AdminMiddleware
 /api/availability         → Disponibilités (GET)

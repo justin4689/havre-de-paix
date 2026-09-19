@@ -11,7 +11,7 @@
     {{-- Header --}}
     <div class="relative flex items-center justify-center text-center h-[60vh] min-h-[420px] px-4 sm:px-6 lg:px-8 overflow-hidden">
         <x-hero-slideshow :images="[
-            ['src' => 'images/site/hero-chambre-premium.jpg', 'alt' => 'La Chambre Premium et son lit king size habillé de wax'],
+            ['src' => 'images/site/hero-chambre-premium.jpg', 'alt' => 'La Chambre Standard Supérieur et son lit king size habillé de wax'],
             ['src' => 'images/site/hero-palmiers.jpg',        'alt' => 'Les palmiers penchés au-dessus du bassin à débordement'],
             ['src' => 'images/site/hero-lagune-piscine.jpg',  'alt' => 'La piscine à débordement face à la lagune d\'Assinie'],
         ]" />
@@ -20,7 +20,7 @@
             <p class="text-sm font-semibold uppercase tracking-widest mb-3" style="color: var(--color-orange);">{{ __('Hébergement') }}</p>
             <h1 class="text-4xl sm:text-5xl font-bold text-white mb-4" style="font-family: var(--font-serif);">{{ __('Nos Chambres & Suites') }}</h1>
             <p class="max-w-xl mx-auto" style="color: rgba(255,255,255,0.85);">
-                {{ __('De la Chambre Standard au Duplex — chaque hébergement offre un cadre calme et verdoyant au bord de la lagune.') }}
+                {{ __('De la Chambre Standard à la Chambre Familiale — chaque hébergement offre un cadre calme et verdoyant au bord de la lagune.') }}
             </p>
         </div>
     </div>
@@ -123,7 +123,7 @@
                 {{-- Grille chambres --}}
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     @forelse ($rooms as $room)
-                    <article class="card group">
+                    <article class="card group relative transition-transform duration-200 hover:-translate-y-0.5">
                         <div class="relative aspect-[4/3] overflow-hidden">
                             <img src="{{ asset($room->first_image) }}"
                                  alt="{{ __($room->name) }}"
@@ -139,7 +139,12 @@
 
                         <div class="p-4">
                             <div class="flex items-start justify-between gap-2 mb-2">
-                                <h2 class="font-semibold text-base leading-tight" style="color: var(--color-navy);">{{ __($room->name) }}</h2>
+                                <h2 class="font-semibold text-base leading-tight" style="color: var(--color-navy);">
+                                    <a href="{{ route('rooms.show', $room->slug) }}{{ $checkIn ? '?check_in='.$checkIn.'&check_out='.$checkOut : '' }}"
+                                       class="after:absolute after:inset-0 after:content-[''] hover:text-orange-600 transition-colors">
+                                        {{ __($room->name) }}
+                                    </a>
+                                </h2>
                                 <span class="text-xs px-2 py-1 rounded-full shrink-0" style="background-color: var(--color-sky); color: #075985;">
                                     {{ $room->capacity_adults }} {{ __('pers.') }}
                                 </span>
@@ -175,7 +180,7 @@
 
                             <div class="pt-3 border-t" style="border-color: var(--color-border);">
                                 <a href="{{ route('rooms.show', $room->slug) }}{{ $checkIn ? '?check_in='.$checkIn.'&check_out='.$checkOut : '' }}"
-                                   class="btn-primary w-full text-sm py-2.5">
+                                   class="btn-primary w-full text-sm py-2.5 relative z-10">
                                     {{ __('Voir & Réserver') }}
                                 </a>
                             </div>

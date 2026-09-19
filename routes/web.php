@@ -9,11 +9,14 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\RoomController;
+use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\SetLocale;
+use App\Models\Room;
 use Illuminate\Support\Facades\Route;
 
 // Bascule de langue (fr / en), mémorisée en session
 Route::get('/langue/{locale}', function (string $locale) {
-    abort_unless(in_array($locale, \App\Http\Middleware\SetLocale::SUPPORTED, true), 404);
+    abort_unless(in_array($locale, SetLocale::SUPPORTED, true), 404);
     session(['locale' => $locale]);
 
     return redirect()->back();
@@ -38,10 +41,12 @@ Route::post('/ma-reservation', [ReservationController::class, 'lookup'])
 
 // Pages statiques
 Route::get('/a-propos', function () {
-    $rooms = \App\Models\Room::where('status', 'active')->orderBy('price_per_night')->get();
+    $rooms = Room::where('status', 'active')->orderBy('price_per_night')->get();
+
     return view('about', compact('rooms'));
 })->name('about');
-Route::view('/notre-table', 'table')->name('table');
+Route::view('/restaurant', 'table')->name('table');
+Route::redirect('/notre-table', '/restaurant', 301);
 Route::view('/mentions-legales', 'legal')->name('legal');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
@@ -52,7 +57,7 @@ Route::post('/admin/login', [AuthController::class, 'login'])->name('login.post'
 Route::post('/admin/logout', [AuthController::class, 'logout'])->name('logout');
 
 // === BACK-OFFICE (protégé) ===
-Route::prefix('admin')->name('admin.')->middleware(['auth', \App\Http\Middleware\AdminMiddleware::class])->group(function () {
+Route::prefix('admin')->name('admin.')->middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::get('/reservations', [AdminReservationController::class, 'index'])->name('reservations.index');

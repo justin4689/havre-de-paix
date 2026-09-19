@@ -31,7 +31,7 @@
             {{ __('Résidence-hôtel les pieds dans la lagune Aby, à Assinie. Un vrai havre de calme entre l\'eau et les jardins.') }}
         </p>
         <div class="flex flex-wrap justify-center gap-3 mb-8">
-            @foreach ([__('Au bord de la lagune'), __('7 chambres, suites & duplex'), __('Piscine à débordement'), __('Paiement à l\'arrivée')] as $badge)
+            @foreach ([__('Au bord de la lagune'), __('7 chambres & suites'), __('Piscine à débordement'), __('Paiement à l\'arrivée')] as $badge)
             <span class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-semibold text-white border border-white/30 backdrop-blur-sm" style="background: rgba(255,255,255,0.12);">
                 <svg class="w-3 h-3" style="color: var(--color-orange);" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
                 {{ $badge }}
@@ -162,7 +162,7 @@
         {{-- Chiffres clés --}}
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
             @foreach ([
-                ['value' => '5',      'label' => __('Types de chambres & suites'), 'icon' => 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6'],
+                ['value' => '4',      'label' => __('Catégories de chambres & suites'), 'icon' => 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6'],
                 ['value' => __('Km 18,75'), 'label' => __('Route d\'Assinie · lagune Aby'), 'icon' => 'M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z'],
                 ['value' => '24/7',   'label' => __('Réception & sécurité'), 'icon' => 'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064'],
                 ['value' => '100%',   'label' => __('Petit-déjeuner inclus'),    'icon' => 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z'],
@@ -260,7 +260,7 @@
                 ['img' => 'site/hero-piscine-lagune.jpg', 'alt' => 'La piscine à débordement face à la lagune d\'Assinie'],
                 ['img' => 'site/pavillon-repas.jpg',      'alt' => 'Le pavillon vitré du petit-déjeuner'],
                 ['img' => 'site/jardin.jpg',              'alt' => 'Les jardins verdoyants de la résidence'],
-                ['img' => 'site/ponton-lagune.jpg',       'alt' => 'Le ponton en bois sur la lagune Aby'],
+                ['img' => 'site/jardin-nuit.jpg',         'alt' => 'Le jardin de la résidence à la tombée de la nuit'],
                 ['img' => 'site/coursive-nuit.jpg',          'alt' => 'Les coursives éclairées le soir'],
                 ['img' => 'site/piscine-palmiers.jpg',    'alt' => 'La piscine bordée de palmiers'],
                 ['img' => 'site/hero-facade-hotel.jpg',      'alt' => 'La façade de la résidence vue depuis l\'entrée'],
@@ -433,7 +433,7 @@
                     <div class="bg-white rounded-xl p-4 border shadow-sm text-sm col-span-2" style="border-color: var(--color-border);">
                         <p class="font-semibold mb-1" style="color: var(--color-navy);">{{ __('Adresse') }}</p>
                         <p class="text-xs" style="color: var(--color-slate);">{{ __("Route d'Assinie, Kilomètre 18,75 — Côte d'Ivoire") }}</p>
-                        <p class="text-xs mt-2" style="color: var(--color-slate);">{{ __('Accès également possible en pirogue par la lagune Aby.') }}</p>
+                        <p class="text-xs mt-2" style="color: var(--color-slate);">{{ __('Le domaine borde directement la lagune Aby.') }}</p>
                     </div>
                 </div>
 
@@ -548,7 +548,7 @@
                 ],
                 [
                     'q' => __('Comment se rendre au Havre de Paix depuis Abidjan ?'),
-                    'a' => __('La résidence se situe au kilomètre 18,75 de la route d\'Assinie, au bord de la lagune Aby — à environ 1h30 de l\'aéroport Félix-Houphouët-Boigny via Grand-Bassam et Bonoua. L\'accès est également possible en pirogue par la lagune. Contactez-nous pour organiser un transfert.'),
+                    'a' => __('La résidence se situe au kilomètre 18,75 de la route d\'Assinie, au bord de la lagune Aby — à environ 1h30 de l\'aéroport Félix-Houphouët-Boigny via Grand-Bassam et Bonoua. Contactez-nous pour organiser un transfert.'),
                 ],
                 [
                     'q' => __('Le restaurant est-il ouvert ?'),

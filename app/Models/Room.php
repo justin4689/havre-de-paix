@@ -17,7 +17,7 @@ class Room extends Model
 
     protected $casts = [
         'amenities' => 'array',
-        'images'    => 'array',
+        'images' => 'array',
     ];
 
     public function reservations(): HasMany
@@ -47,15 +47,15 @@ class Room extends Model
     public function getFirstImageAttribute(): string
     {
         $images = $this->images ?? [];
+
         return $images[0] ?? 'images/placeholder.svg';
     }
 
     public const CATEGORIES = [
-        'standard'      => 'Chambre Standard',
-        'premium'       => 'Chambre Premium',
-        'suite'         => 'Suite',
-        'suite-premium' => 'Suite Premium',
-        'duplex'        => 'Duplex',
+        'standard' => 'Chambre Standard',
+        'standard-superieur' => 'Chambre Standard Supérieur',
+        'familiale' => 'Chambre Familiale',
+        'suite' => 'Suite',
     ];
 
     public function getCategoryLabelAttribute(): string
@@ -66,10 +66,10 @@ class Room extends Model
     public function getBedTypeLabelAttribute(): string
     {
         return match ($this->bed_type) {
-            'king'   => __('King size'),
+            'king' => __('King size'),
             'double' => __('Grand lit double'),
-            'twin'   => __('Lits jumeaux'),
-            default  => __('Lit simple'),
+            'twin' => __('Lits jumeaux'),
+            default => __('Lit simple'),
         };
     }
 

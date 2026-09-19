@@ -8,103 +8,56 @@
 
 {{-- ===== HERO ===== --}}
 <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
-    {{-- Background : vidéo de la lagune (image fixe en repli / reduced motion) --}}
+    {{-- Background : la façade de la résidence --}}
     <div class="absolute inset-0 z-0">
-        <img src="{{ asset('images/site/hero-piscine-lagune.jpg') }}"
-             alt="{{ __('La piscine à débordement du Havre de Paix face à la lagune d\'Assinie') }}"
+        <img src="{{ asset('images/site/hero-facade-hotel.jpg') }}"
+             alt="{{ __('La façade de la résidence, vue depuis l\'entrée du domaine') }}"
              class="absolute inset-0 w-full h-full object-cover">
-        <video class="absolute inset-0 w-full h-full object-cover motion-reduce:hidden"
-               src="{{ asset('videos/hero.mp4') }}"
-               poster="{{ asset('images/site/hero-piscine-lagune.jpg') }}"
-               autoplay muted loop playsinline preload="metadata" aria-hidden="true" tabindex="-1"></video>
         <div class="absolute inset-0 hero-overlay"></div>
     </div>
 
-    <div class="relative z-10 text-center text-white px-4 sm:px-6 max-w-5xl mx-auto pt-24">
-        <div class="badge-orange mb-6 inline-flex">
-            <svg class="w-3.5 h-3.5 mr-1.5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-            {{ __("Assinie · Kilomètre 18,75 · Côte d'Ivoire") }}
-        </div>
-
-        <h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight" style="font-family: var(--font-serif);">
+    <div class="relative z-10 text-center text-white px-4 sm:px-6 max-w-5xl mx-auto pt-16">
+        <h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight" style="font-family: var(--font-serif);">
             Havre de <span style="color: var(--color-orange);">Paix</span>
         </h1>
-
-        <p class="text-lg sm:text-xl mb-10 leading-relaxed max-w-2xl mx-auto" style="color: rgba(255,255,255,0.85);">
-            {{ __('Une résidence-hôtel les pieds dans la lagune, à Assinie. Piscine à débordement, jardins et chambres climatisées, petit-déjeuner inclus.') }}
-            <strong style="color: white;">{{ __('Paiement à l\'arrivée — aucun prépaiement requis.') }}</strong>
+        <p class="mt-4 text-xl sm:text-3xl lg:text-4xl font-bold uppercase tracking-[0.14em] sm:tracking-[0.2em]">
+            Assinie <span style="color: var(--color-orange);">·</span> {{ __('Kilomètre') }} 18,75
         </p>
-
-        {{-- Barre de recherche « pill » segmentée --}}
-        <div class="max-w-3xl mx-auto animate-fade-up">
-            <form action="{{ route('rooms.index') }}" method="GET"
-                  class="bg-white rounded-2xl sm:rounded-full shadow-2xl p-2 flex flex-col sm:flex-row sm:items-center text-left"
-                  style="color: var(--color-navy);">
-
-                <div class="flex-1 min-w-0 px-5 py-2.5 rounded-2xl sm:rounded-full transition-colors hover:bg-slate-50">
-                    <label for="check_in" class="block text-xs font-bold uppercase tracking-wide mb-0.5">{{ __('Arrivée') }}</label>
-                    <input type="date" id="check_in" name="check_in"
-                           min="{{ date('Y-m-d') }}"
-                           value="{{ request('check_in') }}"
-                           class="w-full bg-transparent text-sm font-medium outline-none border-0 p-0 cursor-pointer"
-                           required>
-                </div>
-
-                <div class="hidden sm:block w-px self-stretch my-3" style="background-color: var(--color-border);"></div>
-                <div class="sm:hidden h-px mx-5" style="background-color: var(--color-border);"></div>
-
-                <div class="flex-1 min-w-0 px-5 py-2.5 rounded-2xl sm:rounded-full transition-colors hover:bg-slate-50">
-                    <label for="check_out" class="block text-xs font-bold uppercase tracking-wide mb-0.5">{{ __('Départ') }}</label>
-                    <input type="date" id="check_out" name="check_out"
-                           min="{{ date('Y-m-d', strtotime('+1 day')) }}"
-                           value="{{ request('check_out') }}"
-                           class="w-full bg-transparent text-sm font-medium outline-none border-0 p-0 cursor-pointer"
-                           required>
-                </div>
-
-                <div class="hidden sm:block w-px self-stretch my-3" style="background-color: var(--color-border);"></div>
-                <div class="sm:hidden h-px mx-5" style="background-color: var(--color-border);"></div>
-
-                <div class="flex-1 min-w-0 px-5 py-2.5 rounded-2xl sm:rounded-full transition-colors hover:bg-slate-50">
-                    <label for="guests" class="block text-xs font-bold uppercase tracking-wide mb-0.5">{{ __('Hôtes') }}</label>
-                    <select id="guests" name="capacity" class="w-full bg-transparent text-sm font-medium outline-none border-0 p-0 cursor-pointer">
-                        @for ($i = 1; $i <= 8; $i++)
-                        <option value="{{ $i }}" {{ request('capacity') == $i ? 'selected' : '' }}>{{ trans_choice(':n hôte|:n hôtes', $i, ['n' => $i]) }}</option>
-                        @endfor
-                    </select>
-                </div>
-
-                <button type="submit" class="btn-search h-12 sm:w-12 w-auto px-6 sm:px-0 m-1 sm:m-0 sm:ml-2" aria-label="{{ __('Rechercher les disponibilités') }}">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                    <span class="sm:hidden">{{ __('Rechercher') }}</span>
-                </button>
-            </form>
-
-            <p class="mt-5 text-sm font-medium" style="color: rgba(255,255,255,0.85);">
-                {{ __("Annulation gratuite jusqu'à 48h") }} &middot; {{ __("Paiement à l'arrivée") }} &middot; {{ __('Confirmation immédiate') }}
-            </p>
-        </div>
     </div>
 
-    {{-- Scroll indicator --}}
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-bounce">
-        <svg class="w-6 h-6 text-white opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+    {{-- Bandeau réservation ancré en bas du hero --}}
+    <div class="absolute bottom-0 inset-x-0 z-10 shadow-2xl" style="background-color: var(--color-blue);">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between gap-4">
+
+            <div class="text-white leading-tight shrink-0">
+                <span class="block font-bold uppercase tracking-[0.2em] text-sm sm:text-base">{{ __('Réservez') }}</span>
+                <span class="block text-xs" style="color: rgba(255,255,255,0.75);">{{ __('votre séjour') }}</span>
+            </div>
+
+            <div class="hidden md:flex items-center text-white">
+                @foreach ([
+                    ['icon' => 'M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z', 'l1' => __('Paiement'), 'l2' => __('à l\'arrivée')],
+                    ['icon' => 'M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z', 'l1' => __('Meilleur prix'), 'l2' => __('garanti')],
+                    ['icon' => 'M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z', 'l1' => __('Disponibilités'), 'l2' => __('en temps réel')],
+                ] as $item)
+                <div class="flex items-center gap-2.5 px-5 lg:px-7 {{ $loop->first ? '' : 'border-l' }}" style="border-color: rgba(255,255,255,0.25);">
+                    <svg class="w-6 h-6 shrink-0" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="{{ $item['icon'] }}"/></svg>
+                    <span class="leading-tight text-left">
+                        <span class="block text-xs" style="color: rgba(255,255,255,0.8);">{{ $item['l1'] }}</span>
+                        <span class="block text-sm font-bold">{{ $item['l2'] }}</span>
+                    </span>
+                </div>
+                @endforeach
+            </div>
+
+            <a href="{{ route('rooms.index') }}"
+               class="shrink-0 bg-white rounded-lg px-5 py-2.5 text-sm font-bold transition-transform hover:-translate-y-0.5 shadow-md"
+               style="color: var(--color-blue);">
+                {{ __('Réserver maintenant') }}
+            </a>
+        </div>
     </div>
 </section>
-
-{{-- ===== BANDEAU DÉFILANT ===== --}}
-<div class="py-4 overflow-hidden marquee" style="background-color: var(--color-ink);" aria-hidden="true">
-    <div class="marquee-track flex w-max items-center">
-        @for ($i = 0; $i < 2; $i++)
-        <div class="ticker-item pr-6 text-sm font-semibold uppercase tracking-[0.22em] text-white/80">
-            @foreach ([__('Piscine à débordement'), __('Lagune Aby'), __('Petit-déjeuner inclus'), __('Ponton privé'), __('Paiement à l\'arrivée'), __('Assinie · Km 18,75')] as $mot)
-            <span>{{ $mot }}</span>
-            <svg class="w-3.5 h-3.5 shrink-0" style="color: var(--color-orange);" fill="currentColor" viewBox="0 0 20 20"><path d="M10 1l2.35 6.65L19 10l-6.65 2.35L10 19l-2.35-6.65L1 10l6.65-2.35L10 1z"/></svg>
-            @endforeach
-        </div>
-        @endfor
-    </div>
-</div>
 
 {{-- ===== NOTRE DIFFÉRENCE (éditorial + badge logo rotatif) ===== --}}
 <section class="py-24 px-4 sm:px-6 lg:px-8" style="background-color: white;">
@@ -142,7 +95,7 @@
             <div class="lg:col-span-7">
                 @foreach ([
                     ['num' => '01', 'icon' => 'M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z', 'title' => __('Piscine à débordement'), 'desc' => __('Un bassin turquoise qui semble se fondre dans la lagune, bordé d\'une plage en bois — en accès libre pour tous nos hôtes.')],
-                    ['num' => '02', 'icon' => 'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z', 'title' => __('Les pieds dans la lagune'), 'desc' => __('Au Km 18,75 d\'Assinie, entre la lagune Aby et l\'océan : ponton privé, balades en pirogue et couchers de soleil sur l\'eau.')],
+                    ['num' => '02', 'icon' => 'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z', 'title' => __('Les pieds dans la lagune'), 'desc' => __('Au Km 18,75 d\'Assinie, entre la lagune Aby et l\'océan : jardins au bord de l\'eau, balades en pirogue et couchers de soleil sur la lagune.')],
                     ['num' => '03', 'icon' => 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z', 'title' => __('Paiement à l\'arrivée'), 'desc' => __('Réservez sans risque : aucun prépaiement en ligne, annulation gratuite jusqu\'à 48h avant votre arrivée.')],
                     ['num' => '04', 'icon' => 'M13 10V3L4 14h7v7l9-11h-7z', 'title' => __('Confirmation immédiate'), 'desc' => __('Votre réservation est confirmée en ligne en moins de 5 minutes, avec le petit-déjeuner inclus chaque matin.')],
                 ] as $feat)
@@ -169,78 +122,79 @@
             <div>
                 <p class="text-sm font-semibold uppercase tracking-widest mb-2" style="color: var(--color-orange);">{{ __('Notre catalogue') }}</p>
                 <h2 class="section-title">{{ __('Nos Chambres') }} <em>{{ __('& Suites') }}</em></h2>
-                <p class="section-subtitle max-w-md">{{ __("De la Chambre Standard au Duplex familial, trouvez l'hébergement qui vous correspond.") }}</p>
+                <p class="section-subtitle max-w-md">{{ __('Quatre catégories de chambres — à deux, en famille ou entre amis, vue jardin ou lagune.') }}</p>
             </div>
-            <a href="{{ route('rooms.index') }}" class="btn-outline hidden sm:inline-flex">
-                {{ __('Voir toutes les chambres') }}
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-            </a>
         </div>
 
         @if ($roomsByCategory->isNotEmpty())
-        {{-- Carrousel horizontal : une carte « arche » par catégorie --}}
-        <div class="snap-row -mx-4 px-4 sm:mx-0 sm:px-0">
+        @php
+        $taglines = [
+            'standard'           => __("L'essentiel, côté jardin"),
+            'standard-superieur' => __("Plus d'espace, plus de raffinement"),
+            'familiale'          => __('La formule idéale en famille'),
+            'suite'              => __('Grand volume & baignoire'),
+        ];
+        @endphp
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             @foreach ($roomsByCategory as $categoryKey => $room)
-            <a href="{{ route('rooms.show', $room->slug) }}"
-               class="group relative block shrink-0 w-[280px] sm:w-[320px] h-[460px] img-arch no-underline">
-                <img src="{{ asset($room->first_image) }}" alt="{{ __($room->name) }}"
-                     class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy">
-                <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(11,18,21,0.82) 0%, rgba(11,18,21,0.12) 45%, rgba(11,18,21,0.18) 100%);"></div>
-
-                {{-- Chip catégorie (verre) --}}
-                <span class="absolute top-5 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.16em] text-white whitespace-nowrap"
-                      style="background-color: rgba(255,255,255,0.16); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.25);">
-                    {{ __($room->category_label) }}
-                </span>
-
-                {{-- Bas de carte --}}
-                <div class="absolute inset-x-0 bottom-0 p-6">
-                    <h3 class="text-white text-2xl mb-1" style="font-family: var(--font-serif); font-weight: 600;">{{ __($room->name) }}</h3>
-                    <p class="text-white/70 text-xs mb-3">
-                        {{ trans_choice(':n hôte|:n hôtes', $room->capacity_adults, ['n' => $room->capacity_adults]) }}
-                        @if ($room->size_m2) · {{ $room->size_m2 }} m² @endif
-                        · {{ $room->bed_type_label }}
-                    </p>
-                    <div class="flex items-end justify-between gap-3">
-                        <p class="text-white">
-                            <span class="text-[11px] uppercase tracking-wide text-white/60 block">{{ __('à partir de') }}</span>
-                            <span class="text-xl font-bold">{{ number_format($room->price_per_night, 0, ',', ' ') }}</span>
-                            <span class="text-xs text-white/70">FCFA / {{ __('nuit') }}</span>
-                        </p>
-                        <span class="w-11 h-11 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 group-hover:rotate-45"
-                              style="background-color: var(--color-orange);">
-                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 17L17 7M7 7h10v10"/></svg>
-                        </span>
+            <a href="{{ route('rooms.index', ['category' => [$categoryKey]]) }}" class="card group no-underline flex flex-col">
+                <div class="p-3 pb-0">
+                    <div class="relative rounded-xl overflow-hidden aspect-[4/3]">
+                        <img src="{{ asset($room->first_image) }}" alt="{{ __($room->category_label) }}"
+                             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
                     </div>
+                </div>
+                <div class="p-5 flex-1 flex flex-col">
+                    <h3 class="text-lg leading-snug mb-2" style="font-family: var(--font-serif); font-weight: 600; color: var(--color-navy);">{{ __($room->category_label) }}</h3>
+                    <span class="block w-8 h-0.5 rounded mb-4" style="background-color: var(--color-orange);" aria-hidden="true"></span>
+
+                    <ul class="space-y-3 text-sm" style="color: var(--color-navy);">
+                        <li class="flex items-start gap-2.5">
+                            <svg class="w-4 h-4 mt-0.5 shrink-0" style="color: var(--color-orange);" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                            <span>
+                                <span class="block text-xs" style="color: var(--color-slate);">{{ __('Pour') }}</span>
+                                <strong>{{ $room->capacity_adults > 2 ? '2-' . $room->capacity_adults : $room->capacity_adults }} {{ __('pers.') }}</strong>
+                            </span>
+                        </li>
+                        @if ($room->size_m2)
+                        <li class="flex items-start gap-2.5">
+                            <svg class="w-4 h-4 mt-0.5 shrink-0" style="color: var(--color-orange);" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 8V6a2 2 0 012-2h2M4 16v2a2 2 0 002 2h2m8-16h2a2 2 0 012 2v2m-4 12h2a2 2 0 002-2v-2"/></svg>
+                            <span>
+                                <span class="block text-xs" style="color: var(--color-slate);">{{ __('Superficie') }}</span>
+                                <strong>{{ $room->size_m2 }} m²</strong>
+                            </span>
+                        </li>
+                        @endif
+                    </ul>
+
+                    <p class="mt-auto pt-4 mt-5 border-t text-xs font-medium flex items-center gap-2" style="border-color: var(--color-border); color: var(--color-slate);">
+                        <svg class="w-3.5 h-3.5 shrink-0" style="color: var(--color-orange);" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                        {{ $taglines[$categoryKey] ?? '' }}
+                    </p>
                 </div>
             </a>
             @endforeach
-
-            {{-- Carte finale : tout le catalogue --}}
-            <a href="{{ route('rooms.index') }}"
-               class="group relative shrink-0 w-[280px] sm:w-[320px] h-[460px] img-arch no-underline flex flex-col items-center justify-center text-center p-8"
-               style="background-color: var(--color-ink);">
-                <img src="{{ asset('images/logo.png') }}" alt="" class="w-16 h-16 rounded-full bg-white object-contain p-1 mb-6 shadow-lg" aria-hidden="true">
-                <p class="text-white text-2xl mb-2" style="font-family: var(--font-serif); font-weight: 600;">{{ __('Toutes nos chambres') }}</p>
-                <p class="text-white/60 text-sm mb-8">{{ __('Filtrez par dates, capacité et budget') }}</p>
-                <span class="w-14 h-14 rounded-full flex items-center justify-center transition-all duration-300 group-hover:rotate-45" style="background-color: var(--color-orange);">
-                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 17L17 7M7 7h10v10"/></svg>
-                </span>
-            </a>
         </div>
-        <p class="mt-2 text-xs flex items-center gap-1.5 sm:hidden" style="color: var(--color-slate);">
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-            {{ __('Faites défiler pour découvrir') }}
-        </p>
+
+        {{-- Présentation + CTA --}}
+        <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start text-sm leading-relaxed" style="color: var(--color-slate);">
+            <p>
+                {!! __('Avec <strong>quatre catégories de chambres</strong>, le Havre de Paix vous accueille en couple, en famille ou entre amis — toutes avec petit-déjeuner, WiFi et climatisation inclus.') !!}
+            </p>
+            <div>
+                <p class="mb-5">
+                    {{ __("Choisissez une chambre côté jardin, une Suite avec baignoire ou une Chambre Familiale jusqu'à 4 personnes — la piscine à débordement et la lagune sont à quelques pas, pour tous.") }}
+                </p>
+                <a href="{{ route('rooms.index') }}" class="btn-navy">{{ __('Découvrez toutes nos chambres') }}</a>
+            </div>
+        </div>
         @else
         <div class="text-center py-12" style="color: var(--color-slate);">
             <p>{{ __('Les chambres seront bientôt disponibles.') }}</p>
         </div>
         @endif
 
-        <div class="text-center mt-8 sm:hidden">
-            <a href="{{ route('rooms.index') }}" class="btn-outline">{{ __('Voir toutes les chambres') }}</a>
-        </div>
     </div>
 </section>
 
@@ -326,7 +280,7 @@
             ['img' => 'site/hero-piscine-lagune.jpg', 'label' => __('La piscine sur la lagune'),  'alt' => 'La piscine à débordement face à la lagune d\'Assinie',        'class' => 'col-span-2 md:row-span-2 aspect-[4/3] md:aspect-auto'],
             ['img' => 'site/pavillon-exterieur.jpg',  'label' => __('Le pavillon vitré'),         'alt' => 'Le pavillon vitré du petit-déjeuner face à la lagune',        'class' => 'aspect-square md:aspect-auto'],
             ['img' => 'site/jardin.jpg',              'label' => __('Les jardins'),               'alt' => 'Les jardins verdoyants de la résidence',                      'class' => 'aspect-square md:aspect-auto'],
-            ['img' => 'site/ponton-lagune.jpg',       'label' => __('Le ponton'),                 'alt' => 'Le ponton en bois sur la lagune Aby',                         'class' => 'aspect-square md:aspect-auto'],
+            ['img' => 'site/piscine-palmiers.jpg',    'label' => __('Les palmiers'),              'alt' => 'La piscine bordée de palmiers',                               'class' => 'aspect-square md:aspect-auto'],
             ['img' => 'site/coursive-nuit.jpg',       'label' => __('Les coursives, le soir'),    'alt' => 'Les coursives éclairées à la tombée de la nuit',              'class' => 'aspect-square md:aspect-auto'],
             ['img' => 'site/hero-piscine-nuit-arbre.jpg', 'label' => __('La piscine de nuit'),    'alt' => 'La piscine illuminée de nuit et son arbre éclairé',           'class' => 'aspect-square md:aspect-auto'],
             ['img' => 'site/terrasse-nuit.jpg',       'label' => __('La terrasse en soirée'),     'alt' => 'La terrasse du pavillon éclairée en soirée',                  'class' => 'aspect-square md:aspect-auto'],
@@ -360,7 +314,7 @@
         <div class="text-center mb-12">
             <p class="text-sm font-semibold uppercase tracking-widest mb-2" style="color: var(--color-orange);">{{ __('L\'expérience') }}</p>
             <h2 class="section-title">{{ __('Le pavillon &') }} <em>{{ __('la lagune') }}</em></h2>
-            <p class="section-subtitle max-w-md mx-auto">{{ __('Petit-déjeuner face à l\'eau, baignade à débordement et ponton privé — la lagune rythme vos journées.') }}</p>
+            <p class="section-subtitle max-w-md mx-auto">{{ __('Petit-déjeuner face à l\'eau, baignade à débordement et couchers de soleil — la lagune rythme vos journées.') }}</p>
         </div>
 
         {{-- Deux moments éditoriaux (images en arche) --}}
@@ -391,9 +345,9 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
                 <div class="lg:pl-8 order-2 lg:order-1">
                     <p class="text-xs font-bold uppercase tracking-[0.2em] mb-3" style="color: var(--color-orange);">{{ __('La Lagune') }}</p>
-                    <h3 class="section-title text-3xl mb-5">{{ __('Le ponton sur') }} <em>{{ __('la lagune Aby') }}</em></h3>
+                    <h3 class="section-title text-3xl mb-5">{{ __('Les couchers de soleil sur') }} <em>{{ __('la lagune Aby') }}</em></h3>
                     <p class="leading-relaxed mb-6" style="color: var(--color-slate);">
-                        {{ __("Depuis le ponton privé, embarquez pour une balade en pirogue, rejoignez la plage d'Assinie-Mafia ou contemplez simplement le coucher de soleil sur l'eau.") }}
+                        {{ __("Depuis les jardins au bord de l'eau, embarquez pour une balade en pirogue, rejoignez la plage d'Assinie-Mafia ou contemplez simplement le coucher de soleil sur la lagune.") }}
                     </p>
                     <div class="flex flex-wrap gap-2.5">
                         <span class="badge-orange">{{ __('Balades en pirogue') }}</span>
@@ -403,7 +357,7 @@
                 <div class="relative cursor-zoom-in group img-arch h-[380px] sm:h-[460px] order-1 lg:order-2"
                      data-gallery="saveurs" role="button" tabindex="0"
                      @click="show($event.currentTarget)" @keydown.enter="show($event.currentTarget)">
-                    <img src="{{ asset('images/site/ponton-lagune.jpg') }}" alt="Le ponton en bois du Havre de Paix sur la lagune Aby"
+                    <img src="{{ asset('images/site/hero-palmiers.jpg') }}" alt="Les palmiers penchés au-dessus du bassin, la lagune en toile de fond"
                          class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy">
                 </div>
             </div>
@@ -414,7 +368,7 @@
             @foreach ([
                 ['img' => 'site/hero-piscine.jpg',   'label' => __('Le bassin turquoise'),  'alt' => 'Le bassin turquoise de la piscine à débordement'],
                 ['img' => 'site/pavillon-salon.jpg', 'label' => __('Le salon du pavillon'), 'alt' => 'Le coin salon du pavillon vitré'],
-                ['img' => 'site/ponton.jpg',         'label' => __('Face à la lagune'),     'alt' => 'Le ponton et les palmiers face à la lagune'],
+                ['img' => 'site/jardin-nuit.jpg',    'label' => __('Le jardin, le soir'),   'alt' => 'Le jardin de la résidence à la tombée de la nuit'],
                 ['img' => 'site/hero-facade-hotel.jpg', 'label' => __('La résidence'),      'alt' => 'La façade de la résidence, vue depuis l\'entrée du domaine'],
             ] as $tile)
             <div class="relative rounded-2xl overflow-hidden group cursor-zoom-in aspect-square"
@@ -435,7 +389,7 @@
 
         <div class="text-center mt-10">
             <a href="{{ route('table') }}" class="btn-primary">
-                {{ __('Découvrir le domaine') }}
+                {{ __('Découvrir le Restaurant') }}
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
             </a>
         </div>
@@ -492,10 +446,10 @@
     $reviews = [
         ['name' => 'Kofi A.',        'note' => 5, 'context' => __('Séjour en famille · Avril 2026'),      'text' => __('Un séjour parfait en famille. La piscine à débordement face à la lagune est magique, les enfants ne voulaient plus partir.')],
         ['name' => 'Aminata D.',     'note' => 5, 'context' => __('Week-end en couple · Mars 2026'),      'text' => __('Le petit-déjeuner dans le pavillon vitré, avec la lagune sous les yeux : le plus beau réveil de l\'année.')],
-        ['name' => 'Sophie M.',      'note' => 5, 'context' => __('Séjour en couple · Février 2026'),     'text' => __('Cadre paisible et verdoyant, chambres impeccables et très bien climatisées. On a adoré le coucher de soleil depuis le ponton.')],
+        ['name' => 'Sophie M.',      'note' => 5, 'context' => __('Séjour en couple · Février 2026'),     'text' => __('Cadre paisible et verdoyant, chambres impeccables et très bien climatisées. On a adoré le coucher de soleil sur la lagune.')],
         ['name' => 'Yao K.',         'note' => 5, 'context' => __('Anniversaire · Mai 2026'),             'text' => __('Réservation en ligne simple, paiement à l\'arrivée rassurant. La Suite Premium vaut chaque franc.')],
-        ['name' => 'Jean-Paul K.',   'note' => 4, 'context' => __('Week-end entre amis · Janv. 2026'),    'text' => __('Le Duplex est parfait à quatre : chacun sa chambre, un salon commun, et la lagune à dix mètres.')],
-        ['name' => 'Mariam T.',      'note' => 4, 'context' => __('Week-end entre amies · Juin 2026'),    'text' => __('Un vrai havre de paix, loin du bruit d\'Abidjan. La balade en pirogue au départ du ponton est à faire absolument.')],
+        ['name' => 'Jean-Paul K.',   'note' => 4, 'context' => __('Week-end entre amis · Janv. 2026'),    'text' => __('La Chambre Familiale est parfaite à quatre : chacun son espace, un salon commun, et la lagune à dix mètres.')],
+        ['name' => 'Mariam T.',      'note' => 4, 'context' => __('Week-end entre amies · Juin 2026'),    'text' => __('Un vrai havre de paix, loin du bruit d\'Abidjan. La balade en pirogue sur la lagune est à faire absolument.')],
         ['name' => 'Franck B.',      'note' => 5, 'context' => __('Séjour en famille · Déc. 2025'),       'text' => __('À 1h30 d\'Abidjan et pourtant la déconnexion totale. Piscine impeccable, personnel aux petits soins.')],
         ['name' => 'Awa S.',         'note' => 5, 'context' => __('Voyage solo · Mai 2026'),              'text' => __('L\'annulation gratuite m\'a décidée, l\'accueil m\'a conquise. Chambre parfaite, cadre sûr et reposant.')],
     ];
@@ -588,20 +542,6 @@ function homeGallery() {
         prev() { this.index = (this.index - 1 + this.items.length) % this.items.length; },
     };
 }
-// Date minimum check_in → check_out
-const checkIn  = document.getElementById('check_in');
-const checkOut = document.getElementById('check_out');
-if (checkIn && checkOut) {
-    checkIn.addEventListener('change', () => {
-        const min = new Date(checkIn.value);
-        min.setDate(min.getDate() + 1);
-        checkOut.min = min.toISOString().split('T')[0];
-        if (checkOut.value && checkOut.value <= checkIn.value) {
-            checkOut.value = min.toISOString().split('T')[0];
-        }
-    });
-}
-
 // Vidéos de présentation : lecture uniquement quand elles sont à l'écran
 const hotelVideos = document.querySelectorAll('.js-hotel-video');
 if (hotelVideos.length && 'IntersectionObserver' in window) {
@@ -615,6 +555,20 @@ if (hotelVideos.length && 'IntersectionObserver' in window) {
         });
     }, { threshold: 0.35 });
     hotelVideos.forEach((video) => observer.observe(video));
+}
+
+// Date minimum check_in → check_out
+const checkIn  = document.getElementById('check_in');
+const checkOut = document.getElementById('check_out');
+if (checkIn && checkOut) {
+    checkIn.addEventListener('change', () => {
+        const min = new Date(checkIn.value);
+        min.setDate(min.getDate() + 1);
+        checkOut.min = min.toISOString().split('T')[0];
+        if (checkOut.value && checkOut.value <= checkIn.value) {
+            checkOut.value = min.toISOString().split('T')[0];
+        }
+    });
 }
 </script>
 @endpush
