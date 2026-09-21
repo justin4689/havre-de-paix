@@ -38,7 +38,7 @@
                         <div>
                             <h3 class="font-bold text-base mb-2" style="color: var(--color-navy);">{{ __('Éditeur du site') }}</h3>
                             <p>
-                                {!! __('<strong>Havre de Paix</strong> — Résidence-Hôtel<br> Assinie Kilomètre 18,75, Côte d\'Ivoire<br> Email : <a href="mailto:contact@havredepaix-assinie.com" class="underline" style="color: var(--color-blue);">contact@havredepaix-assinie.com</a><br> Téléphone : +225 07 00 00 00 00<br> RCCM : <span class="badge-orange">À compléter</span><br> Directeur de la publication : <span class="badge-orange">À compléter</span>') !!}
+                                {!! __('<strong>Havre de Paix</strong> — Résidence-Hôtel<br> Assinie Kilomètre 18,75, Côte d\'Ivoire<br> Email : <a href="mailto:reception@havredepaix-assinie.com" class="underline" style="color: var(--color-blue);">reception@havredepaix-assinie.com</a><br> Téléphone : +225 07 00 00 00 00<br> RCCM : <span class="badge-orange">À compléter</span><br> Directeur de la publication : <span class="badge-orange">À compléter</span>') !!}
                             </p>
                         </div>
                         <div>
@@ -162,7 +162,7 @@
                         <div>
                             <h3 class="font-bold text-base mb-2" style="color: var(--color-navy);">{{ __('3.5 Vos droits') }}</h3>
                             <p>
-                                {!! __('Conformément à la <strong>loi ivoirienne n° 2013-450 du 19 juin 2013</strong> relative à la protection des données à caractère personnel (autorité de contrôle : ARTCI), vous disposez d\'un droit d\'accès, de rectification, d\'opposition et de suppression de vos données. Pour l\'exercer, écrivez-nous à <a href="mailto:contact@havredepaix-assinie.com" class="underline" style="color: var(--color-blue);">contact@havredepaix-assinie.com</a>.') !!}
+                                {!! __('Conformément à la <strong>loi ivoirienne n° 2013-450 du 19 juin 2013</strong> relative à la protection des données à caractère personnel (autorité de contrôle : ARTCI), vous disposez d\'un droit d\'accès, de rectification, d\'opposition et de suppression de vos données. Pour l\'exercer, écrivez-nous à <a href="mailto:reception@havredepaix-assinie.com" class="underline" style="color: var(--color-blue);">reception@havredepaix-assinie.com</a>.') !!}
                             </p>
                         </div>
 

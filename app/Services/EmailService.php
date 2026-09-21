@@ -61,6 +61,6 @@ class EmailService
 
     private function hotelEmail(): string
     {
-        return config('mail.hotel_email', 'contact@havredepaix-assinie.com');
+        return config('mail.hotel_email', 'reception@havredepaix-assinie.com');
     }
 }

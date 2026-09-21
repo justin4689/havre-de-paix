@@ -18,7 +18,7 @@ return [
     ],
     'phone'         => env('HOTEL_PHONE', '+225 07 00 00 00 00'),
     'whatsapp'      => env('HOTEL_WHATSAPP', '2250700000000'),
-    'email'         => env('HOTEL_EMAIL', 'contact@havredepaix-assinie.com'),
+    'email'         => env('HOTEL_EMAIL', 'reception@havredepaix-assinie.com'),
 
     /*
     | Haute saison : Décembre – Mars et Juillet – Août (mois-jour, bornes incluses).

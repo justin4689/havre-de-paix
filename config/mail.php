@@ -124,6 +124,6 @@ return [
     ],
 
     // Boîte de l'hôtel : reçoit les alertes de réservation et les messages de contact.
-    'hotel_email' => env('HOTEL_EMAIL', 'contact@havredepaix-assinie.com'),
+    'hotel_email' => env('HOTEL_EMAIL', 'reception@havredepaix-assinie.com'),
 
 ];
