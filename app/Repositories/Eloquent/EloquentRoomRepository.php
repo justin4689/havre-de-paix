@@ -29,15 +29,15 @@ class EloquentRoomRepository implements RoomRepositoryInterface
             ->when($filters['price_max'] ?? null, fn ($q, $priceMax) => $q->where('price_per_night', '<=', $priceMax))
             ->tap(fn ($q) => match ($sort) {
                 'price_desc' => $q->orderByDesc('price_per_night'),
-                'capacity'   => $q->orderByDesc('capacity_adults'),
-                default      => $q->orderBy('price_per_night'),
+                'capacity' => $q->orderByDesc('capacity_adults'),
+                default => $q->orderBy('price_per_night'),
             })
             ->get();
     }
 
     public function allOrderedByPrice(): Collection
     {
-        return Room::orderBy('price_per_night')->get();
+        return Room::withCount('reservations')->orderBy('price_per_night')->get();
     }
 
     public function activeOrderedByName(): Collection
@@ -79,6 +79,11 @@ class EloquentRoomRepository implements RoomRepositoryInterface
         $room->update($attributes);
 
         return $room;
+    }
+
+    public function delete(Room $room): void
+    {
+        $room->delete();
     }
 
     public function roomHasBlockedOverlap(int $roomId, string $checkIn, string $checkOut): bool

@@ -73,6 +73,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', AdminMiddleware::cla
     Route::get('/chambres/{room}/modifier', [AdminRoomController::class, 'edit'])->name('rooms.edit');
     Route::patch('/chambres/{room}', [AdminRoomController::class, 'update'])->name('rooms.update');
     Route::delete('/chambres/{room}', [AdminRoomController::class, 'destroy'])->name('rooms.destroy');
+    Route::patch('/chambres/{room}/statut', [AdminRoomController::class, 'toggleStatus'])->name('rooms.toggle');
 
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
     Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');

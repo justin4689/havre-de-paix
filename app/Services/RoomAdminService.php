@@ -6,7 +6,9 @@ use App\Models\Room;
 use App\Repositories\Contracts\RoomRepositoryInterface;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 
 class RoomAdminService
 {
@@ -27,8 +29,8 @@ class RoomAdminService
     /** @param UploadedFile[] $newImages */
     public function create(array $validated, array $newImages = []): Room
     {
-        $validated['slug']             = Str::slug($validated['name']);
-        $validated['images']           = $this->storeImages($newImages);
+        $validated['slug'] = Str::slug($validated['name']);
+        $validated['images'] = $this->storeImages($newImages);
         $validated['description_long'] = $this->sanitizeHtml($validated['description_long'] ?? null);
 
         unset($validated['new_images']);
@@ -46,7 +48,7 @@ class RoomAdminService
         // puis ajout des nouveaux uploads à la suite.
         if (array_key_exists('existing_images', $validated)) {
             $current = $room->images ?? [];
-            $kept    = array_values(array_intersect($validated['existing_images'] ?? [], $current));
+            $kept = array_values(array_intersect($validated['existing_images'] ?? [], $current));
 
             $this->deleteUploadedFiles(array_diff($current, $kept));
 
@@ -68,7 +70,7 @@ class RoomAdminService
     {
         foreach ($paths as $path) {
             if (str_starts_with($path, 'storage/')) {
-                \Illuminate\Support\Facades\Storage::disk('public')->delete(substr($path, strlen('storage/')));
+                Storage::disk('public')->delete(substr($path, strlen('storage/')));
             }
         }
     }
@@ -78,13 +80,39 @@ class RoomAdminService
         return $this->rooms->update($room, ['status' => 'inactive']);
     }
 
+    /** Bascule rapide actif ↔ inactif depuis la liste. */
+    public function toggleStatus(Room $room): Room
+    {
+        return $this->rooms->update($room, [
+            'status' => $room->status === 'active' ? 'inactive' : 'active',
+        ]);
+    }
+
+    /**
+     * Suppression définitive : refusée si des réservations existent
+     * (l'historique doit être conservé — désactiver dans ce cas).
+     * Les photos uploadées (storage/…) sont retirées du disque ;
+     * les images versionnées du catalogue ne sont jamais supprimées.
+     */
+    public function delete(Room $room): void
+    {
+        if ($room->reservations()->exists()) {
+            throw ValidationException::withMessages([
+                'room' => __('Impossible de supprimer : cette chambre a des réservations (l\'historique doit être conservé). Désactivez-la plutôt.'),
+            ]);
+        }
+
+        $this->deleteUploadedFiles($room->images ?? []);
+        $this->rooms->delete($room);
+    }
+
     /** @param UploadedFile[] $files */
     private function storeImages(array $files): array
     {
         $paths = [];
 
         foreach ($files as $file) {
-            $paths[] = 'storage/' . $file->store('rooms', 'public');
+            $paths[] = 'storage/'.$file->store('rooms', 'public');
         }
 
         return $paths;

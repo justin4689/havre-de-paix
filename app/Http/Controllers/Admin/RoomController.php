@@ -46,8 +46,16 @@ class RoomController extends Controller
 
     public function destroy(Room $room)
     {
-        $this->roomService->deactivate($room);
+        $this->roomService->delete($room);
 
-        return redirect()->route('admin.rooms.index')->with('success', 'Chambre désactivée.');
+        return redirect()->route('admin.rooms.index')->with('success', 'Chambre supprimée (photos uploadées retirées du disque).');
+    }
+
+    public function toggleStatus(Room $room)
+    {
+        $room = $this->roomService->toggleStatus($room);
+
+        return redirect()->route('admin.rooms.index')
+            ->with('success', $room->status === 'active' ? 'Chambre réactivée.' : 'Chambre désactivée.');
     }
 }

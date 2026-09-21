@@ -3,6 +3,12 @@
 
 @section('content')
 
+@if ($errors->any())
+<div class="mb-5 p-4 rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm">
+    @foreach ($errors->all() as $error) <p>{{ $error }}</p> @endforeach
+</div>
+@endif
+
 {{-- En-tête --}}
 <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
     <div>
@@ -59,6 +65,29 @@ $statusClasses = ['active' => 'bg-green-100 text-green-700', 'inactive' => 'bg-r
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
                     Voir
                 </a>
+            </div>
+            <div class="flex items-center justify-between gap-2 mt-3 pt-3 border-t" style="border-color: var(--color-border);">
+                <form action="{{ route('admin.rooms.toggle', $room) }}" method="POST">
+                    @csrf @method('PATCH')
+                    <button type="submit" class="text-xs px-2.5 py-1.5 rounded-lg transition-colors cursor-pointer hover:opacity-80"
+                            style="background-color: var(--color-snow); color: var(--color-slate);">
+                        {{ $room->status === 'active' ? 'Désactiver' : 'Activer' }}
+                    </button>
+                </form>
+                @if ($room->reservations_count > 0)
+                <span class="text-xs px-2.5 py-1.5 rounded-lg text-slate-400 cursor-not-allowed"
+                      title="{{ $room->reservations_count }} réservation(s) liée(s) — l'historique doit être conservé. Désactivez la chambre.">
+                    Suppr. impossible ({{ $room->reservations_count }} résa)
+                </span>
+                @else
+                <form action="{{ route('admin.rooms.destroy', $room) }}" method="POST"
+                      onsubmit="return confirm('Supprimer définitivement « {{ $room->name }} » ?\nLes photos ajoutées depuis l\'admin seront effacées du disque.')">
+                    @csrf @method('DELETE')
+                    <button type="submit" class="text-xs px-2.5 py-1.5 rounded-lg text-red-600 hover:bg-red-50 transition-colors cursor-pointer">
+                        Supprimer
+                    </button>
+                </form>
+                @endif
             </div>
         </div>
     </div>

@@ -30,5 +30,7 @@ interface RoomRepositoryInterface
 
     public function update(Room $room, array $attributes): Room;
 
+    public function delete(Room $room): void;
+
     public function roomHasBlockedOverlap(int $roomId, string $checkIn, string $checkOut): bool;
 }
