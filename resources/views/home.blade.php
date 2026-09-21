@@ -8,10 +8,10 @@
 
 {{-- ===== HERO ===== --}}
 <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
-    {{-- Background : la façade de la résidence --}}
+    {{-- Background : la piscine et le pavillon vitré --}}
     <div class="absolute inset-0 z-0">
-        <img src="{{ asset('images/site/hero-facade-hotel.jpg') }}"
-             alt="{{ __('La façade de la résidence, vue depuis l\'entrée du domaine') }}"
+        <img src="{{ asset('images/site/hero-piscine-pavillon.jpg') }}"
+             alt="{{ __('La piscine à débordement et le pavillon vitré du Havre de Paix') }}"
              class="absolute inset-0 w-full h-full object-cover">
         <div class="absolute inset-0 hero-overlay"></div>
     </div>
