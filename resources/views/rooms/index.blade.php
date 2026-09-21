@@ -11,9 +11,8 @@
     {{-- Header --}}
     <div class="relative flex items-center justify-center text-center h-[60vh] min-h-[420px] px-4 sm:px-6 lg:px-8 overflow-hidden">
         <x-hero-slideshow :images="[
-            ['src' => 'images/site/hero-chambre-premium.jpg', 'alt' => 'La Chambre Standard Supérieur et son lit king size habillé de wax'],
-            ['src' => 'images/site/hero-palmiers.jpg',        'alt' => 'Les palmiers penchés au-dessus du bassin à débordement'],
-            ['src' => 'images/site/hero-lagune-piscine.jpg',  'alt' => 'La piscine à débordement face à la lagune d\'Assinie'],
+            ['src' => 'images/site/hero-chambre-rouge.jpg', 'alt' => 'Chambre au lit king size et textiles rouges, ouverte sur la terrasse'],
+            ['src' => 'images/site/hero-chambre-bleue.jpg', 'alt' => 'Chambre en palette bleue, baie vitrée sur la terrasse et les palmiers'],
         ]" />
         <div class="absolute inset-0 hero-overlay"></div>
         <div class="relative z-10 pt-16">
