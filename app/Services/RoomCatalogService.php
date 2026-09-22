@@ -72,7 +72,14 @@ class RoomCatalogService
             ->map(fn (Collection $group) => $group->first());
 
         return $this->categories->allOrdered()
-            ->mapWithKeys(fn ($category) => [$category->slug => $byCategory->get($category->slug)])
+            ->mapWithKeys(function ($category) use ($byCategory) {
+                $featured = $category->featuredRoom;
+                $room = ($featured && $featured->status === 'active' && $featured->category === $category->slug)
+                    ? $featured
+                    : $byCategory->get($category->slug);
+
+                return [$category->slug => $room];
+            })
             ->filter();
     }
 

@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Category extends Model
 {
     protected $fillable = [
-        'slug', 'name', 'name_en', 'tagline', 'tagline_en', 'sort_order',
+        'slug', 'name', 'name_en', 'tagline', 'tagline_en', 'sort_order', 'featured_room_id',
     ];
 
     /** Carte slug → libellé localisé, mémoïsée pour la durée de la requête. */
@@ -18,6 +19,12 @@ class Category extends Model
     public function rooms(): HasMany
     {
         return $this->hasMany(Room::class, 'category', 'slug');
+    }
+
+    /** Chambre affichée sur la carte d'accueil de la catégorie (facultatif). */
+    public function featuredRoom(): BelongsTo
+    {
+        return $this->belongsTo(Room::class, 'featured_room_id');
     }
 
     public function scopeOrdered(Builder $query): Builder

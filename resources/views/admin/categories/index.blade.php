@@ -99,6 +99,18 @@
                         <label class="form-label">Slug (fixe)</label>
                         <input type="text" value="{{ $editing->slug }}" class="form-input" disabled>
                     </div>
+                    <div class="col-span-2">
+                        <label class="form-label">Chambre mise en avant sur l'accueil</label>
+                        <select name="featured_room_id" class="form-input">
+                            <option value="">Automatique — la moins chère de la catégorie</option>
+                            @foreach ($editing->rooms()->orderBy('name')->get() as $roomOption)
+                            <option value="{{ $roomOption->id }}" {{ (int) old('featured_room_id', $editing->featured_room_id) === $roomOption->id ? 'selected' : '' }}>
+                                {{ $roomOption->name }} — {{ number_format($roomOption->price_per_night, 0, ',', ' ') }} FCFA{{ $roomOption->status !== 'active' ? ' (inactive)' : '' }}
+                            </option>
+                            @endforeach
+                        </select>
+                        <p class="text-xs mt-1" style="color: var(--color-slate);">C'est sa photo, sa capacité et sa superficie qui illustrent la carte de la catégorie sur la page d'accueil.</p>
+                    </div>
                     @endif
                 </div>
 
