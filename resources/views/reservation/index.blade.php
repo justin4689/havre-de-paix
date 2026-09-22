@@ -127,7 +127,7 @@ $adjustment = $totalPrice - $basePrice;
                 {{ __('Confirmer ma réservation') }}
             </button>
             <p class="text-center text-xs mt-3" style="color: var(--color-slate);">
-                {{ __('Confirmation instantanée par email · Aucun prépaiement') }}
+                {{ __('Confirmation instantanée par email') }}
             </p>
             </div>
 
@@ -183,7 +183,7 @@ $adjustment = $totalPrice - $basePrice;
                 <div class="rounded-2xl p-5 space-y-2.5 text-sm" style="background-color: #f0fdf4; border: 1px solid #bbf7d0;">
                     @foreach ([
                         __('Annulation gratuite jusqu\'à 48h avant l\'arrivée'),
-                        __('Aucun prépaiement — paiement à l\'arrivée'),
+                        __('Paiement à l\'arrivée'),
                         __('Confirmation immédiate par email'),
                     ] as $reassurance)
                     <div class="flex items-start gap-2 text-green-800">
